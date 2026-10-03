@@ -100,8 +100,8 @@
     display:flex; align-items:center; justify-content:space-between;
     padding: 18px 24px; max-width: var(--maxw); margin:0 auto;
   }
-  .logo{ font-weight:800; font-size: 1.15rem; color: var(--blue-deep); }
-  .logo span{ color: var(--amber); }
+  .logo{ font-weight:800; font-size: 1.1rem; color: var(--blue-deep); white-space: nowrap; }
+  .logo span{ color: inherit; }
   .nav-links{ display:flex; gap: 32px; font-weight:500; font-size:.95rem; }
   .nav-links a{ color: var(--blue-mid); transition: color .15s; }
   .nav-links a:hover{ color: var(--amber); }
@@ -168,19 +168,19 @@
   .section-head{ max-width: 60ch; margin-bottom: 40px; }
   .service-grid{
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
   .service-card{
     background: var(--service-bg);
     border-radius: 12px;
-    padding: 18px 12px;
+    padding: 20px 24px;
     transition: background .2s, transform .15s, box-shadow .2s;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 70px;
+    min-height: 64px;
     box-shadow: 0 1px 3px rgba(15,42,71,0.06);
   }
   .service-card:hover{
@@ -189,7 +189,7 @@
     box-shadow: 0 4px 12px rgba(15,42,71,0.1);
   }
   .service-card h3{
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--blue-deep);
     margin: 0;
@@ -216,15 +216,11 @@
     border-top: 1px solid rgba(255,255,255,.12); font-size:.82rem; color:#8296AD;
   }
 
-  @media (max-width: 1100px){
-    .service-grid{ grid-template-columns: repeat(4, 1fr); }
-  }
   @media (max-width: 860px){
     .nav-links{ display:none; }
     .hero .wrap{ grid-template-columns: 1fr; }
     .hero-figure{ order:-1; }
     .about .wrap{ grid-template-columns: 1fr; }
-    .service-grid{ grid-template-columns: repeat(2, 1fr); }
     .contact .wrap{ grid-template-columns: 1fr; }
     .stats .wrap{ grid-template-columns: 1fr; gap: 20px; }
   }
@@ -244,9 +240,9 @@
 
 <header>
   <div class="nav">
-    <div class="logo" style="display:flex; align-items:center; gap:10px;">
-      <img src="logo.jpg" alt="لوگوی فیزیوتراپی ابن سینا ساوه" style="height:38px; width:auto;">
-      فیزیوتراپی <span>ابن سینا</span> ساوه
+    <div class="logo" style="display:flex; align-items:center; gap:10px; white-space:nowrap;">
+      <img src="logo.jpg" alt="لوگوی فیزیوتراپی ابن سینا ساوه" style="height:38px; width:auto; flex-shrink:0;">
+      <span>فیزیوتراپی <span style="color:var(--amber);">ابن‌سینا</span> ساوه</span>
     </div>
     <nav class="nav-links">
       <a href="#about">درباره ما</a>
