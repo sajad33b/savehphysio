@@ -95,16 +95,57 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
 
 
 /* Mobile menu */
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-right:-8px}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:10px;flex-shrink:0}
 .nav-toggle span{display:block;width:22px;height:2px;background:var(--blue-deep);margin:5px 0;border-radius:1px;transition:.2s}
 .nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav-open .nav-toggle span:nth-child(2){opacity:0}
 .nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-cta-mobile{display:none}
 @media (max-width:860px){
-  .nav-toggle{display:block}
-  .nav-links{display:none;position:absolute;top:100%;right:0;left:0;background:rgba(242,245,248,.98);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 24px 20px;flex-direction:column;gap:4px;box-shadow:0 12px 24px -8px rgba(15,42,71,.12)}
+  .nav{
+    display:grid;
+    grid-template-columns:1fr auto;
+    grid-template-areas:
+      "logo toggle"
+      "cta cta";
+    padding:12px 16px;
+    gap:10px 8px;
+    align-items:center;
+  }
+  .logo{grid-area:logo;min-width:0}
+  .logo span{font-size:.92rem}
+  .nav-toggle{display:block;grid-area:toggle;justify-self:start}
+  .nav-cta{display:none}
+  .nav-cta-mobile{
+    display:block;
+    grid-area:cta;
+    width:100%;
+    text-align:center;
+    background:var(--blue-deep);
+    color:#fff;
+    padding:12px 20px;
+    border-radius:var(--radius);
+    font-weight:600;
+    font-size:.95rem;
+    white-space:nowrap;
+    box-sizing:border-box;
+  }
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;left:0;
+    background:rgba(242,245,248,.98);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    padding:8px 16px 16px;
+    flex-direction:column;
+    gap:0;
+    box-shadow:0 12px 24px -8px rgba(15,42,71,.12);
+    z-index:60;
+  }
   .nav-open .nav-links{display:flex}
-  .nav-links a{padding:12px 0;font-size:1.05rem;border-bottom:1px solid var(--line)}
+  .nav-links a{padding:14px 0;font-size:1.05rem;border-bottom:1px solid var(--line)}
   .nav-links a:last-child{border-bottom:none}
   header{position:sticky}
   .nav{position:relative}
@@ -124,9 +165,9 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
 <body>
 <header>
   <div class="nav">
-    <div class="logo" style="display:flex;align-items:center;gap:10px;white-space:nowrap;">
+    <div class="logo" style="display:flex;align-items:center;gap:8px;min-width:0;">
       <img src="logo.jpg" alt="لوگوی فیزیوتراپی ابن سینا ساوه" style="height:42px;width:42px;object-fit:cover;border-radius:50%;flex-shrink:0;">
-      <span>فیزیوتراپی <span style="color:var(--amber)">ابن‌سینا</span> ساوه</span>
+      <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">فیزیوتراپی <span style="color:var(--amber)">ابن‌سینا</span> ساوه</span>
     </div>
     <button class="nav-toggle" aria-label="منو" aria-expanded="false">
       <span></span><span></span><span></span>
