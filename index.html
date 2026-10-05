@@ -93,6 +93,31 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
 .faq-item h3{font-size:1.05rem;font-weight:700;color:var(--blue-deep);margin:0 0 10px;line-height:1.5}
 .faq-item p{color:var(--muted);margin:0;font-size:.98rem;line-height:1.8}
 
+
+/* Mobile menu */
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-right:-8px}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--blue-deep);margin:5px 0;border-radius:1px;transition:.2s}
+.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-open .nav-toggle span:nth-child(2){opacity:0}
+.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:860px){
+  .nav-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:100%;right:0;left:0;background:rgba(242,245,248,.98);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 24px 20px;flex-direction:column;gap:4px;box-shadow:0 12px 24px -8px rgba(15,42,71,.12)}
+  .nav-open .nav-links{display:flex}
+  .nav-links a{padding:12px 0;font-size:1.05rem;border-bottom:1px solid var(--line)}
+  .nav-links a:last-child{border-bottom:none}
+  header{position:sticky}
+  .nav{position:relative}
+}
+/* FAQ accordion using native details */
+.faq-item{padding:0;overflow:hidden}
+.faq-item summary{padding:18px 22px;cursor:pointer;font-size:1.05rem;font-weight:700;color:var(--blue-deep);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;line-height:1.5}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";font-size:1.3rem;font-weight:400;color:var(--amber);flex-shrink:0;transition:transform .2s}
+.faq-item[open] summary::after{content:"−"}
+.faq-item summary:hover{color:var(--blue)}
+.faq-item p{padding:0 22px 18px;margin:0;color:var(--muted);font-size:.98rem;line-height:1.8}
+
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
@@ -103,6 +128,9 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
       <img src="logo.jpg" alt="لوگوی فیزیوتراپی ابن سینا ساوه" style="height:42px;width:42px;object-fit:cover;border-radius:50%;flex-shrink:0;">
       <span>فیزیوتراپی <span style="color:var(--amber)">ابن‌سینا</span> ساوه</span>
     </div>
+    <button class="nav-toggle" aria-label="منو" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <nav class="nav-links">
       <a href="#about">درباره ما</a>
       <a href="#services">خدمات</a>
@@ -194,43 +222,43 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
         <p style="color:var(--muted);margin:0;">پاسخ سوال‌هایی که بیشتر بیماران قبل از شروع درمان می‌پرسند</p>
       </div>
       <div class="faq-list">
-        <div class="faq-item">
-          <h3>چند جلسه فیزیوتراپی لازم است؟</h3>
+                <details class="faq-item">
+          <summary>چند جلسه فیزیوتراپی لازم است؟</summary>
           <p>تعداد جلسات به نوع مشکل، شدت علائم و پاسخ بدن شما بستگی دارد. بعد از ارزیابی اولیه معمولاً یک برنامه تقریبی مشخص می‌شود. بسیاری از مشکلات مکانیکی کمر و گردن با ۸ تا ۱۲ جلسه بهبود قابل توجهی نشان می‌دهند، اما این عدد برای همه یکسان نیست.</p>
-        </div>
-        <div class="faq-item">
-          <h3>آیا فیزیوتراپی دردناک است؟</h3>
+        </details>
+                <details class="faq-item">
+          <summary>آیا فیزیوتراپی دردناک است؟</summary>
           <p>درمان نباید درد شدید ایجاد کند. ممکن است در بعضی تکنیک‌های دستی یا تمرین‌ها احساس کشش یا ناراحتی خفیف داشته باشید، اما درد شدید نشانه این است که باید شدت را کم کنیم. همیشه بازخورد شما را می‌گیریم و برنامه را تنظیم می‌کنیم.</p>
-        </div>
-        <div class="faq-item">
-          <h3>تفاوت فیزیوتراپی با ماساژ چیست؟</h3>
+        </details>
+                <details class="faq-item">
+          <summary>تفاوت فیزیوتراپی با ماساژ چیست؟</summary>
           <p>ماساژ بیشتر روی آرامش عضلات تمرکز دارد. فیزیوتراپی بر اساس ارزیابی دقیق، علت اصلی مشکل را پیدا می‌کند و ترکیبی از دست‌ورزی، تمرین‌درمانی و آموزش اصلاح الگوهای حرکتی را به کار می‌برد تا هم درد کم شود و هم عملکرد برگردد و عود کمتر شود.</p>
-        </div>
-        <div class="faq-item">
-          <h3>برای دیسک کمر و سیاتیک فیزیوتراپی کافی است؟</h3>
+        </details>
+                <details class="faq-item">
+          <summary>برای دیسک کمر و سیاتیک فیزیوتراپی کافی است؟</summary>
           <p>در بیشتر موارد بله. بسیاری از بیماران با بیرون‌زدگی دیسک و درد سیاتیک بدون نیاز به جراحی، با ارزیابی دقیق، تمرین‌های هدفمند و تکنیک‌های دستی بهبود پیدا می‌کنند. اگر علائم خطر (مثل ضعف پیشرونده یا اختلال کنترل ادرار) وجود داشته باشد، ارجاع پزشکی انجام می‌شود.</p>
-        </div>
-        <div class="faq-item">
-          <h3>آیا بعد از جراحی هم فیزیوتراپی لازم است؟</h3>
+        </details>
+                <details class="faq-item">
+          <summary>آیا بعد از جراحی هم فیزیوتراپی لازم است؟</summary>
           <p>بله. بازتوانی بعد از جراحی نقش مهمی در بازگشت ایمن به فعالیت روزمره و جلوگیری از عوارض دارد. برنامه بازتوانی بر اساس نوع جراحی و مرحله بهبودی طراحی می‌شود و معمولاً از حرکات ساده شروع و به‌تدریج پیشرفت می‌کند.</p>
-        </div>
-        <div class="faq-item">
-          <h3>آیا تمرین‌های خانگی هم داده می‌شود؟</h3>
+        </details>
+                <details class="faq-item">
+          <summary>آیا تمرین‌های خانگی هم داده می‌شود؟</summary>
           <p>حتماً. بخشی از درمان، آموزش تمرین‌هایی است که خودتان در خانه انجام دهید. این تمرین‌ها به تثبیت نتیجه جلسات و کاهش احتمال بازگشت درد کمک می‌کنند. نحوه صحیح انجام آن‌ها را قدم‌به‌قدم آموزش می‌دهیم.</p>
-        </div>
+        </details>
 
-        <div class="faq-item">
-          <h3>درای نیدلینگ و طب سوزنی چه کمکی می‌کند؟</h3>
+                <details class="faq-item">
+          <summary>درای نیدلینگ و طب سوزنی چه کمکی می‌کند؟</summary>
           <p>درای نیدلینگ برای آزاد کردن نقاط ماشه‌ای عضلانی و کاهش درد و اسپاسم بسیار مؤثر است. طب سوزنی هم در مدیریت درد و بهبود گردش خون نقش کمکی دارد. این روش‌ها معمولاً همراه با تمرین‌درمانی و دست‌ورزی استفاده می‌شوند تا نتیجه پایدارتر باشد.</p>
-        </div>
-        <div class="faq-item">
-          <h3>تمرین‌درمانی دقیقاً چه فرقی با ورزش معمولی دارد؟</h3>
+        </details>
+                <details class="faq-item">
+          <summary>تمرین‌درمانی دقیقاً چه فرقی با ورزش معمولی دارد؟</summary>
           <p>تمرین‌درمانی بر اساس ارزیابی دقیق بدن شما طراحی می‌شود. برخلاف ورزش عمومی، هر حرکت هدف مشخصی دارد: اصلاح الگوی حرکتی، تقویت عضلات ضعیف، کاهش فشار روی مفصل یا دیسک و پیشگیری از عود درد. این تخصص ویژه ما در کلینیک ابن‌سینا است.</p>
-        </div>
-        <div class="faq-item">
-          <h3>چطور نوبت بگیرم؟</h3>
+        </details>
+                <details class="faq-item">
+          <summary>چطور نوبت بگیرم؟</summary>
           <p>کافی است با شماره ۰۹۰۱۵۵۵۵۷۲۱ تماس بگیرید یا از طریق اینستاگرام @savehphysio پیام دهید. ساعات کاری کلینیک شنبه تا پنج‌شنبه، صبح ۹ تا ۱۳ و عصر ۱۶ تا ۲۱ است.</p>
-        </div>
+        </details>
       </div>
     </div>
   </section>
@@ -279,5 +307,25 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
     <div class="wrap" style="padding:0;">© تمامی حقوق برای موسس سجاد علی‌کرمی محفوظ است.</div>
   </div>
 </footer>
+
+<script>
+(function(){
+  var btn = document.querySelector('.nav-toggle');
+  var header = document.querySelector('header');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var open = header.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  // close menu when a link is clicked
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click', function(){
+      header.classList.remove('nav-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
