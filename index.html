@@ -17,6 +17,7 @@
 <meta name="robots" content="index, follow" />
 <meta name="theme-color" content="#0F2A47" />
 <link rel="icon" type="image/jpeg" href="logo.jpg">
+<link rel="apple-touch-icon" sizes="180x180" href="logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -80,11 +81,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(242,245,248,0.92);backdr
 .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel)}.stats .wrap{padding:40px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}.stat b{display:block;font-size:2rem;color:var(--blue-deep);font-weight:800}.stat span{color:var(--muted);font-size:.92rem}
 .about .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}h2{font-size:1.9rem;font-weight:800;color:var(--blue-deep);margin:0 0 20px;line-height:1.4}.about p{color:var(--muted);margin:0 0 16px;max-width:60ch;font-size:1.05rem}.points{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:16px}.points li{display:flex;gap:14px;align-items:flex-start;color:var(--ink)}.points li svg{flex-shrink:0;margin-top:3px}
 .credentials{background:var(--blue-deep);color:#DDE7F1;border-radius:10px;padding:28px 30px;margin-top:30px}.credentials b{color:#fff;display:block;margin-bottom:8px;font-size:1.02rem}.credentials span{font-size:.9rem;color:#B9CAE0}
-.services{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.section-head{max-width:60ch;margin-bottom:40px}.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.service-card{background:var(--service-bg);border-radius:28px;padding:16px 18px;transition:background .2s,transform .15s,box-shadow .2s;text-align:center;display:flex;align-items:center;justify-content:center;min-height:56px;box-shadow:0 1px 3px rgba(15,42,71,0.06)}.service-card:hover{background:var(--service-hover);transform:translateY(-2px);box-shadow:0 4px 12px rgba(15,42,71,0.1)}.service-card h3{font-size:.95rem;font-weight:600;color:var(--blue-deep);margin:0;line-height:1.45}
+.services{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.section-head{max-width:60ch;margin-bottom:40px}.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.service-card{background:var(--service-bg);border-radius:28px;padding:16px 18px;transition:background .2s,transform .15s,box-shadow .2s;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;box-shadow:0 1px 3px rgba(15,42,71,0.06)}.service-card:hover{background:var(--service-hover);transform:translateY(-2px);box-shadow:0 4px 12px rgba(15,42,71,0.1)}.service-card h3{font-size:.95rem;font-weight:600;color:var(--blue-deep);margin:0;line-height:1.45}.service-card p{font-size:.82rem;color:var(--muted);margin:6px 0 0;line-height:1.5;font-weight:400}
 .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}.contact-info{display:grid;gap:22px}.contact-row{display:flex;gap:14px;align-items:flex-start}.contact-row svg{flex-shrink:0;margin-top:2px}.contact-row b{display:block;color:var(--blue-deep);font-weight:700;margin-bottom:2px}.contact-row span,.contact-row a{color:var(--muted);font-size:.95rem}.contact-row a:hover{color:var(--amber)}.map-frame{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3}.map-frame iframe{width:100%;height:100%;border:0}
 footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}footer .logo{color:#fff}.foot-links{display:flex;gap:26px;font-size:.9rem}.foot-links a:hover{color:var(--amber-soft)}.foot-bottom{max-width:var(--maxw);margin:32px auto 0;padding:20px 24px 0;border-top:1px solid rgba(255,255,255,.12);font-size:.82rem;color:#8296AD}
 @media (max-width:860px){.nav-links{display:none}.hero .wrap{grid-template-columns:1fr}.hero-figure{order:-1}.about .wrap{grid-template-columns:1fr}.contact .wrap{grid-template-columns:1fr}.stats .wrap{grid-template-columns:1fr;gap:20px}}
-@media (max-width:520px){section{padding:60px 0}.service-grid{gap:10px}.service-card{min-height:52px;padding:12px 10px;border-radius:24px}.service-card h3{font-size:.82rem;font-weight:600}}
+@media (max-width:520px){section{padding:60px 0}.service-grid{gap:10px}.service-card{min-height:52px;padding:12px 10px;border-radius:24px}.service-card h3{font-size:.82rem;font-weight:600}.service-card p{font-size:.75rem}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
@@ -108,7 +109,7 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
     <div class="wrap">
       <div>
         <div class="eyebrow">کلینیک فیزیوتراپی در ساوه</div>
-        <h1>حرکت بدون درد، با درمانی که ریشه مشکل را هدف می‌گیرد</h1>
+        <h1>حرکت بدون درد با درمان ریشه‌ای مشکلات اسکلتی‌عضلانی</h1>
         <p>ارزیابی دقیق، برنامه درمانی اختصاصی و همراهی تا رسیدن به نتیجه؛ برای دردهای اسکلتی‌عضلانی، آسیب‌های ورزشی و بازتوانی پس از جراحی.</p>
         <div class="hero-actions">
           <a class="btn-primary" href="tel:+989015555721">رزرو نوبت</a>
@@ -134,7 +135,8 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
       <div><h2>رویکرد ما به درمان</h2></div>
       <div>
         <p>در فیزیوتراپی ابن سینا ساوه، هر بیمار پیش از شروع درمان مورد ارزیابی کامل حرکتی و عملکردی قرار می‌گیرد. برنامه درمانی بر اساس علت اصلی مشکل طراحی می‌شود، نه فقط کاهش موقت علائم.</p>
-        <p>ترکیبی از دست‌ورزی، تمرین‌درمانی هدفمند و آموزش اصلاح الگوهای حرکتی روزمره، مسیر بازگشت به فعالیت عادی را کوتاه‌تر می‌کند.</p>
+        <p>ترکیبی از دست‌ورزی، تمرین‌درمانی هدفمند و آموزش اصلاح الگوهای حرکتی روزمره، مسیر بازگشت به فعالیت عادی را کوتاه‌تر می‌کند. هدف ما این است که بیمار دوباره بتواند بدون محدودیت حرکت کند و کیفیت زندگی‌اش بهتر شود.</p>
+        <p>ما روی سه اصل کلیدی تمرکز داریم: تشخیص دقیق علت درد، درمان مرحله‌به‌مرحله و آموزش بیمار برای پیشگیری از بازگشت مشکل. این رویکرد باعث می‌شود نتایج پایدارتر باشند.</p>
         <ul class="points">
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E0912B" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg><span>ارزیابی اختصاصی پیش از هر برنامه درمانی</span></li>
           <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E0912B" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg><span>پیگیری روند درمان در جلسات بعدی</span></li>
@@ -143,7 +145,7 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
         <div class="credentials" style="text-align:center;">
           <img src="logo.jpg" alt="سجاد علی‌کرمی فیزیوتراپیست" style="width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.35);margin:0 auto 14px;display:block;">
           <b style="display:block;margin-bottom:8px;">مدارک و تجربه</b>
-          <span style="display:block;line-height:1.7;">فیزیوتراپیست سجاد علی‌کرمی – شماره نظام پزشکی: <a href="https://membersearch.irimc.org/member/profile?id=8ae69768-d2c0-4781-9610-7c2270e85cd5" target="_blank" rel="noopener" style="color:#F0AD52;text-decoration:underline;">ف-۷۱۹۴</a><br>بیش از ۸ سال تجربه بالینی در درمان دردهای اسکلتی‌عضلانی، آسیب ورزشی و بازتوانی پس از جراحی</span>
+          <span style="display:block;line-height:1.7;">فیزیوتراپیست سجاد علی‌کرمی – شماره نظام پزشکی: <a href="https://membersearch.irimc.org/member/profile?id=8ae69768-d2c0-4781-9610-7c2270e85cd5" target="_blank" rel="noopener noreferrer" style="color:#F0AD52;text-decoration:underline;">ف-۷۱۹۴</a><br>بیش از ۸ سال تجربه بالینی در درمان دردهای اسکلتی‌عضلانی، آسیب ورزشی و بازتوانی پس از جراحی</span>
         </div>
       </div>
     </div>
@@ -152,25 +154,25 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
     <div class="wrap">
       <div class="section-head">
         <h2>خدمات درمانی</h2>
-        <p style="color:var(--muted);margin:0;">خدمات جامع فیزیوتراپی برای بهبود حرکت، کاهش درد و افزایش کیفیت زندگی</p>
+        <p style="color:var(--muted);margin:0;">خدمات جامع فیزیوتراپی برای بهبود حرکت، کاهش درد و افزایش کیفیت زندگی. هر برنامه بر اساس ارزیابی دقیق و نیازهای فردی طراحی می‌شود.</p>
       </div>
       <div class="service-grid">
-        <div class="service-card"><h3>فیزیوتراپی کمر و ستون فقرات</h3></div>
-        <div class="service-card"><h3>فیزیوتراپی گردن</h3></div>
-        <div class="service-card"><h3>فیزیوتراپی زانو</h3></div>
-        <div class="service-card"><h3>فیزیوتراپی شانه</h3></div>
-        <div class="service-card"><h3>درمان دیسک کمر و گردن</h3></div>
-        <div class="service-card"><h3>فیزیوتراپی بعد از جراحی</h3></div>
-        <div class="service-card"><h3>درمان آسیب‌های ورزشی</h3></div>
-        <div class="service-card"><h3>شاک‌ویو تراپی</h3></div>
-        <div class="service-card"><h3>لیزر تراپی فیزیوتراپی</h3></div>
-        <div class="service-card"><h3>منوال تراپی</h3></div>
-        <div class="service-card"><h3>تمرین درمانی و ورزش‌درمانی</h3></div>
-        <div class="service-card"><h3>فیزیوتراپی عصبی</h3></div>
-        <div class="service-card"><h3>فیزیوتراپی سالمندان</h3></div>
-        <div class="service-card"><h3>فیزیوتراپی کودکان</h3></div>
-        <div class="service-card"><h3>درمان دردهای عضلانی و مفصلی</h3></div>
-        <div class="service-card"><h3>اصلاح وضعیت بدن و حرکات اصلاحی</h3></div>
+        <div class="service-card"><h3>فیزیوتراپی کمر و ستون فقرات</h3><p>درمان دیسک، سیاتیک و دردهای مکانیکی کمر</p></div>
+        <div class="service-card"><h3>فیزیوتراپی گردن</h3><p>کاهش درد گردن و سردردهای مرتبط</p></div>
+        <div class="service-card"><h3>فیزیوتراپی زانو</h3><p>بازتوانی آسیب و آرتروز زانو</p></div>
+        <div class="service-card"><h3>فیزیوتراپی شانه</h3><p>درمان شانه یخ‌زده و پارگی تاندون</p></div>
+        <div class="service-card"><h3>درمان دیسک کمر و گردن</h3><p>رویکرد غیرجراحی و تمرین‌محور</p></div>
+        <div class="service-card"><h3>فیزیوتراپی بعد از جراحی</h3><p>بازگشت سریع‌تر به فعالیت روزانه</p></div>
+        <div class="service-card"><h3>درمان آسیب‌های ورزشی</h3><p>پیشگیری و بازتوانی تخصصی</p></div>
+        <div class="service-card"><h3>شاک‌ویو تراپی</h3><p>برای تاندونیت و نقاط ماشه‌ای</p></div>
+        <div class="service-card"><h3>لیزر تراپی فیزیوتراپی</h3><p>کاهش التهاب و تسریع ترمیم</p></div>
+        <div class="service-card"><h3>منوال تراپی</h3><p>دست‌ورزی تخصصی مفاصل و بافت نرم</p></div>
+        <div class="service-card"><h3>تمرین درمانی و ورزش‌درمانی</h3><p>برنامه اختصاصی برای هر بیمار</p></div>
+        <div class="service-card"><h3>فیزیوتراپی عصبی</h3><p>بهبود عملکرد پس از سکته و آسیب عصب</p></div>
+        <div class="service-card"><h3>فیزیوتراپی سالمندان</h3><p>حفظ تعادل و استقلال حرکتی</p></div>
+        <div class="service-card"><h3>فیزیوتراپی کودکان</h3><p>تأخیر حرکتی و مشکلات رشدی</p></div>
+        <div class="service-card"><h3>درمان دردهای عضلانی و مفصلی</h3><p>کاهش درد و بازگشت دامنه حرکتی</p></div>
+        <div class="service-card"><h3>اصلاح وضعیت بدن و حرکات اصلاحی</h3><p>پیشگیری از آسیب‌های تکراری</p></div>
       </div>
     </div>
   </section>
@@ -193,7 +195,7 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
           </div>
           <div class="contact-row">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E0912B" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-            <div><b>اینستاگرام</b><a href="https://www.instagram.com/savehphysio" target="_blank" rel="noopener">savehphysio@</a></div>
+            <div><b>اینستاگرام</b><a href="https://www.instagram.com/savehphysio" target="_blank" rel="noopener noreferrer">@savehphysio</a></div>
           </div>
         </div>
       </div>
@@ -210,7 +212,7 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
       <a href="#about">درباره ما</a>
       <a href="#services">خدمات</a>
       <a href="#contact">تماس</a>
-      <a href="https://www.instagram.com/savehphysio" target="_blank" rel="noopener">اینستاگرام</a>
+      <a href="https://www.instagram.com/savehphysio" target="_blank" rel="noopener noreferrer">اینستاگرام</a>
     </div>
   </div>
   <div class="foot-bottom">
