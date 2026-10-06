@@ -67,7 +67,7 @@
 a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 header{position:sticky;top:0;z-index:50;background:rgba(242,245,248,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:var(--maxw);margin:0 auto}
-.logo{font-weight:800;font-size:1.1rem;color:var(--blue-deep);white-space:nowrap}.logo span{color:inherit}
+.logo{font-weight:800;font-size:1.1rem;color:var(--blue-deep);white-space:nowrap;text-decoration:none}.logo span{color:inherit}
 .nav-links{display:flex;gap:32px;font-weight:500;font-size:.95rem}.nav-links a{color:var(--blue-mid);transition:color .15s}.nav-links a:hover{color:var(--amber)}
 .nav-cta{background:var(--blue-deep);color:#fff;padding:10px 22px;border-radius:var(--radius);font-weight:600;font-size:.92rem}.nav-cta:hover{background:var(--blue)}
 .hero{padding:90px 0 80px;position:relative;overflow:hidden}.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
@@ -164,13 +164,13 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
-<body>
+<body id="top">
 <header>
   <div class="nav">
-    <div class="logo" style="display:flex;align-items:center;gap:8px;min-width:0;">
+    <a href="#top" class="logo" style="display:flex;align-items:center;gap:8px;min-width:0;">
       <img src="logo.jpg" alt="لوگوی فیزیوتراپی ابن سینا ساوه" style="height:42px;width:42px;object-fit:cover;border-radius:50%;flex-shrink:0;">
       <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">فیزیوتراپی <span style="color:var(--amber)">ابن‌سینا</span> ساوه</span>
-    </div>
+    </a>
     <button class="nav-toggle" aria-label="منو" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -362,6 +362,7 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
   function scrollToSection(href){
+    if(href === '#top'){ window.scrollTo({top:0,behavior:'smooth'}); return; }
     var target = document.querySelector(href);
     if(!target) return;
     // flush: section top edge right under header bottom edge
@@ -385,6 +386,7 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
     if(a.closest('.nav-links')) return;
     a.addEventListener('click', function(e){
       var href = a.getAttribute('href');
+      if(href === "#top"){ e.preventDefault(); window.scrollTo({top:0,behavior:"smooth"}); return; }
       if(href && href.length > 1){
         e.preventDefault();
         scrollToSection(href);
