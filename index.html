@@ -63,7 +63,7 @@
 </script>
 <style>
 :root{--blue-deep:#0F2A47;--blue:#14416F;--blue-mid:#1F5C94;--blue-light:#4A86BD;--amber:#E0912B;--amber-soft:#F0AD52;--bg:#F2F5F8;--panel:#FFFFFF;--ink:#172433;--muted:#5C6B7D;--line:#DEE6ED;--radius:6px;--maxw:1080px;--service-bg:#E8F0F7;--service-hover:#D6E4F0;}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:56px}body{margin:0;font-family:"Vazirmatn",Tahoma,sans-serif;font-size:17px;background:var(--bg);color:var(--ink);line-height:1.9;-webkit-font-smoothing:antialiased}img{max-width:100%;display:block}a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}section{padding:88px 0;scroll-margin-top:56px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:0}body{margin:0;font-family:"Vazirmatn",Tahoma,sans-serif;font-size:17px;background:var(--bg);color:var(--ink);line-height:1.9;-webkit-font-smoothing:antialiased}img{max-width:100%;display:block}a{color:inherit;text-decoration:none}.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}section{padding:88px 0;scroll-margin-top:0}
 a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 header{position:sticky;top:0;z-index:50;background:rgba(242,245,248,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:var(--maxw);margin:0 auto}
@@ -154,9 +154,10 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
   header{position:sticky;border-bottom:1px solid var(--line)}
   .nav{position:relative}
   /* zero visual gap under header when jumping to sections */
-  section{padding-top:28px;padding-bottom:48px;scroll-margin-top:56px}
-  .hero{padding:28px 0 32px}
-  html{scroll-padding-top:56px}
+  .about h2,.section-head h2,h2{margin-top:12px}
+  section{padding-top:0 !important;padding-bottom:40px !important;scroll-margin-top:0 !important}
+  .hero{padding:20px 0 28px}
+  html{scroll-padding-top:0}
   .about .wrap{gap:20px}
 }
 
@@ -360,18 +361,33 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:48px 0 28px}footer .wra
     var open = header.classList.toggle('nav-open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
+  function scrollToSection(href){
+    var target = document.querySelector(href);
+    if(!target) return;
+    // flush: section top edge right under header bottom edge
+    var y = target.getBoundingClientRect().top + window.pageYOffset - header.offsetHeight;
+    window.scrollTo({top: Math.max(0, y), behavior: 'smooth'});
+  }
   document.querySelectorAll('.nav-links a').forEach(function(a){
     a.addEventListener('click', function(e){
       header.classList.remove('nav-open');
       btn.setAttribute('aria-expanded', 'false');
       var href = a.getAttribute('href');
       if(href && href.charAt(0) === '#'){
-        var target = document.querySelector(href);
-        if(target){
-          e.preventDefault();
-          var top = target.getBoundingClientRect().top + window.pageYOffset - header.offsetHeight;
-          window.scrollTo({top: top, behavior: 'smooth'});
-        }
+        e.preventDefault();
+        // small delay so menu close doesn't affect header height
+        setTimeout(function(){ scrollToSection(href); }, 10);
+      }
+    });
+  });
+  // also handle any other in-page anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    if(a.closest('.nav-links')) return;
+    a.addEventListener('click', function(e){
+      var href = a.getAttribute('href');
+      if(href && href.length > 1){
+        e.preventDefault();
+        scrollToSection(href);
       }
     });
   });
