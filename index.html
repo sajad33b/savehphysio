@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>فیزیوتراپی دیسک کمر و سیاتیک در ساوه | کلینیک ابن‌سینا</title>
-<meta name="css-v" content="20261007-fs">
+<meta name="css-v" content="20261007-fs2">
 <meta name="description" content="کلینیک فیزیوتراپی ابن‌سینا ساوه با مدیریت سجاد علی‌کرمی. درمان تخصصی دیسک کمر، سیاتیک، زانو، بیماران سکته، درای نیدلینگ و تمرین‌درمانی با رویکرد دستی و علمی.">
 <meta property="og:title" content="فیزیوتراپی دیسک کمر و سیاتیک در ساوه | ابن‌سینا">
 <meta property="og:description" content="ارزیابی و درمان تخصصی دردهای اسکلتی‌عضلانی، دیسک کمر، سیاتیک و بازتوانی حرکتی در ساوه.">
@@ -71,16 +71,16 @@ header{position:sticky;top:0;z-index:50;background:rgba(242,245,248,0.92);backdr
 .logo{font-weight:800;font-size:1.1rem;color:var(--blue-deep);white-space:nowrap;text-decoration:none}.logo span{color:inherit}
 .nav-links{display:flex;gap:32px;font-weight:500;font-size:.95rem}.nav-links a{color:var(--blue-mid);transition:color .15s}.nav-links a:hover{color:var(--amber)}
 .nav-cta{background:var(--blue-deep);color:#fff;padding:10px 22px;border-radius:var(--radius);font-weight:600;font-size:.92rem}.nav-cta:hover{background:var(--blue)}
-.first-screen{min-height:calc(100dvh - var(--header-h,72px));display:flex;flex-direction:column;}@media (max-width:860px){.first-screen{min-height:0}.hero{flex:none;display:block;padding:36px 0 24px}.hero-figure{max-height:220px}}
-.hero{padding:clamp(32px,5vh,56px) 0;position:relative;overflow:hidden;flex:1;display:flex;align-items:center}.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px);align-items:center;width:100%}
+.first-screen{height:calc(100svh - var(--header-h,72px));height:calc(100dvh - var(--header-h,72px));display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}@media (max-width:860px){.first-screen{height:auto;overflow:visible}.hero{flex:none;min-height:0;display:block;padding:36px 0 24px}.hero-figure{max-height:220px}}
+.hero{padding:clamp(24px,4vh,48px) 0;position:relative;overflow:hidden;flex:1 1 auto;min-height:0;display:flex;align-items:center}.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px);align-items:center;width:100%}
 .eyebrow{color:var(--amber);font-weight:600;font-size:.9rem;margin-bottom:14px;letter-spacing:0.03em}
 .hero h1{font-size:clamp(1.45rem,3.2vw,2.2rem);font-weight:700;color:var(--blue-deep);margin:0 0 18px;line-height:1.45}
 .hero p{color:var(--muted);font-size:1.05rem;max-width:46ch;margin:0 0 28px;line-height:1.9}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
 .btn-primary{background:var(--amber);color:#fff;padding:15px 32px;border-radius:var(--radius);font-weight:700;font-size:1rem;display:inline-block;transition:background .15s}.btn-primary:hover{background:#C87C1E}
 .btn-secondary{border:1.5px solid var(--blue-mid);color:var(--blue-deep);padding:13px 26px;border-radius:var(--radius);font-weight:600;font-size:.98rem;display:inline-block;transition:background .15s}.btn-secondary:hover{background:rgba(20,65,111,0.06)}
-.hero-figure{border-radius:10px;overflow:hidden;aspect-ratio:4/3;box-shadow:0 20px 40px -16px rgba(15,42,71,0.35)}
-.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel);flex-shrink:0}.stats .wrap{padding:28px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}.stat b{display:block;font-size:1.85rem;color:var(--blue-deep);font-weight:800;line-height:1.2}.stat span{color:var(--muted);font-size:.9rem;line-height:1.4;display:block;margin-top:6px}
+.hero-figure{border-radius:10px;overflow:hidden;aspect-ratio:4/3;width:100%;max-height:min(360px,48vh);box-shadow:0 20px 40px -16px rgba(15,42,71,0.35)}
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel);flex:0 0 auto}.stats .wrap{padding:28px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}.stat b{display:block;font-size:1.85rem;color:var(--blue-deep);font-weight:800;line-height:1.2}.stat span{color:var(--muted);font-size:.9rem;line-height:1.4;display:block;margin-top:6px}
 .about .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}h2{font-size:clamp(1.25rem,2.5vw,1.65rem);font-weight:700;color:var(--blue-deep);margin:0 0 18px;line-height:1.45}.about p{color:var(--muted);margin:0 0 14px;max-width:62ch;font-size:1rem;line-height:1.9}.points{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:16px}.points li{display:flex;gap:14px;align-items:flex-start;color:var(--ink)}.points li svg{flex-shrink:0;margin-top:3px}
 .credentials{background:var(--blue-deep);color:#DDE7F1;border-radius:10px;padding:28px 30px;margin-top:30px}.credentials b{color:#fff;display:block;margin-bottom:8px;font-size:1.02rem}.credentials span{font-size:.9rem;color:#B9CAE0}
 .services{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.section-head{max-width:60ch;margin-bottom:40px}.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.service-card{background:var(--service-bg);border-radius:28px;padding:16px 18px;transition:background .2s,transform .15s,box-shadow .2s;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;box-shadow:0 1px 3px rgba(15,42,71,0.06)}.service-card:hover{background:var(--service-hover);transform:translateY(-2px);box-shadow:0 4px 12px rgba(15,42,71,0.1)}.service-card h3{font-size:.92rem;font-weight:600;color:var(--blue-deep);margin:0;line-height:1.5}.service-card p{font-size:.8rem;color:var(--muted);margin:6px 0 0;line-height:1.5;font-weight:400}
