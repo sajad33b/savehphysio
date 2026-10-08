@@ -63,11 +63,11 @@
   <style amp-custom>
     :root { --blue:#0F2A47; --amber:#E0912B; --bg:#F2F5F8; --ink:#172433; --muted:#5C6B7D; --line:#DEE6ED; }
     * { box-sizing: border-box; }
-    body { margin:0; font-family: Tahoma, Vazirmatn, sans-serif; font-size:16px; background:var(--bg); color:var(--ink); line-height:1.8; text-align:center; }
+    body { margin:0; font-family: Tahoma, Vazirmatn, sans-serif; font-size:16px; background:var(--bg); color:var(--ink); line-height:1.8; }
     a { color:inherit; text-decoration:none; }
     .wrap { max-width:720px; margin:0 auto; padding:0 16px; }
     header { background:rgba(242,245,248,.95); border-bottom:1px solid var(--line); padding:12px 0; position:sticky; top:0; z-index:10; }
-    .nav { display:flex; align-items:center; justify-content:space-between; gap:12px; text-align:right; }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .logo { display:flex; align-items:center; gap:8px; font-weight:800; color:var(--blue); font-size:1rem; }
     .logo span { color:var(--amber); }
     .cta { background:var(--blue); color:#fff; padding:8px 14px; border-radius:8px; font-weight:600; font-size:.85rem; white-space:nowrap; }
@@ -75,9 +75,9 @@
     .eyebrow { color:var(--amber); font-weight:600; font-size:.85rem; margin-bottom:8px; }
     h1 { font-size:1.35rem; color:var(--blue); margin:0 0 12px; line-height:1.55; }
     h2 { font-size:1.2rem; color:var(--blue); margin:0 0 14px; }
-    p { margin:0 auto 12px; color:var(--muted); max-width:36em; }
+    p { margin:0 0 12px; color:var(--muted); }
     .hero-img { border-radius:10px; overflow:hidden; margin:16px 0; }
-    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; justify-content:center; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
     .btn-a { background:var(--amber); color:#fff; padding:10px 16px; border-radius:8px; font-weight:700; }
     .btn-b { border:1.5px solid var(--blue); color:var(--blue); padding:9px 14px; border-radius:8px; font-weight:600; }
     .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; text-align:center; background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:16px 8px; }
@@ -88,20 +88,20 @@
     .cred { background:var(--blue); color:#DDE7F1; border-radius:10px; padding:20px; text-align:center; margin-top:20px; }
     .cred b { color:#fff; display:block; margin:8px 0; }
     .services { background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-    .svc-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:center; }
+    .svc-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .svc { background:#E8F0F7; border-radius:12px; padding:12px; text-align:center; }
     .svc strong { display:block; color:var(--blue); font-size:.85rem; margin-bottom:4px; }
     .svc span { font-size:.75rem; color:var(--muted); }
-    amp-accordion section { background:#fff; border:1px solid var(--line); border-radius:8px; margin-bottom:10px; text-align:center; }
+    amp-accordion section { background:#fff; border:1px solid var(--line); border-radius:8px; margin-bottom:10px; }
     .faq-q { font-size:.95rem; font-weight:600; color:var(--blue); padding:12px 14px; margin:0; background:#F2F5F8; border:none; }
     amp-accordion section[expanded] .faq-q { background:#E8F0F7; }
     amp-accordion div { padding:12px 14px; }
     amp-accordion div p { margin:0; font-size:.95rem; }
-    .contact-box { background:#fff; border-radius:10px; padding:16px; border:1px solid var(--line); text-align:center; max-width:420px; margin:0 auto; }
+    .contact-box { background:#fff; border-radius:10px; padding:16px; border:1px solid var(--line); }
     .contact-box a { color:var(--blue); font-weight:600; }
     .contact-box div { margin-bottom:10px; font-size:.95rem; }
-    .map { margin-top:16px; border-radius:10px; overflow:hidden; border:1px solid var(--line); max-width:560px; margin-left:auto; margin-right:auto; }
-    footer { background:var(--blue); color:#C3D3E4; padding:28px 0 16px; font-size:.85rem; text-align:center; }
+    .map { margin-top:16px; border-radius:10px; overflow:hidden; border:1px solid var(--line); }
+    footer { background:var(--blue); color:#C3D3E4; padding:28px 0 16px; font-size:.85rem; }
     footer a { color:#B9CAE0; }
     footer a:hover { color:var(--amber); }
     .foot-grid { display:grid; gap:16px; }
