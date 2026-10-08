@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>فیزیوتراپی دیسک کمر و سیاتیک در ساوه | کلینیک ابن‌سینا</title>
-<meta name="css-v" content="20261008-logo-footer-pair">
+<meta name="css-v" content="20261008-bugfix">
 <meta name="description" content="کلینیک فیزیوتراپی ابن‌سینا ساوه با مدیریت سجاد علی‌کرمی. درمان تخصصی دیسک کمر، سیاتیک، زانو، بیماران سکته، درای نیدلینگ و تمرین‌درمانی با رویکرد دستی و علمی.">
 <meta property="og:title" content="فیزیوتراپی دیسک کمر و سیاتیک در ساوه | ابن‌سینا">
 <meta property="og:description" content="ارزیابی و درمان تخصصی دردهای اسکلتی‌عضلانی، دیسک کمر، سیاتیک و بازتوانی حرکتی در ساوه.">
@@ -166,8 +166,8 @@ footer{background:var(--blue-deep);color:#E2EAF3;padding:56px 0 0;position:relat
     padding:8px 12px;
     gap:10px;
   }
-  .logo{min-width:0;flex:1;order:1;justify-content:flex-end}
-  .logo img{height:38px !important;width:38px !important;flex-shrink:0}
+  .logo{min-width:0;flex:1;order:1;justify-content:flex-end;display:flex !important;align-items:center !important;gap:8px}
+  .logo img,.logo-img{height:40px !important;width:auto !important;max-width:48px;flex-shrink:0;margin-top:4px !important;object-fit:contain !important;background:transparent !important}
   .logo span{font-size:1.08rem !important;font-weight:800}
   .nav-toggle{display:block;order:3;flex-shrink:0;margin:0}
   .nav-cta{display:none !important}
@@ -350,15 +350,15 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
 
 
 .logo{display:flex;align-items:center;gap:8px}
-.logo-img{margin-top:6px;display:block}
+.logo-img{margin-top:5px;display:block;object-fit:contain}
 .nav .logo{align-items:center}
 
 
 .footer-links-pair{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 2rem;align-items:start}
 @media (max-width:860px){
-  .footer-grid{grid-template-columns:1fr 1fr;gap:28px 20px}
+  .footer-grid{grid-template-columns:1fr;gap:28px}
   .footer-brand{grid-column:1/-1}
-  .footer-links-pair{grid-column:1/-1}
+  .footer-links-pair{grid-column:1/-1;display:grid !important;grid-template-columns:1fr 1fr !important;gap:1.5rem 1.75rem !important}
   .footer-contact{grid-column:1/-1}
 }
 @media (max-width:520px){
