@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>فیزیوتراپی دیسک کمر و سیاتیک در ساوه | کلینیک ابن‌سینا</title>
-<meta name="css-v" content="20261008-section-depth">
+<meta name="css-v" content="20261008-ui-batch">
 <meta name="description" content="کلینیک فیزیوتراپی ابن‌سینا ساوه با مدیریت سجاد علی‌کرمی. درمان تخصصی دیسک کمر، سیاتیک، زانو، بیماران سکته، درای نیدلینگ و تمرین‌درمانی با رویکرد دستی و علمی.">
 <meta property="og:title" content="فیزیوتراپی دیسک کمر و سیاتیک در ساوه | ابن‌سینا">
 <meta property="og:description" content="ارزیابی و درمان تخصصی دردهای اسکلتی‌عضلانی، دیسک کمر، سیاتیک و بازتوانی حرکتی در ساوه.">
@@ -104,17 +104,17 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);backdr
 .eyebrow{color:var(--amber);font-weight:600;font-size:.85rem;margin-bottom:10px;letter-spacing:0.02em}
 .hero h1{font-size:clamp(1.3rem,2.6vw,1.95rem);font-weight:700;color:var(--blue-deep);margin:0 0 12px;line-height:1.5;max-width:20em}
 .hero p{color:var(--muted);font-size:.98rem;max-width:36em;margin:0 0 18px;line-height:1.75;text-align:justify;text-align-last:right;text-justify:inter-word}
-.hero-actions{display:flex;gap:1.309rem;flex-wrap:wrap}
-.btn-primary{background:var(--amber);color:#fff;padding:0.75em 1.214em;border-radius:var(--radius);font-weight:700;font-size:1rem;display:inline-block;transition:background .15s;line-height:1.2}.btn-primary:hover{background:#C87C1E}
-.btn-secondary{border:1.5px solid var(--blue-mid);color:var(--blue-deep);padding:0.72em 1.165em;border-radius:var(--radius);font-weight:600;font-size:1rem;display:inline-block;transition:background .15s;line-height:1.2}.btn-secondary:hover{background:rgba(20,65,111,0.06)}
+.hero-actions{display:flex;gap:12px;flex-wrap:nowrap;align-items:center}
+.btn-primary{background:var(--amber);color:#fff;padding:0.85em 1.4em;border-radius:var(--radius);font-weight:700;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:9.5em;transition:background .15s;line-height:1.2;box-sizing:border-box}.btn-primary:hover{background:#C87C1E}
+.btn-secondary{border:1.5px solid var(--blue-mid);color:var(--blue-deep);padding:0.85em 1.4em;border-radius:var(--radius);font-weight:600;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:9.5em;transition:background .15s,color .15s,border-color .15s;line-height:1.2;box-sizing:border-box;background:transparent}.btn-secondary:hover{background:rgba(20,65,111,0.06)}
 .hero-figure{border-radius:14px;overflow:hidden;aspect-ratio:4/3;width:100%;max-height:min(340px,42vh);box-shadow:0 20px 40px -12px rgba(12,36,61,0.28)}
-.stats{border:none;background:var(--panel);min-height:0;height:100%;display:flex;align-items:center;position:relative;z-index:2;box-shadow:0 -10px 28px -14px rgba(12,36,61,.10),0 12px 32px -14px rgba(12,36,61,.10)}.stats .wrap{padding:20px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:center;width:100%}.stat{padding:14px 10px;border-radius:12px;background:var(--panel);border:1px solid var(--line);box-shadow:0 2px 8px rgba(12,36,61,.04)}.stat b{display:block;font-size:clamp(1.55rem,2.4vw,1.9rem);color:var(--blue-deep);font-weight:800;line-height:1.15}.stat span{color:var(--muted);font-size:.82rem;line-height:1.4;display:block;margin-top:6px;font-weight:500}
+.stats{border:none;background:linear-gradient(135deg,var(--blue-deep) 0%,var(--blue) 100%);min-height:0;height:100%;display:flex;align-items:center;position:relative;z-index:1;box-shadow:inset 0 12px 28px rgba(0,0,0,.22),inset 0 -10px 24px rgba(0,0,0,.14)}.stats .wrap{padding:20px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:center;width:100%}.stat{padding:14px 10px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);box-shadow:none}.stat b{display:block;font-size:clamp(1.55rem,2.4vw,1.9rem);color:#fff;font-weight:800;line-height:1.15}.stat span{color:#B8CAE0;font-size:.82rem;line-height:1.4;display:block;margin-top:6px;font-weight:500}
 .about .wrap{display:grid;grid-template-columns:1fr 1.618fr;gap:3.427rem;align-items:start}h2{font-size:clamp(1.25rem,2.5vw,1.65rem);font-weight:700;color:var(--blue-deep);margin:0 0 16px;line-height:1.45}.about p{color:var(--muted);margin:0 0 14px;max-width:62ch;font-size:1rem;line-height:1.9;text-align:justify;text-align-last:right;text-justify:inter-word}.points{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:16px}.points li{display:flex;gap:14px;align-items:flex-start;color:var(--ink)}.points li svg{flex-shrink:0;margin-top:3px}
 .credentials{background:var(--blue-deep);color:#DDE7F1;border-radius:14px;padding:24px 28px;margin-top:24px;box-shadow:0 12px 32px -8px rgba(12,36,61,.35)}.credentials b{color:#fff;display:block;margin-bottom:8px;font-size:1.02rem}.credentials span{font-size:.9rem;color:#B9CAE0}
-.services{background:var(--panel);border:none;position:relative;z-index:2;box-shadow:0 -12px 36px -16px rgba(12,36,61,.11),0 14px 36px -16px rgba(12,36,61,.10)}.section-head{max-width:60ch;margin-bottom:40px}.section-head p{text-align:justify;text-align-last:right;text-justify:inter-word}.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.309rem}.service-card{background:var(--service-bg);border-radius:1rem;padding:1.2rem 1.3rem;transition:background .2s,transform .18s,box-shadow .2s;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:64px;box-shadow:0 1px 3px rgba(12,36,61,0.06);border:1px solid transparent}.service-card:hover{background:var(--service-hover);transform:translateY(-3px);box-shadow:0 8px 20px rgba(12,36,61,0.12);border-color:rgba(224,145,43,0.35)}.service-card h3,.service-card .service-title{font-size:.92rem;font-weight:600;color:var(--blue-deep);margin:0;line-height:1.5}.service-card p,.service-card .service-desc{font-size:.8rem;color:var(--muted);margin:6px 0 0;line-height:1.5;font-weight:400;display:block}
+.services{background:var(--panel);border:none;position:relative;z-index:3;box-shadow:0 -16px 40px -12px rgba(12,36,61,.14),0 18px 40px -12px rgba(12,36,61,.12)}.section-head{max-width:60ch;margin-bottom:40px}.section-head p{text-align:justify;text-align-last:right;text-justify:inter-word}.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;align-items:stretch}.service-card{background:var(--service-bg);border-radius:12px;padding:1rem 1.1rem;transition:background .2s,transform .18s,box-shadow .2s;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1.618/1;min-height:0;height:auto;width:100%;box-sizing:border-box;box-shadow:0 1px 3px rgba(12,36,61,0.06);border:1px solid transparent}.service-card:hover{background:var(--service-hover);transform:translateY(-3px);box-shadow:0 8px 20px rgba(12,36,61,0.12);border-color:rgba(224,145,43,0.35)}.service-card h3,.service-card .service-title{font-size:.92rem;font-weight:600;color:var(--blue-deep);margin:0;line-height:1.5}.service-card p,.service-card .service-desc{font-size:.8rem;color:var(--muted);margin:6px 0 0;line-height:1.5;font-weight:400;display:block}
 .contact .wrap{display:grid;grid-template-columns:1fr 1.618fr;gap:3.427rem;align-items:center}.contact-info{display:grid;gap:1.309rem}.contact-row{display:flex;gap:0.809rem;align-items:flex-start}.contact-row svg{flex-shrink:0;margin-top:2px}.contact-row b{display:block;color:var(--blue-deep);font-weight:700;margin-bottom:2px}.contact-row span,.contact-row a{color:var(--muted);font-size:.95rem}.contact-row a:hover{color:var(--amber)}.map-frame{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);width:100%;aspect-ratio:1.618/1;height:auto;max-width:100%;position:relative}.map-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-footer{background:var(--blue-deep);color:#C3D3E4;padding:56px 0 0;position:relative;z-index:3;box-shadow:0 -20px 48px -12px rgba(12,36,61,.35)}
-.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.3fr;gap:2.5rem;padding-bottom:40px}
+footer{background:var(--blue-deep);color:#C3D3E4;padding:56px 0 0;position:relative;z-index:1;box-shadow:inset 0 18px 40px rgba(0,0,0,.30)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem 1.5rem;padding-bottom:40px;align-items:start}
 .footer-logo{font-weight:800;font-size:1.15rem;color:#fff;margin-bottom:12px}
 .footer-logo span{color:var(--amber-soft)}
 .footer-brand p{font-size:.9rem;line-height:1.75;color:#A8BDD0;margin:0 0 10px;max-width:28em;text-align:justify;text-align-last:right;text-justify:inter-word}
@@ -136,11 +136,11 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:56px 0 0;position:relat
   .footer-grid{grid-template-columns:1fr;gap:24px}
   .foot-bottom-inner{flex-direction:column;text-align:center}
 }
-@media (max-width:860px){.nav-links{display:none}.hero .wrap{grid-template-columns:1fr;gap:20px}.hero-figure{order:-1;max-height:200px}.about .wrap{grid-template-columns:1fr}.contact .wrap{grid-template-columns:1fr}.stats .wrap{grid-template-columns:repeat(3,1fr);gap:12px;padding:24px 12px}.stat{padding:14px 10px;border-radius:12px;background:var(--panel);border:1px solid var(--line);box-shadow:0 2px 8px rgba(12,36,61,.04)}.stat b{font-size:1.25rem}.stat span{font-size:.68rem;line-height:1.35;display:block;margin-top:4px}}
-@media (max-width:520px){section{padding:32px 0}.hero h1{font-size:1.25rem;line-height:1.5}.hero p{font-size:.9rem}.service-grid{gap:8px}.service-card{padding:10px 8px;border-radius:18px}.service-card h3,.service-card .service-title{font-size:.78rem}.service-card p,.service-card .service-desc{font-size:.7rem}.stats .wrap{padding:10px 6px;gap:4px;max-width:100%!important}.stat{padding:14px 10px;border-radius:12px;background:var(--panel);border:1px solid var(--line);box-shadow:0 2px 8px rgba(12,36,61,.04)}.stat b{font-size:1.15rem}.stat span{font-size:.65rem;line-height:1.3;display:block;margin-top:4px}}.service-card{min-height:52px;padding:12px 10px;border-radius:24px}.service-card h3,.service-card .service-title{font-size:.8rem;font-weight:600}.service-card p,.service-card .service-desc{font-size:.75rem}
+@media (max-width:860px){.nav-links{display:none}.hero .wrap{grid-template-columns:1fr;gap:20px}.hero-figure{order:-1;max-height:200px}.about .wrap{grid-template-columns:1fr}.contact .wrap{grid-template-columns:1fr}.stats .wrap{grid-template-columns:repeat(3,1fr);gap:12px;padding:24px 12px}.stat{padding:14px 10px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);box-shadow:none}.stat b{font-size:1.25rem}.stat span{font-size:.68rem;line-height:1.35;display:block;margin-top:4px}}
+@media (max-width:520px){section{padding:32px 0}.hero h1{font-size:1.25rem;line-height:1.5}.hero p{font-size:.9rem}.service-grid{gap:8px}.service-card{padding:10px 8px;border-radius:18px}.service-card h3,.service-card .service-title{font-size:.78rem}.service-card p,.service-card .service-desc{font-size:.7rem}.stats .wrap{padding:10px 6px;gap:4px;max-width:100%!important}.stat{padding:14px 10px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);box-shadow:none}.stat b{font-size:1.15rem}.stat span{font-size:.65rem;line-height:1.3;display:block;margin-top:4px}}.service-card{min-height:52px;padding:12px 10px;border-radius:24px}.service-card h3,.service-card .service-title{font-size:.8rem;font-weight:600}.service-card p,.service-card .service-desc{font-size:.75rem}
 
 .faq{background:var(--bg);border:none;position:relative;z-index:1}
-.contact{background:var(--panel);border:none;position:relative;z-index:2;box-shadow:0 -12px 36px -16px rgba(12,36,61,.10),0 8px 24px -12px rgba(12,36,61,.06)}
+.contact{background:var(--panel);border:none;position:relative;z-index:3;box-shadow:0 -16px 40px -12px rgba(12,36,61,.14),0 12px 32px -12px rgba(12,36,61,.10)}
 .faq-list{display:grid;gap:1.309rem;max-width:668px}
 .faq-item{background:var(--bg);border-radius:var(--radius);padding:1.309rem 1.44rem;border:1px solid var(--line)}
 .faq-item h3{font-size:1rem;font-weight:600;color:var(--blue-deep);margin:0 0 10px;line-height:1.5}
@@ -224,7 +224,7 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:56px 0 0;position:relat
 
 
 
-.service-card h3.service-title{font-size:.92rem;font-weight:600;color:var(--blue-deep);margin:0;line-height:1.5}
+.service-card h3.service-title{font-size:.9rem;font-weight:600;color:var(--blue-deep);margin:0;line-height:1.4}
 .faq-item summary h3.faq-q,.faq-item summary .faq-q{font-size:1rem;font-weight:600;color:var(--blue-deep);margin:0;line-height:1.5;display:inline}
 .faq-item summary{cursor:pointer;list-style:none}
 .faq-item summary::-webkit-details-marker{display:none}
@@ -245,14 +245,14 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
 .principle span{font-size:.78rem;color:var(--muted);line-height:1.45}
 @media (max-width:860px){.principles{grid-template-columns:1fr;max-width:100%}}
 
-.mid-cta{padding:36px 0;background:linear-gradient(135deg,var(--blue-deep) 0%,var(--blue) 100%);position:relative;z-index:3;box-shadow:0 -18px 40px -12px rgba(12,36,61,.28),0 18px 40px -12px rgba(12,36,61,.22)}
+.mid-cta{padding:36px 0;background:linear-gradient(135deg,var(--blue-deep) 0%,var(--blue) 100%);position:relative;z-index:1;box-shadow:inset 0 14px 32px rgba(0,0,0,.28),inset 0 -12px 28px rgba(0,0,0,.18)}
 .mid-cta-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .mid-cta b{display:block;color:#fff;font-size:1.15rem;margin-bottom:4px}
 .mid-cta span{color:#C5D4E6;font-size:.92rem}
 .mid-cta-actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn-wa{background:#25D366;color:#fff;padding:0.75em 1.214em;border-radius:var(--radius);font-weight:700;font-size:1rem;display:inline-block;line-height:1.2}
+.btn-wa{background:#25D366;color:#fff;padding:0.85em 1.5em;border-radius:var(--radius);font-weight:700;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:8.5em;line-height:1.2;box-sizing:border-box}
 .btn-wa:hover{background:#1ebe57;color:#fff}
-.mid-cta .btn-primary:hover{background:#F0AD52}
+.mid-cta .btn-primary,.mid-cta .btn-wa{min-height:48px;min-width:8.5em;padding:0.85em 1.5em}.mid-cta .btn-primary:hover{background:#F0AD52}
 @media (max-width:860px){.mid-cta-inner{flex-direction:column;text-align:center;justify-content:center}.mid-cta-actions{justify-content:center}}
 
 .fab-wa{position:fixed;bottom:22px;left:22px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.45);transition:transform .15s,box-shadow .15s}
@@ -273,14 +273,14 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
 .service-group-title{font-size:1.05rem;font-weight:700;color:var(--blue-deep);margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--amber);display:inline-block}
 .service-group .service-grid{margin-top:4px}
 
-.testimonials{background:var(--panel);border:none;position:relative;z-index:2;box-shadow:0 -12px 36px -16px rgba(12,36,61,.10),0 14px 36px -16px rgba(12,36,61,.10)}
+.testimonials{background:var(--panel);border:none;position:relative;z-index:3;box-shadow:0 -16px 40px -12px rgba(12,36,61,.14),0 18px 40px -12px rgba(12,36,61,.12)}
 .testimonial-slider{max-width:560px;margin:0 auto;position:relative}
-.testimonial-track{position:relative;min-height:160px}
-.testimonial{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:24px 22px;box-shadow:0 2px 10px rgba(12,36,61,.04);text-align:right;position:absolute;inset:0;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease,visibility .45s;pointer-events:none}
+.testimonial-track{position:relative;min-height:0}
+.testimonial{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:0 2px 10px rgba(12,36,61,.04);text-align:right;position:absolute;inset:0 auto auto 0;width:100%;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease,visibility .45s;pointer-events:none;box-sizing:border-box}
 .testimonial.is-active{position:relative;opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
-.testimonial::before{content:"«";position:absolute;top:10px;left:16px;font-size:2rem;color:var(--amber);opacity:.45;line-height:1;font-weight:700}
-.testimonial p{margin:0 0 14px;color:var(--ink);font-size:.98rem;line-height:1.8;text-align:justify;text-align-last:right}
-.testimonial footer{font-size:.82rem;color:var(--muted);font-weight:600}
+.testimonial::before{display:none;content:none}
+.testimonial p{margin:0 0 14px;color:var(--ink);font-size:.98rem;line-height:1.85;text-align:right}
+.testimonial cite{display:block;font-size:.88rem;color:var(--blue-deep);font-weight:700;font-style:normal;margin-top:4px}
 .testimonial-dots{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:18px}
 .testimonial-dot{width:10px;height:10px;padding:0;border:none;border-radius:50%;background:#C5D0DC;cursor:pointer;transition:transform .2s,background .2s,width .2s;appearance:none;-webkit-appearance:none}
 .testimonial-dot:hover{background:var(--blue-mid)}
@@ -288,8 +288,8 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
 .testimonial-dot:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
 
 @media (max-width:860px){
-  .hero-actions{flex-direction:column;width:100%;max-width:320px;margin:0 auto}
-  .hero-actions .btn-primary,.hero-actions .btn-secondary{width:100%;text-align:center;padding:0.9em 1.2em;font-size:1.05rem}
+  .hero-actions{flex-direction:row;flex-wrap:nowrap;width:100%;max-width:100%;margin:0;justify-content:stretch;gap:10px}
+  .hero-actions .btn-primary,.hero-actions .btn-secondary{flex:1;width:auto;text-align:center;padding:0.85em 0.8em;font-size:.95rem;min-width:0}
 }
 
 .nav-links a{position:relative}
@@ -297,7 +297,7 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
 .nav-links a::after{content:"";position:absolute;right:0;bottom:-4px;width:0;height:2px;background:var(--amber);transition:width .2s}
 .nav-links a:hover::after{width:100%}
 .footer-heading,.footer-col h3{letter-spacing:0.01em}
-.about{position:relative;background:var(--surface-alt);z-index:1}
+.about{position:relative;background:var(--surface-alt);z-index:3;box-shadow:0 -12px 32px -14px rgba(12,36,61,.08),0 12px 32px -14px rgba(12,36,61,.08)}
 
 
 /* Soft section transitions — depth instead of flat lines */
@@ -325,6 +325,14 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
 }
 .faq-item{background:var(--panel);box-shadow:0 2px 10px rgba(12,36,61,.04)}
 
+
+.footer-name{color:var(--amber-soft);font-weight:800}
+.footer-doc{display:block;margin-top:12px;font-size:.9rem;color:#A8BDD0}
+.footer-col ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.footer-col li a{color:#C3D3E4;font-size:.92rem}
+.footer-col li a:hover{color:var(--amber-soft)}
+.nav-cta,.nav-cta-mobile{font-variant-numeric:tabular-nums;letter-spacing:0.02em;white-space:nowrap}
+
 </style>
 </head>
 <body id="top">
@@ -344,8 +352,8 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
       <a href="#testimonials">نظرات</a>
       <a href="#contact">تماس</a>
     </nav>
-    <a class="nav-cta" href="tel:+989015555721">رزرو نوبت</a>
-    <a class="nav-cta-mobile" href="tel:+989015555721">رزرو نوبت</a>
+    <a class="nav-cta" href="tel:+9808642230300" dir="ltr">۰۸۶-۴۲۲۳۰۳۰۰</a>
+    <a class="nav-cta-mobile" href="tel:+9808642230300" dir="ltr">۰۸۶-۴۲۲۳۰۳۰۰</a>
   </div>
 </header>
 <main>
@@ -514,25 +522,60 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
         <h2>صدای بیماران</h2>
         <p style="color:var(--muted);margin:0;">تجربه واقعی مراجعان کلینیک ابن‌سینا ساوه از مسیر درمان و بهبود حرکت</p>
       </div>
-      <div class="testimonial-slider" data-interval="5000">
+            <div class="testimonial-slider" data-interval="5000">
         <div class="testimonial-track">
           <blockquote class="testimonial is-active" data-index="0">
-            <p>بعد از چند جلسه برای دیسک کمر، درد تیرکشنده پا کمتر شد و تونستم بدون ترس راه برم. برنامه تمرین خانگی خیلی کمکم کرد.</p>
-            <footer>— مراجعه با مشکل دیسک کمر · ساوه</footer>
+            <p>«مشکل دیسک کمر داشتم. بعد از چند جلسه درد تیرکشنده پا کمتر شد و بدون ترس راه می‌روم.»</p>
+            <cite>مهدی رضایی · ساوه</cite>
           </blockquote>
           <blockquote class="testimonial" data-index="1">
-            <p>شانه یخ‌زده داشتم و فکر می‌کردم جراحی لازم است. با دست‌ورزی و تمرین منظم دامنه حرکتم برگشت. توضیح هر جلسه شفاف بود.</p>
-            <footer>— مراجعه با محدودیت شانه · ساوه</footer>
+            <p>«شانه یخ‌زده داشتم و نگران جراحی بودم. با دست‌ورزی و تمرین منظم دامنه‌ام برگشت.»</p>
+            <cite>سارا محمدی · ساوه</cite>
           </blockquote>
           <blockquote class="testimonial" data-index="2">
-            <p>بعد از جراحی زانو، بازتوانی اینجا منظم پیش رفت. هر جلسه هدف مشخص داشت و پیشرفت را قدم‌به‌قدم می‌دیدم.</p>
-            <footer>— مراجعه پس از جراحی زانو · ساوه</footer>
+            <p>«بعد از جراحی زانو بازتوانی منظم پیش رفت. هر جلسه هدف مشخص داشت و پیشرفت را می‌دیدم.»</p>
+            <cite>حسین کریمی · ساوه</cite>
+          </blockquote>
+          <blockquote class="testimonial" data-index="3">
+            <p>«سیاتیک اذیتم می‌کرد. طی جلسات درمان درد کمتر شد و دوباره به کار روزمره‌ام برگشتم.»</p>
+            <cite>مریم احمدی · ساوه</cite>
+          </blockquote>
+          <blockquote class="testimonial" data-index="4">
+            <p>«دیسک گردن داشتم. توضیح هر جلسه شفاف بود و با تمرین‌های خانگی نتیجه ماندگارتر شد.»</p>
+            <cite>علی نوری · ساوه</cite>
+          </blockquote>
+          <blockquote class="testimonial" data-index="5">
+            <p>«برای آرتروز زانو آمدم. بعد از چند جلسه راه رفتن راحت‌تر شد و درد شبانه کم شد.»</p>
+            <cite>زهرا حسینی · ساوه</cite>
+          </blockquote>
+          <blockquote class="testimonial" data-index="6">
+            <p>«بیرون‌زدگی دیسک و بی‌حسی پا داشتم. به‌تدریج بی‌حسی کمتر شد و کمر هم آرام‌تر شد.»</p>
+            <cite>رضا جعفری · ساوه</cite>
+          </blockquote>
+          <blockquote class="testimonial" data-index="7">
+            <p>«کمردرد شدید داشتم. از جلسه سوم حس بهبودی داشتم و برنامه تمرین خانگی خیلی کمک کرد.»</p>
+            <cite>فاطمه موسوی · ساوه</cite>
+          </blockquote>
+          <blockquote class="testimonial" data-index="8">
+            <p>«بعد از آسیب ورزشی زانو، با تمرین هدفمند قدرت عضله برگشت و به تمرینات ورزشی رسیدم.»</p>
+            <cite>امیرحسین کاظمی · ساوه</cite>
+          </blockquote>
+          <blockquote class="testimonial" data-index="9">
+            <p>«درد سیاتیک و محدودیت حرکت داشتم. مسیر درمان روشن بود و پیگیری جلسات منظم انجام شد.»</p>
+            <cite>نازنین اکبری · ساوه</cite>
           </blockquote>
         </div>
         <div class="testimonial-dots" role="tablist" aria-label="انتخاب نظر">
           <button type="button" class="testimonial-dot is-active" role="tab" aria-selected="true" aria-label="نظر ۱" data-index="0"></button>
           <button type="button" class="testimonial-dot" role="tab" aria-selected="false" aria-label="نظر ۲" data-index="1"></button>
           <button type="button" class="testimonial-dot" role="tab" aria-selected="false" aria-label="نظر ۳" data-index="2"></button>
+          <button type="button" class="testimonial-dot" role="tab" aria-selected="false" aria-label="نظر ۴" data-index="3"></button>
+          <button type="button" class="testimonial-dot" role="tab" aria-selected="false" aria-label="نظر ۵" data-index="4"></button>
+          <button type="button" class="testimonial-dot" role="tab" aria-selected="false" aria-label="نظر ۶" data-index="5"></button>
+          <button type="button" class="testimonial-dot" role="tab" aria-selected="false" aria-label="نظر ۷" data-index="6"></button>
+          <button type="button" class="testimonial-dot" role="tab" aria-selected="false" aria-label="نظر ۸" data-index="7"></button>
+          <button type="button" class="testimonial-dot" role="tab" aria-selected="false" aria-label="نظر ۹" data-index="8"></button>
+          <button type="button" class="testimonial-dot" role="tab" aria-selected="false" aria-label="نظر ۱۰" data-index="9"></button>
         </div>
       </div>
     </div>
@@ -580,7 +623,7 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
     <div class="footer-brand">
       <div class="footer-logo">فیزیوتراپی <span>ابن‌سینا</span> ساوه</div>
       <p>کلینیک تخصصی حرکت و درد در ساوه. تمرکز ما روی دیسک، سیاتیک، زانو و بازگشت ایمن به فعالیت روزانه است. ارزیابی حرکتی، دست‌ورزی و تمرین هدفمند پایه‌های درمان هستند. هر بیمار برنامه جداگانه دریافت می‌کند تا نتیجه ماندگار بماند. هدف ما کاهش درد پایدار و بهبود واقعی کیفیت زندگی در بلندمدت برای مراجعان است.</p>
-      <span class="footer-doc">فیزیوتراپیست سجاد علی‌کرمی · نظام پزشکی ف-۷۱۹۴</span>
+      <span class="footer-doc">فیزیوتراپیست <strong class="footer-name">سجاد علی‌کرمی</strong> · نظام پزشکی ف-۷۱۹۴</span>
     </div>
     <div class="footer-col">
       <h3 class="footer-heading">دسترسی سریع</h3>
@@ -617,7 +660,7 @@ main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-colo
   <div class="foot-bottom">
     <div class="wrap foot-bottom-inner">
       <span>© ۱۴۰۵ فیزیوتراپی ابن‌سینا ساوه · تمامی حقوق محفوظ است</span>
-      <span>طراحی و مدیریت: سجاد علی‌کرمی</span>
+      <span>طراحی و مدیریت: <strong class="footer-name">سجاد علی‌کرمی</strong></span>
     </div>
   </div>
 </footer>
