@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>فیزیوتراپی دیسک کمر و سیاتیک در ساوه | کلینیک ابن‌سینا</title>
-<meta name="css-v" content="20261008-ux-essential">
+<meta name="css-v" content="20261008-ux-polish">
 <meta name="description" content="کلینیک فیزیوتراپی ابن‌سینا ساوه با مدیریت سجاد علی‌کرمی. درمان تخصصی دیسک کمر، سیاتیک، زانو، بیماران سکته، درای نیدلینگ و تمرین‌درمانی با رویکرد دستی و علمی.">
 <meta property="og:title" content="فیزیوتراپی دیسک کمر و سیاتیک در ساوه | ابن‌سینا">
 <meta property="og:description" content="ارزیابی و درمان تخصصی دردهای اسکلتی‌عضلانی، دیسک کمر، سیاتیک و بازتوانی حرکتی در ساوه.">
@@ -235,9 +235,9 @@ footer{background:var(--blue-deep);color:#C3D3E4;padding:56px 0 0}
 @media (max-width:520px){.service-card h3.service-title{font-size:.78rem}.service-card h3.service-title{font-size:.8rem;font-weight:600}}
 
 
-main .about a,main .faq-item a,main .service-title a{color:var(--blue-mid);text-decoration:underline;text-underline-offset:3px}
-main .about a:hover,main .faq-item a:hover,main .service-title a:hover{color:var(--amber)}
-.service-title a{text-decoration:none;color:inherit}
+main .about a,main .faq-item a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(31,92,148,.25);transition:border-color .15s,color .15s}
+main .about a:hover,main .faq-item a:hover{color:var(--amber);border-bottom-color:var(--amber)}
+.service-title a{text-decoration:none;color:inherit;border-bottom:none}
 .service-title a:hover{color:var(--amber)}
 
 
@@ -262,6 +262,41 @@ main .about a:hover,main .faq-item a:hover,main .service-title a:hover{color:var
 .fab-wa:hover{transform:scale(1.08);box-shadow:0 8px 28px rgba(37,211,102,.55)}
 @media (min-width:861px){.fab-wa{bottom:28px;left:28px}}
 
+
+.faq-item summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 0}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .faq-q{flex:1;margin:0;text-align:right}
+.faq-chevron{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--service-bg);color:var(--blue-deep);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;line-height:1;transition:transform .2s,background .2s,color .2s}
+.faq-item[open] summary .faq-chevron{background:var(--amber);color:#fff;transform:rotate(45deg)}
+.faq-item{transition:box-shadow .2s}
+.faq-item[open]{box-shadow:0 4px 16px rgba(15,42,71,.08);border-color:rgba(224,145,43,.35)}
+.faq-item summary h3.faq-q,.faq-item summary .faq-q{font-size:1rem;font-weight:600;color:var(--blue-deep);margin:0;line-height:1.5}
+
+.service-groups{display:grid;gap:28px}
+.service-group-title{font-size:1.05rem;font-weight:700;color:var(--blue-deep);margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--amber);display:inline-block}
+.service-group .service-grid{margin-top:4px}
+
+.testimonials{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.testimonial{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:20px 18px;box-shadow:0 2px 10px rgba(15,42,71,.04);text-align:right;position:relative}
+.testimonial::before{content:"«";position:absolute;top:8px;left:14px;font-size:2rem;color:var(--amber);opacity:.5;line-height:1;font-weight:700}
+.testimonial p{margin:0 0 14px;color:var(--ink);font-size:.95rem;line-height:1.75;text-align:justify;text-align-last:right}
+.testimonial footer{font-size:.8rem;color:var(--muted);font-weight:600}
+@media (max-width:860px){.testimonial-grid{grid-template-columns:1fr}}
+
+@media (max-width:860px){
+  .hero-actions{flex-direction:column;width:100%;max-width:320px;margin:0 auto}
+  .hero-actions .btn-primary,.hero-actions .btn-secondary{width:100%;text-align:center;padding:0.9em 1.2em;font-size:1.05rem}
+}
+
+.nav-links a{position:relative}
+.nav-links a:hover{color:var(--amber)}
+.nav-links a::after{content:"";position:absolute;right:0;bottom:-4px;width:0;height:2px;background:var(--amber);transition:width .2s}
+.nav-links a:hover::after{width:100%}
+.footer-heading,.footer-col h3{letter-spacing:0.01em}
+.services{border-top:1px solid var(--line)}
+.about{position:relative}
+
 </style>
 </head>
 <body id="top">
@@ -278,6 +313,7 @@ main .about a:hover,main .faq-item a:hover,main .service-title a:hover{color:var
       <a href="#about">درباره ما</a>
       <a href="#services">خدمات</a>
       <a href="#faq">سوالات متداول</a>
+      <a href="#testimonials">نظرات</a>
       <a href="#contact">تماس</a>
     </nav>
     <a class="nav-cta" href="tel:+989015555721">رزرو نوبت</a>
@@ -339,24 +375,46 @@ main .about a:hover,main .faq-item a:hover,main .service-title a:hover{color:var
         <h2>خدمات درمانی</h2>
         <p style="color:var(--muted);margin:0;">خدمات کلینیک برای کاهش درد و بازگرداندن حرکت طراحی شده‌اند. هر برنامه بعد از معاینه و متناسب با شرایط شما نوشته می‌شود. از مشکلات ستون فقرات تا زانو و شانه پوشش داده می‌شود. بازتوانی پس از جراحی و آسیب ورزشی نیز در همین چارچوب قرار دارد. هدف ما بهبود پایدار عملکرد روزمره است. تسکین کوتاه‌مدت علائم به‌تنهایی کافی نیست و برنامه کامل‌تری دنبال می‌شود.</p>
       </div>
-      <div class="service-grid">
-        <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی کمر و ستون فقرات</a></h3><span class="service-desc">ارزیابی و درمان دیسک، سیاتیک و دردهای مکانیکی با رویکرد دستی و تمرین‌محور</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی گردن</a></h3><span class="service-desc">کاهش درد گردن، دیسک گردن و سردردهای ناشی از مشکلات اسکلتی</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی زانو</a></h3><span class="service-desc">آرتروز، آسیب ورزشی، ضعف عضلانی و بازتوانی تخصصی زانو</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی شانه</a></h3><span class="service-desc">درمان شانه یخ‌زده، پارگی تاندون و محدودیت حرکتی شانه</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">درمان دیسک کمر و گردن</a></h3><span class="service-desc">رویکرد غیرجراحی، دستی و تمرین‌محور برای دیسک کمر و گردن</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی بعد از جراحی</a></h3><span class="service-desc">بازگشت ایمن و سریع‌تر به فعالیت‌های روزمره پس از جراحی</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">درمان آسیب‌های ورزشی</a></h3><span class="service-desc">پیشگیری از آسیب مجدد و بازتوانی تخصصی ورزشکاران</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">شاک‌ویو تراپی</a></h3><span class="service-desc">کاهش درد تاندونیت، خار پاشنه و نقاط ماشه‌ای عضلانی</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">لیزر تراپی فیزیوتراپی</a></h3><span class="service-desc">کاهش التهاب بافت نرم و تسریع روند ترمیم</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">منوال تراپی و درای نیدلینگ</a></h3><span class="service-desc">دست‌ورزی تخصصی + درای نیدلینگ و طب سوزنی</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">تمرین‌درمانی تخصصی</a></h3><span class="service-desc">برنامه تمرین اختصاصی؛ تخصص ویژه کلینیک ابن‌سینا</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی بیماران سکته</a></h3><span class="service-desc">بهبود حرکت، تعادل و استقلال پس از سکته و آسیب عصبی</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی سالمندان</a></h3><span class="service-desc">حفظ تعادل، قدرت و استقلال حرکتی در سالمندان</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی کودکان</a></h3><span class="service-desc">کمک به تأخیر حرکتی و مشکلات رشدی کودکان</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">درمان دردهای عضلانی و مفصلی</a></h3><span class="service-desc">کاهش درد عضلانی-مفصلی و بازگشت دامنه حرکتی طبیعی</span></div>
-        <div class="service-card"><h3 class="service-title"><a href="#contact">اصلاح وضعیت بدن و حرکات اصلاحی</a></h3><span class="service-desc">اصلاح وضعیت و پیشگیری از آسیب‌های تکراری روزمره</span></div>
+      
+      <div class="service-groups">
+        <div class="service-group">
+          <h3 class="service-group-title">ستون فقرات و دیسک</h3>
+          <div class="service-grid">
+            <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی کمر و ستون فقرات</a></h3><span class="service-desc">ارزیابی و درمان دیسک، سیاتیک و دردهای مکانیکی با رویکرد دستی و تمرین‌محور</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی گردن</a></h3><span class="service-desc">کاهش درد گردن، دیسک گردن و سردردهای ناشی از مشکلات اسکلتی</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">درمان دیسک کمر و گردن</a></h3><span class="service-desc">رویکرد غیرجراحی، دستی و تمرین‌محور برای دیسک کمر و گردن</span></div>
+          </div>
+        </div>
+        <div class="service-group">
+          <h3 class="service-group-title">مفاصل و حرکت</h3>
+          <div class="service-grid">
+            <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی زانو</a></h3><span class="service-desc">آرتروز، آسیب ورزشی، ضعف عضلانی و بازتوانی تخصصی زانو</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی شانه</a></h3><span class="service-desc">درمان شانه یخ‌زده، پارگی تاندون و محدودیت حرکتی شانه</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">درمان دردهای عضلانی و مفصلی</a></h3><span class="service-desc">کاهش درد عضلانی-مفصلی و بازگشت دامنه حرکتی طبیعی</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">اصلاح وضعیت بدن و حرکات اصلاحی</a></h3><span class="service-desc">اصلاح وضعیت و پیشگیری از آسیب‌های تکراری روزمره</span></div>
+          </div>
+        </div>
+        <div class="service-group">
+          <h3 class="service-group-title">تکنیک‌های تخصصی</h3>
+          <div class="service-grid">
+            <div class="service-card"><h3 class="service-title"><a href="#contact">منوال تراپی و درای نیدلینگ</a></h3><span class="service-desc">دست‌ورزی تخصصی + درای نیدلینگ و طب سوزنی</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">تمرین‌درمانی تخصصی</a></h3><span class="service-desc">برنامه تمرین اختصاصی؛ تخصص ویژه کلینیک ابن‌سینا</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">شاک‌ویو تراپی</a></h3><span class="service-desc">کاهش درد تاندونیت، خار پاشنه و نقاط ماشه‌ای عضلانی</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">لیزر تراپی فیزیوتراپی</a></h3><span class="service-desc">کاهش التهاب بافت نرم و تسریع روند ترمیم</span></div>
+          </div>
+        </div>
+        <div class="service-group">
+          <h3 class="service-group-title">بازتوانی و گروه‌های خاص</h3>
+          <div class="service-grid">
+            <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی بعد از جراحی</a></h3><span class="service-desc">بازگشت ایمن و سریع‌تر به فعالیت‌های روزمره پس از جراحی</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">درمان آسیب‌های ورزشی</a></h3><span class="service-desc">پیشگیری از آسیب مجدد و بازتوانی تخصصی ورزشکاران</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی بیماران سکته</a></h3><span class="service-desc">بهبود حرکت، تعادل و استقلال پس از سکته و آسیب عصبی</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی سالمندان</a></h3><span class="service-desc">حفظ تعادل، قدرت و استقلال حرکتی در سالمندان</span></div>
+            <div class="service-card"><h3 class="service-title"><a href="#contact">فیزیوتراپی کودکان</a></h3><span class="service-desc">کمک به تأخیر حرکتی و مشکلات رشدی کودکان</span></div>
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
   
@@ -381,47 +439,70 @@ main .about a:hover,main .faq-item a:hover,main .service-title a:hover{color:var
       </div>
       <div class="faq-list">
                 <details class="faq-item">
-          <summary><h3 class="faq-q">چند جلسه فیزیوتراپی لازم است؟</h3></summary>
+          <summary><h3 class="faq-q">چند جلسه فیزیوتراپی لازم است؟</h3><span class="faq-chevron" aria-hidden="true">+</span></summary>
           <p>تعداد جلسات به نوع مشکل و شدت علائم بستگی دارد. پاسخ بدن شما هم در طول مسیر مهم است. بعد از جلسه اول، یک برنامه تقریبی اعلام می‌کنیم. بسیاری از دردهای مکانیکی کمر و گردن در ۸ تا ۱۲ جلسه بهتر می‌شوند. این عدد برای همه یکسان نیست و در طول درمان قابل تنظیم است. پیشرفت هر فرد جداگانه بررسی می‌شود تا برنامه همیشه با شرایط فعلی هماهنگ بماند.</p>
         </details>
                 <details class="faq-item">
-          <summary><h3 class="faq-q">آیا فیزیوتراپی دردناک است؟</h3></summary>
+          <summary><h3 class="faq-q">آیا فیزیوتراپی دردناک است؟</h3><span class="faq-chevron" aria-hidden="true">+</span></summary>
           <p>درمان نباید درد شدید ایجاد کند. در بعضی تکنیک‌ها ممکن است کشش یا ناراحتی خفیف حس کنید. درد شدید یعنی باید شدت را کم کنیم. بازخورد شما در هر جلسه گرفته می‌شود. بر اساس همان بازخورد، برنامه را تنظیم می‌کنیم تا ایمن و مؤثر پیش برود. راحتی بیمار در طول مسیر درمان برای ما اولویت دارد و نادیده گرفته نمی‌شود.</p>
         </details>
                 <details class="faq-item">
-          <summary><h3 class="faq-q">تفاوت فیزیوتراپی با ماساژ چیست؟</h3></summary>
+          <summary><h3 class="faq-q">تفاوت فیزیوتراپی با ماساژ چیست؟</h3><span class="faq-chevron" aria-hidden="true">+</span></summary>
           <p>ماساژ بیشتر برای آرامش عضلات است. فیزیوتراپی از معاینه شروع می‌شود و علت مشکل را هدف می‌گیرد. دست‌ورزی، تمرین اختصاصی و اصلاح الگوی حرکت در کنار هم به کار می‌روند. هدف فقط کاهش درد نیست. بازگشت عملکرد و کم شدن احتمال عود هم دنبال می‌شود. به همین دلیل برنامه هر جلسه بر پایه یافته‌های بالینی همان روز تنظیم می‌گردد و پیگیری می‌شود.</p>
         </details>
                 <details class="faq-item">
-          <summary><h3 class="faq-q">برای دیسک کمر و سیاتیک فیزیوتراپی کافی است؟</h3></summary>
+          <summary><h3 class="faq-q">برای دیسک کمر و سیاتیک فیزیوتراپی کافی است؟</h3><span class="faq-chevron" aria-hidden="true">+</span></summary>
           <p>در بیشتر موارد بله. بسیاری از بیماران با بیرون‌زدگی دیسک و درد سیاتیک بدون جراحی بهتر می‌شوند. <a href="#services">تمرین هدفمند و تکنیک دستی</a> نقش اصلی را دارند. اگر ضعف پیشرونده یا اختلال کنترل ادرار باشد، ارجاع پزشکی انجام می‌شود. تصمیم نهایی بعد از معاینه اولیه مشخص می‌گردد. پیگیری منظم و انجام تمرین خانگی شانس بهبود غیرجراحی را به‌طور محسوس بالاتر می‌برد.</p>
         </details>
                 <details class="faq-item">
-          <summary><h3 class="faq-q">آیا بعد از جراحی هم فیزیوتراپی لازم است؟</h3></summary>
+          <summary><h3 class="faq-q">آیا بعد از جراحی هم فیزیوتراپی لازم است؟</h3><span class="faq-chevron" aria-hidden="true">+</span></summary>
           <p>بله. <a href="#services">بازتوانی بعد از جراحی</a> به بازگشت ایمن کمک می‌کند. از عوارض بعدی هم پیشگیری می‌کند. برنامه بر اساس نوع جراحی و مرحله بهبودی نوشته می‌شود. معمولاً از حرکات ساده شروع می‌کنیم. شدت و پیچیدگی تمرین‌ها به‌تدریج افزایش می‌یابد. هماهنگی با جراح در موارد لازم انجام می‌شود تا مسیر درمان یکپارچه بماند. خطر آسیب مجدد نیز با همین رویکرد کمتر می‌شود.</p>
         </details>
                 <details class="faq-item">
-          <summary><h3 class="faq-q">آیا تمرین‌های خانگی هم داده می‌شود؟</h3></summary>
+          <summary><h3 class="faq-q">آیا تمرین‌های خانگی هم داده می‌شود؟</h3><span class="faq-chevron" aria-hidden="true">+</span></summary>
           <p>حتماً. بخشی از درمان، تمرین‌هایی است که در خانه انجام می‌دهید. این کار نتیجه جلسات را تثبیت می‌کند. احتمال بازگشت درد را هم کم می‌کند. نحوه صحیح هر حرکت را قدم‌به‌قدم آموزش می‌دهیم. تعداد و شدت تمرین با پیشرفت شما به‌روز می‌شود تا بدون خطا و بیش‌بار اجرا شود. رعایت همین برنامه خانگی نقش مهمی در ماندگاری نتیجه درمان دارد.</p>
         </details>
 
                 <details class="faq-item">
-          <summary><h3 class="faq-q">درای نیدلینگ و طب سوزنی چه کمکی می‌کند؟</h3></summary>
+          <summary><h3 class="faq-q">درای نیدلینگ و طب سوزنی چه کمکی می‌کند؟</h3><span class="faq-chevron" aria-hidden="true">+</span></summary>
           <p>درای نیدلینگ نقاط ماشه‌ای عضله را آزاد می‌کند. درد و اسپاسم را هم کاهش می‌دهد. طب سوزنی در مدیریت درد و گردش خون نقش کمکی دارد. این دو روش معمولاً همراه تمرین و دست‌ورزی به کار می‌روند. نتیجه در این ترکیب پایدارتر می‌ماند. انتخاب روش بر اساس نوع مشکل و تحمل بیمار در همان جلسه به‌صورت دقیق انجام می‌شود و پیگیری می‌گردد.</p>
         </details>
                 <details class="faq-item">
-          <summary><h3 class="faq-q">تمرین‌درمانی دقیقاً چه فرقی با ورزش معمولی دارد؟</h3></summary>
+          <summary><h3 class="faq-q">تمرین‌درمانی دقیقاً چه فرقی با ورزش معمولی دارد؟</h3><span class="faq-chevron" aria-hidden="true">+</span></summary>
           <p>تمرین‌درمانی بر اساس معاینه بدن شما نوشته می‌شود. برخلاف ورزش عمومی، هر حرکت هدف مشخصی دارد. اصلاح الگوی حرکت، تقویت عضله ضعیف و کم کردن فشار روی مفصل از جمله این اهداف است. پیشگیری از عود درد هم در طراحی لحاظ می‌شود. این رویکرد تخصص ویژه <a href="#about">کلینیک ابن‌سینا</a>ست و با برنامه عمومی باشگاه یا خانه تفاوت بنیادی و روشنی دارد.</p>
         </details>
                 <details class="faq-item">
-          <summary><h3 class="faq-q">چطور نوبت بگیرم؟</h3></summary>
+          <summary><h3 class="faq-q">چطور نوبت بگیرم؟</h3><span class="faq-chevron" aria-hidden="true">+</span></summary>
           <p>با شماره <a href="tel:+9808642230300">۰۸۶۴۲۲۳۰۳۰۰</a> یا <a href="tel:+989015555721">۰۹۰۱۵۵۵۵۷۲۱</a> تماس بگیرید. از واتساپ همان شماره موبایل هم می‌توانید پیام بدهید. اینستاگرام @savehphysio راه دیگر ارتباط است. ساعات کاری شنبه تا پنج‌شنبه، صبح ۹ تا ۱۳ و عصر ۱۶ تا ۲۱ است. در پیام خود نوع مشکل و زمان مناسب را بنویسید. هماهنگی سریع‌تر انجام می‌شود. نوبت در اولین فرصت خالی برای شما ثبت می‌گردد.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <section class="contact" id="contact">
+  
+  <section class="testimonials" id="testimonials" aria-label="نظر بیماران">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>صدای بیماران</h2>
+        <p style="color:var(--muted);margin:0;">تجربه واقعی مراجعان کلینیک ابن‌سینا ساوه از مسیر درمان و بهبود حرکت</p>
+      </div>
+      <div class="testimonial-grid">
+        <blockquote class="testimonial">
+          <p>بعد از چند جلسه برای دیسک کمر، درد تیرکشنده پا کمتر شد و تونستم بدون ترس راه برم. برنامه تمرین خانگی خیلی کمکم کرد.</p>
+          <footer>— مراجعه با مشکل دیسک کمر · ساوه</footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p>شانه یخ‌زده داشتم و فکر می‌کردم جراحی لازم است. با دست‌ورزی و تمرین منظم دامنه حرکتم برگشت. توضیح هر جلسه شفاف بود.</p>
+          <footer>— مراجعه با محدودیت شانه · ساوه</footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p>بعد از جراحی زانو، بازتوانی اینجا منظم پیش رفت. هر جلسه هدف مشخص داشت و پیشرفت را قدم‌به‌قدم می‌دیدم.</p>
+          <footer>— مراجعه پس از جراحی زانو · ساوه</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+<section class="contact" id="contact">
     <div class="wrap">
       <div>
         <h2>رزرو نوبت و تماس</h2>
@@ -472,6 +553,7 @@ main .about a:hover,main .faq-item a:hover,main .service-title a:hover{color:var
         <li><a href="#about">رویکرد درمانی</a></li>
         <li><a href="#services">خدمات کلینیک</a></li>
         <li><a href="#faq">سوالات متداول</a></li>
+        <li><a href="#testimonials">نظر بیماران</a></li>
         <li><a href="#contact">رزرو نوبت</a></li>
       </ul>
     </div>
