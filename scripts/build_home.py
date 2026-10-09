@@ -311,9 +311,8 @@ def build() -> None:
     # phones - update visible text and hrefs carefully
     if contact.get("landline"):
         html = html.replace("۰۸۶۴۲۲۳۰۳۰۰", esc(contact["landline"]))
-        html = html.replace("08642230300", re.sub(r"[^\d+]", "", contact.get("landline_href", "") or ""))
     if contact.get("landline_href"):
-        html = re.sub(r'href="tel:\+?980?8642230300"', f'href="{esc(contact["landline_href"])}"', html)
+        html = re.sub(r'href="tel:\+?98[0-9+\-]*8642230300"', f'href="{esc(contact["landline_href"])}"', html)
     if contact.get("mobile"):
         html = html.replace("۰۹۰۱۵۵۵۵۷۲۱", esc(contact["mobile"]))
     if contact.get("mobile_href"):
@@ -399,6 +398,24 @@ def build() -> None:
         html = re.sub(
             r'(class="footer-name">)[^<]+',
             rf"\1{esc(brand['physiotherapist_name'])}",
+            html,
+        )
+
+    
+    # --- Normalize phone hrefs (prevent double country code) ---
+    html = html.replace("tel:+98+98", "tel:+98")
+    html = html.replace("tel:+98086", "tel:+9886")
+    html = re.sub(r'href="tel:\+98\+98([^"]*)"', r'href="tel:+98\1"', html)
+    if contact.get("landline_href"):
+        html = re.sub(
+            r'href="tel:[^"]*8642230300"',
+            f'href="{esc(contact["landline_href"])}"',
+            html,
+        )
+    if contact.get("mobile_href"):
+        html = re.sub(
+            r'href="tel:[^"]*9015555721"',
+            f'href="{esc(contact["mobile_href"])}"',
             html,
         )
 
