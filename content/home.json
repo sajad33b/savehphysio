@@ -1,0 +1,127 @@
+{
+  "seo": {
+    "title": "",
+    "description": "",
+    "canonical": "https://savehphysio.ir/",
+    "og_title": "",
+    "og_description": "",
+    "og_image": "https://savehphysio.ir/clinic.jpg",
+    "twitter_title": "",
+    "twitter_description": "",
+    "twitter_image": "https://savehphysio.ir/clinic.jpg",
+    "hreflang": "fa",
+    "robots": "index,follow",
+    "focus_keywords": []
+  },
+  "content": {
+    "brand": {
+      "clinic_name": "",
+      "short_name": "",
+      "physiotherapist_name": "",
+      "medical_id": "",
+      "medical_id_url": ""
+    },
+    "hero": {
+      "h1": "",
+      "lead": "",
+      "primary_cta_label": "",
+      "primary_cta_type": "tel",
+      "secondary_cta_label": "",
+      "secondary_cta_href": "#services"
+    },
+    "about": {
+      "heading": "",
+      "paragraphs": []
+    },
+    "services": {
+      "heading": "",
+      "intro": "",
+      "groups": [
+        {
+          "title": "",
+          "items": [
+            {
+              "title": "",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "heading": "",
+      "intro": "",
+      "items": [
+        {
+          "question": "",
+          "answer": ""
+        }
+      ]
+    },
+    "testimonials": {
+      "heading": "",
+      "intro": "",
+      "items": [
+        {
+          "name": "",
+          "city": "ساوه",
+          "text": ""
+        }
+      ]
+    },
+    "stats": {
+      "items": [
+        {
+          "value": "",
+          "label": ""
+        }
+      ]
+    },
+    "contact": {
+      "heading": "",
+      "landline": "",
+      "landline_href": "tel:",
+      "mobile": "",
+      "mobile_href": "tel:",
+      "whatsapp": "",
+      "whatsapp_href": "https://wa.me/",
+      "instagram": "",
+      "instagram_url": "",
+      "address": "",
+      "hours": "",
+      "map_embed_query": "",
+      "map_lat": null,
+      "map_lng": null
+    },
+    "footer": {
+      "about_short": "",
+      "quick_links": [
+        {
+          "label": "",
+          "href": ""
+        }
+      ],
+      "popular_services": [
+        {
+          "label": "",
+          "href": ""
+        }
+      ],
+      "copyright": ""
+    },
+    "media": {
+      "logo": "logo.png",
+      "logo_alt": "",
+      "clinic_image": "clinic.jpg",
+      "clinic_image_alt": "",
+      "profile_image": "sajad-profile.jpg",
+      "profile_image_alt": ""
+    }
+  },
+  "meta": {
+    "version": "1.0",
+    "lang": "fa",
+    "page": "home",
+    "notes": "اسکلت محتوای صفحه اول. بعداً پنل ادمین و مهاجرت وردپرس از روی همین فیلدها پر می‌شود."
+  }
+}
