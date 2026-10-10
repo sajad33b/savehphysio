@@ -68,13 +68,11 @@
 .contact-card .label{font-size:.8rem;margin-bottom:.2rem}
 .contact-card a{color:var(--blue-mid);text-decoration:none}
 .contact-card a:hover{color:var(--amber)}
-.contact-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0}
-.contact-actions a{
-  display:inline-block;padding:.7rem 1.2rem;border-radius:var(--radius);font-weight:600;text-decoration:none;color:#fff
-}
-.btn-tel{background:var(--blue-deep)}
+.contact-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0;align-items:stretch}
+.contact-actions a{display:inline-flex;align-items:center;justify-content:center;text-align:center;min-height:48px;min-width:140px;padding:0.85em 1.4em;border-radius:var(--radius);font-weight:700;font-size:1rem;text-decoration:none;color:#fff;box-sizing:border-box}
+.btn-tel,.contact-actions .btn-primary{background:var(--blue-deep,#0C243D)}
 .btn-tel:hover{background:var(--blue)}
-.btn-wa{background:#128C7E}
+.btn-wa{background:#25D366}
 .btn-wa:hover{filter:brightness(1.05)}
 .contact-map{margin-top:1.5rem;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;min-height:220px}
 .contact-map iframe{width:100%;height:100%;border:0;display:block}
@@ -153,18 +151,18 @@
   <h1>تماس و رزرو نوبت</h1>
   <p class="page-intro">برای رزرو نوبت در کلینیک فیزیوتراپی ابن‌سینا ساوه از تلفن، واتساپ یا مراجعه حضوری استفاده کنید. در پیام خود نام و شرح کوتاه مشکل را بنویسید.</p>
   <div class="contact-actions">
-   <a class="btn-tel" href="۰۹۰۱۵۵۵۵۷۲۱_HREF">تماس موبایل</a>
+   <a class="btn-primary btn-tel" href="tel:+989015555721">تماس موبایل</a>
    <a class="btn-wa" href="https://wa.me/989015555721" target="_blank" rel="noopener noreferrer">واتساپ</a>
-   <a class="btn-tel" href="۰۸۶۴۲۲۳۰۳۰۰_HREF" style="background:var(--blue-mid)">تلفن ثابت</a>
+   <a class="btn-primary btn-tel" href="tel:+988642230300" style="background:var(--blue-mid,#1A5688)">تلفن ثابت</a>
   </div>
   <div class="page-grid">
    <div class="contact-card">
     <div class="label">تلفن ثابت</div>
-    <div class="value"><a href="۰۸۶۴۲۲۳۰۳۰۰_HREF">۰۸۶۴۲۲۳۰۳۰۰</a></div>
+    <div class="value"><a href="tel:+988642230300">۰۸۶۴۲۲۳۰۳۰۰</a></div>
    </div>
    <div class="contact-card">
     <div class="label">موبایل</div>
-    <div class="value"><a href="۰۹۰۱۵۵۵۵۷۲۱_HREF">۰۹۰۱۵۵۵۵۷۲۱</a></div>
+    <div class="value"><a href="tel:+989015555721">۰۹۰۱۵۵۵۵۷۲۱</a></div>
    </div>
    <div class="contact-card">
     <div class="label">واتساپ</div>
@@ -172,7 +170,7 @@
    </div>
    <div class="contact-card">
     <div class="label">اینستاگرام</div>
-    <div class="value"><a href="@savehphysio_URL" target="_blank" rel="noopener noreferrer">@savehphysio</a></div>
+    <div class="value"><a href="https://www.instagram.com/savehphysio" target="_blank" rel="noopener noreferrer">@savehphysio</a></div>
    </div>
    <div class="contact-card" style="grid-column:1/-1">
     <div class="label">آدرس</div>
