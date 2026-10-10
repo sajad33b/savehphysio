@@ -37,6 +37,41 @@ def esc(s: str) -> str:
     )
 
 
+
+def to_jalali(date_str: str) -> str:
+    """YYYY-MM-DD → تاریخ شمسی فارسی"""
+    if not date_str or len(date_str) < 8:
+        return date_str or ""
+    try:
+        parts = date_str[:10].split("-")
+        gy, gm, gd = int(parts[0]), int(parts[1]), int(parts[2])
+    except Exception:
+        return date_str
+    # Algorithm: Gregorian to Jalali
+    g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
+    gy2 = gy + 1 if gm > 2 else gy
+    days = 355666 + (365 * gy) + ((gy2 + 3) // 4) - ((gy2 + 99) // 100) + ((gy2 + 399) // 400) + gd + g_d_m[gm - 1]
+    jy = -1595 + (33 * (days // 12053))
+    days %= 12053
+    jy += 4 * (days // 1461)
+    days %= 1461
+    if days > 365:
+        jy += (days - 1) // 365
+        days = (days - 1) % 365
+    if days < 186:
+        jm = 1 + days // 31
+        jd = 1 + (days % 31)
+    else:
+        jm = 7 + (days - 186) // 30
+        jd = 1 + ((days - 186) % 30)
+    months = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
+              "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"]
+    # Persian digits
+    def pd(n):
+        return str(n).translate(str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹"))
+    return f"{pd(jd)} {months[jm - 1]} {pd(jy)}"
+
+
 def render_body(blocks: list) -> str:
     parts: list[str] = []
     for b in blocks:
@@ -105,7 +140,7 @@ def build_one(json_path: Path) -> Path:
         ),
         "POST_H1": esc(post.get("h1", "")),
         "POST_AUTHOR": esc(post.get("author", "")),
-        "POST_DATE": esc(post.get("published", "")),
+        "POST_DATE": esc(to_jalali(post.get("published", ""))),
         "POST_CATEGORY": esc(post.get("category", "")),
         "POST_BREADCRUMB": esc(post.get("h1", "")[:40]),
         "POST_BODY": render_body(post.get("body", [])),
@@ -131,9 +166,9 @@ def render_post_cards(posts: list) -> str:
         href = esc(p.get("href") or f"{p.get('slug', '')}.html")
         title = esc(p.get("title", ""))
         excerpt = esc(p.get("excerpt", ""))
-        date = esc(p.get("published", ""))
+        date = esc(to_jalali(p.get("published", "")))
         parts.append(
-            f'<li><a class="blog-card" href="{href}">'
+            f'<li class="blog-item"><a class="blog-card" href="{href}">'
             f"<h2>{title}</h2>"
             f'<p class="excerpt">{excerpt}</p>'
             f'<div class="meta">{date}</div>'
