@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""
-ساخت صفحه خدمات از templates/services.html + content/services.json
-خروجی: services.html
-
-اجرا: python3 scripts/build_services.py
-"""
+"""ساخت صفحه خدمات — گروه‌بندی، شماره‌گذاری، ناوبری نقطه‌ای اسکرول"""
 from __future__ import annotations
 
 import json
@@ -32,19 +27,43 @@ def esc(s: str) -> str:
 
 def render_groups(groups: list) -> str:
     parts: list[str] = []
+    n = 0
     for g in groups:
+        gid = esc(g.get("id") or f"g{len(parts)}")
         title = esc(g.get("title", ""))
-        parts.append('<section class="svc-group page-section">')
-        parts.append(f"<h2>{title}</h2>")
+        parts.append(f'<section class="svc-group page-section" id="svc-{gid}" data-spy="{gid}">')
+        parts.append(f'<h2 class="svc-group-title">{title}</h2>')
         parts.append('<div class="svc-grid">')
         for item in g.get("items", []):
+            n += 1
             it = esc(item.get("title", ""))
             desc = esc(item.get("description", ""))
             parts.append(
-                f'<div class="svc-card"><span class="title">{it}</span>'
-                f'<span class="desc">{desc}</span></div>'
+                f'<div class="svc-card">'
+                f'<span class="svc-num">{n:02d}</span>'
+                f'<span class="title">{it}</span>'
+                f'<span class="desc">{desc}</span>'
+                f"</div>"
             )
         parts.append("</div></section>")
+    return "\n".join(parts)
+
+
+def render_spy(groups: list) -> str:
+    parts = [
+        '<nav class="svc-spy" aria-label="بخش‌های خدمات">',
+        '<div class="svc-spy-track" aria-hidden="true"><div class="svc-spy-line"></div></div>',
+    ]
+    for g in groups:
+        gid = esc(g.get("id") or "")
+        title = esc(g.get("title", ""))
+        parts.append(
+            f'<a class="svc-spy-dot" href="#svc-{gid}" data-spy-target="{gid}" title="{title}">'
+            f'<span class="svc-spy-point"></span>'
+            f'<span class="svc-spy-label">{title}</span>'
+            f"</a>"
+        )
+    parts.append("</nav>")
     return "\n".join(parts)
 
 
@@ -89,6 +108,7 @@ def build() -> None:
     seo = data.get("seo", {})
     page = data.get("page", {})
     cta = data.get("cta", {})
+    groups = data.get("groups", [])
 
     html = TEMPLATE_PATH.read_text(encoding="utf-8")
     repl = {
@@ -107,7 +127,8 @@ def build() -> None:
         ),
         "SVC_H1": esc(page.get("h1", "")),
         "SVC_INTRO": esc(page.get("intro", "")),
-        "SVC_GROUPS": render_groups(data.get("groups", [])),
+        "SVC_SPY": render_spy(groups),
+        "SVC_GROUPS": render_groups(groups),
         "SVC_CTA_TEXT": esc(cta.get("text", "")),
         "SVC_TEL_LABEL": esc(cta.get("tel_label", "تماس")),
         "SVC_TEL_HREF": esc(cta.get("tel_href", "tel:+989015555721")),
@@ -115,15 +136,15 @@ def build() -> None:
         "SVC_WA_HREF": esc(cta.get("wa_href", "https://wa.me/989015555721")),
         "SVC_SCHEMA_JSON": build_schema(data),
     }
-    for key, val in repl.items():
-        html = html.replace(key, val)
+    for key in sorted(repl.keys(), key=len, reverse=True):
+        html = html.replace(key, repl[key])
 
     left = re.findall(r"SVC_[A-Z0-9_]+", html)
     if left:
-        print(f"warn: unreplaced placeholders: {sorted(set(left))}", file=sys.stderr)
+        print(f"warn: unreplaced: {sorted(set(left))}", file=sys.stderr)
 
     OUTPUT_PATH.write_text(html, encoding="utf-8")
-    print(f"OK → {OUTPUT_PATH.relative_to(ROOT)} from {JSON_PATH.relative_to(ROOT)}")
+    print(f"OK → {OUTPUT_PATH.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
