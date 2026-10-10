@@ -105,8 +105,8 @@ def build() -> None:
         ),
         "CONTACT_SCHEMA_JSON": build_schema(data),
     }
-    for key, val in repl.items():
-        html = html.replace(key, val)
+    for key in sorted(repl.keys(), key=len, reverse=True):
+        html = html.replace(key, repl[key])
 
     left = re.findall(r"CONTACT_[A-Z0-9_]+", html)
     if left:
