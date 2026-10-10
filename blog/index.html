@@ -95,6 +95,16 @@
 .article-tags span{background:var(--service-bg,#E4EDF6);padding:.25rem .6rem;border-radius:999px;font-size:.8rem;color:var(--blue-deep)}
 .about-card{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin:1.25rem 0}
 
+
+.blog-pager{display:flex;justify-content:center;align-items:center;gap:.5rem;margin:1.75rem 0 0;flex-wrap:wrap}
+.blog-pager button{
+  width:10px;height:10px;border-radius:50%;border:none;padding:0;cursor:pointer;
+  background:var(--line,#D5DEE8);transition:transform .15s,background .15s
+}
+.blog-pager button.is-active{background:var(--amber,#D9891F);transform:scale(1.35)}
+.blog-pager button:focus-visible{outline:2px solid var(--blue-mid);outline-offset:2px}
+.blog-item[hidden]{display:none !important}
+.blog-page-label{width:100%;text-align:center;font-size:.85rem;color:var(--muted);margin-top:.35rem}
 </style>
 <script type="application/ld+json">
 {
@@ -136,8 +146,9 @@
   <h1>مقالات فیزیوتراپی</h1>
   <p class="page-intro">در این بخش مطالب کوتاه و کاربردی درباره دردهای اسکلتی‌عضلانی و فیزیوتراپی می‌خوانید. هدف، آگاهی بیشتر پیش از نوبت در کلینیک ابن‌سینا ساوه است.</p>
   <ul class="blog-list">
-<li><a class="blog-card" href="dard-siatik-chist.html"><h2>درد سیاتیک چیست؟ علائم و نقش فیزیوتراپی</h2><p class="excerpt">سیاتیک دردی است که از کمر به پا تیر می‌کشد. علائم رایج و نقش فیزیوتراپی در ساوه را اینجا بخوانید.</p><div class="meta">2026-10-10</div></a></li>
+<li class="blog-item"><a class="blog-card" href="dard-siatik-chist.html"><h2>درد سیاتیک چیست؟ علائم و نقش فیزیوتراپی</h2><p class="excerpt">سیاتیک دردی است که از کمر به پا تیر می‌کشد. علائم رایج و نقش فیزیوتراپی در ساوه را اینجا بخوانید.</p><div class="meta">۱۸ مهر ۱۴۰۵</div></a></li>
   </ul>
+  <div class="blog-pager" id="blog-pager" hidden></div>
 </main>
 <footer class="site-footer page-footer">
  <div class="wrap footer-simple">
@@ -162,5 +173,48 @@
   });
 })();
 </script>
+
+<script>
+(function(){
+  var PER = 5;
+  var items = Array.prototype.slice.call(document.querySelectorAll('.blog-item'));
+  var pager = document.getElementById('blog-pager');
+  if(!items.length || !pager) return;
+  var pages = Math.ceil(items.length / PER);
+  if(pages <= 1) return;
+  pager.hidden = false;
+  var cur = 0;
+  function show(p){
+    cur = p;
+    items.forEach(function(el, i){
+      el.hidden = !(i >= p*PER && i < (p+1)*PER);
+    });
+    pager.querySelectorAll('button[data-page]').forEach(function(b){
+      var on = Number(b.getAttribute('data-page')) === p;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-current', on ? 'true' : 'false');
+    });
+    var lab = pager.querySelector('.blog-page-label');
+    if(lab){
+      lab.textContent = 'صفحه ' + (p+1) + ' از ' + pages;
+    }
+  }
+  for(var i=0;i<pages;i++){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('data-page', String(i));
+    b.setAttribute('aria-label', 'صفحه ' + (i+1));
+    b.addEventListener('click', function(ev){
+      show(Number(ev.currentTarget.getAttribute('data-page')));
+    });
+    pager.appendChild(b);
+  }
+  var label = document.createElement('div');
+  label.className = 'blog-page-label';
+  pager.appendChild(label);
+  show(0);
+})();
+</script>
+
 </body>
 </html>
