@@ -97,6 +97,9 @@ def build() -> None:
         "CONTACT_WA_HREF": esc(c.get("whatsapp_href", "https://wa.me/989015555721")),
         "CONTACT_IG": esc(c.get("instagram", "")),
         "CONTACT_IG_URL": esc(c.get("instagram_url", "https://www.instagram.com/savehphysio")),
+        "CONTACT_TG_URL": esc(c.get("telegram_url", "https://t.me/savehphysio")),
+        "CONTACT_BALE_URL": esc(c.get("bale_url", "https://ble.ir/savehphysio")),
+        "CONTACT_RUBIKA_URL": esc(c.get("rubika_url", "https://rubika.ir/savehphysio")),
         "CONTACT_ADDRESS": esc(c.get("address", "")),
         "CONTACT_HOURS": esc(c.get("hours", "")),
         "CONTACT_MAP_EMBED": esc(
