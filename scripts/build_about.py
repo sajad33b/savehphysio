@@ -33,7 +33,7 @@ def render_sections(sections: list) -> str:
     parts: list[str] = []
     for sec in sections:
         heading = esc(sec.get("heading", ""))
-        parts.append('<section class="about-section">')
+        parts.append('<section class="page-section">')
         if heading:
             parts.append(f"<h2>{heading}</h2>")
         for p in sec.get("paragraphs", []):
