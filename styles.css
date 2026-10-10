@@ -116,3 +116,19 @@ a.btn-secondary {
   max-width: 11em !important;
   width: auto !important;
 }
+
+
+/* === TEXT JUSTIFY sitewide (like homepage) === */
+main p,
+.page-main p,
+.page-lead,
+.page-intro,
+.article-body p,
+.about p,
+.faq-item p,
+.svc-card .desc,
+.blog-card .excerpt {
+  text-align: justify;
+  text-align-last: right;
+  text-justify: inter-word;
+}
