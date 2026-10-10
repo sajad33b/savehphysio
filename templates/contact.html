@@ -68,13 +68,11 @@
 .contact-card .label{font-size:.8rem;margin-bottom:.2rem}
 .contact-card a{color:var(--blue-mid);text-decoration:none}
 .contact-card a:hover{color:var(--amber)}
-.contact-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0}
-.contact-actions a{
-  display:inline-block;padding:.7rem 1.2rem;border-radius:var(--radius);font-weight:600;text-decoration:none;color:#fff
-}
-.btn-tel{background:var(--blue-deep)}
+.contact-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0;align-items:stretch}
+.contact-actions a{display:inline-flex;align-items:center;justify-content:center;text-align:center;min-height:48px;min-width:140px;padding:0.85em 1.4em;border-radius:var(--radius);font-weight:700;font-size:1rem;text-decoration:none;color:#fff;box-sizing:border-box}
+.btn-tel,.contact-actions .btn-primary{background:var(--blue-deep,#0C243D)}
 .btn-tel:hover{background:var(--blue)}
-.btn-wa{background:#128C7E}
+.btn-wa{background:#25D366}
 .btn-wa:hover{filter:brightness(1.05)}
 .contact-map{margin-top:1.5rem;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;min-height:220px}
 .contact-map iframe{width:100%;height:100%;border:0;display:block}
@@ -124,9 +122,9 @@ CONTACT_SCHEMA_JSON
   <h1>CONTACT_H1</h1>
   <p class="page-intro">CONTACT_INTRO</p>
   <div class="contact-actions">
-   <a class="btn-tel" href="CONTACT_MOBILE_HREF">تماس موبایل</a>
-   <a class="btn-wa" href="CONTACT_WA_HREF" target="_blank" rel="noopener noreferrer">CONTACT_WA_LABEL</a>
-   <a class="btn-tel" href="CONTACT_LANDLINE_HREF" style="background:var(--blue-mid)">تلفن ثابت</a>
+   <a class="btn-primary btn-tel" href="CONTACT_MOBILE_HREF">تماس موبایل</a>
+   <a class="btn-wa" href="CONTACT_WA_HREF" target="_blank" rel="noopener noreferrer">واتساپ</a>
+   <a class="btn-primary btn-tel" href="CONTACT_LANDLINE_HREF" style="background:var(--blue-mid,#1A5688)">تلفن ثابت</a>
   </div>
   <div class="page-grid">
    <div class="contact-card">
