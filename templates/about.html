@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ABOUT_TITLE</title>
-<meta name="generator" content="savehphysio-about-skeleton">
+<meta name="generator" content="savehphysio-about">
 <meta name="description" content="ABOUT_DESCRIPTION">
 <meta property="og:title" content="ABOUT_OG_TITLE">
 <meta property="og:description" content="ABOUT_OG_DESCRIPTION">
@@ -22,26 +22,79 @@
 <link rel="canonical" href="ABOUT_CANONICAL">
 <link rel="alternate" hreflang="fa" href="ABOUT_CANONICAL">
 <link rel="alternate" hreflang="x-default" href="ABOUT_CANONICAL">
-<meta name="theme-color" content="#0F2A47">
+<meta name="theme-color" content="#0C243D">
 <link rel="icon" type="image/png" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/Vazirmatn-Regular.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=20261010about">
+<link rel="stylesheet" href="styles.css?v=20261010ui">
 <style>
-.about-wrap{max-width:720px;margin:0 auto;padding:1.5rem 1rem 3rem}
-.about-lead{color:var(--muted,#64748b);line-height:1.85;margin:0 0 1.5rem}
-.about-section{margin:1.75rem 0}
-.about-section h2{margin:0 0 .75rem;font-size:1.2rem;color:var(--navy,#0F2A47)}
-.about-section p{margin:0 0 1rem;line-height:1.85;text-align:justify;text-align-last:right}
-.about-card{
-  display:flex;flex-wrap:wrap;gap:1rem;align-items:center;
-  padding:1.15rem 1.25rem;border-radius:12px;background:#f8fafc;border:1px solid #e2e8f0;margin:1.25rem 0
+
+.page-main{max-width:var(--maxw,1080px);margin:0 auto;padding:var(--space-lg,2rem) var(--space-md,1rem) var(--space-xl,3rem)}
+.page-main h1{color:var(--blue-deep,#0C243D);margin:0 0 1rem;font-size:clamp(1.35rem,3vw,1.75rem);line-height:1.45}
+.breadcrumb{font-size:.85rem;margin:0 0 1rem;color:var(--muted,#4A5A6C)}
+.breadcrumb a{color:var(--blue-mid,#1A5688);text-decoration:none}
+.breadcrumb a:hover{color:var(--amber,#D9891F)}
+.page-lead,.page-intro{color:var(--muted,#4A5A6C);line-height:1.85;margin:0 0 1.5rem;max-width:40rem}
+.page-section{margin:1.75rem 0}
+.page-section h2{margin:0 0 .75rem;font-size:1.15rem;color:var(--blue-deep,#0C243D)}
+.page-section p{margin:0 0 1rem;line-height:1.85}
+.page-card{
+  padding:1.15rem 1.25rem;border-radius:var(--radius,10px);background:var(--panel,#fff);
+  border:1px solid var(--line,#D5DEE8);box-shadow:0 4px 16px -8px rgba(12,36,61,.08)
 }
-.about-card strong{color:var(--navy,#0F2A47)}
-.about-cta{margin-top:2rem;padding:1.25rem;border-radius:12px;background:var(--navy,#0F2A47);color:#fff}
-.about-cta a{color:#fff;font-weight:600;margin-left:.75rem}
-.breadcrumb{font-size:.85rem;margin:1rem 0;color:var(--muted,#64748b)}
-.breadcrumb a{color:var(--navy,#0F2A47)}
+.page-cta{
+  margin-top:2rem;padding:1.25rem 1.35rem;border-radius:var(--radius,10px);
+  background:var(--blue-deep,#0C243D);color:#E8EEF5
+}
+.page-cta a{color:#fff;font-weight:600;text-decoration:none;margin-left:.75rem}
+.page-cta a:hover{color:var(--amber-soft,#E8A43E)}
+.page-footer{margin-top:2rem;padding:1.5rem 1rem;text-align:center;font-size:.9rem;
+  background:var(--blue-deep,#0C243D);color:#DCE6F0;border-top:none}
+.page-footer a{color:#E8EEF5;text-decoration:none}
+.page-footer a:hover{color:var(--amber-soft,#E8A43E)}
+.page-footer .footer-name{color:#fff}
+.footer-simple{max-width:var(--maxw);margin:0 auto}
+.footer-links-line{margin:.5rem 0 0;opacity:.9;font-size:.85rem}
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin:1.25rem 0}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.svc-card,.contact-card{
+  padding:1rem 1.1rem;border-radius:var(--radius,10px);background:var(--panel,#fff);
+  border:1px solid var(--line,#D5DEE8);display:flex;flex-direction:column;gap:.4rem;
+  transition:border-color .15s,box-shadow .15s
+}
+.svc-card:hover,.contact-card:hover{border-color:#cbd5e1;box-shadow:0 4px 14px rgba(12,36,61,.08)}
+.svc-card .title,.contact-card .value{font-weight:600;color:var(--blue-deep);line-height:1.45}
+.svc-card .desc,.contact-card .label{font-size:.9rem;color:var(--muted);line-height:1.65}
+.contact-card .label{font-size:.8rem;margin-bottom:.2rem}
+.contact-card a{color:var(--blue-mid);text-decoration:none}
+.contact-card a:hover{color:var(--amber)}
+.contact-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0}
+.contact-actions a{
+  display:inline-block;padding:.7rem 1.2rem;border-radius:var(--radius);font-weight:600;text-decoration:none;color:#fff
+}
+.btn-tel{background:var(--blue-deep)}
+.btn-tel:hover{background:var(--blue)}
+.btn-wa{background:#128C7E}
+.btn-wa:hover{filter:brightness(1.05)}
+.contact-map{margin-top:1.5rem;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;min-height:220px}
+.contact-map iframe{width:100%;height:100%;border:0;display:block}
+.blog-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1rem}
+.blog-card{
+  display:block;padding:1.15rem 1.25rem;border-radius:var(--radius);background:var(--panel,#fff);
+  border:1px solid var(--line);text-decoration:none;color:inherit;
+  transition:box-shadow .15s,border-color .15s
+}
+.blog-card:hover{border-color:#cbd5e1;box-shadow:0 4px 14px rgba(12,36,61,.08)}
+.blog-card h2{margin:0 0 .4rem;font-size:1.1rem;color:var(--blue-deep);line-height:1.5}
+.blog-card .excerpt{margin:0 0 .5rem;color:var(--muted);font-size:.95rem;line-height:1.7}
+.blog-card .meta{font-size:.8rem;color:#94a3b8}
+.article-body h2{margin-top:1.75rem;margin-bottom:.75rem;font-size:1.2rem;color:var(--blue-deep)}
+.article-body p{margin:0 0 1rem;line-height:1.85}
+.article-meta{color:var(--muted);font-size:.9rem;margin:.75rem 0 1.25rem;display:flex;flex-wrap:wrap;gap:.5rem 1rem}
+.article-tags{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.article-tags span{background:var(--service-bg,#E4EDF6);padding:.25rem .6rem;border-radius:999px;font-size:.8rem;color:var(--blue-deep)}
+.about-card{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin:1.25rem 0}
+
 </style>
 <script type="application/ld+json">
 ABOUT_SCHEMA_JSON
@@ -54,47 +107,60 @@ ABOUT_SCHEMA_JSON
  <img src="logo.png" alt="لوگوی فیزیوتراپی ابن‌سینا ساوه" width="42" height="54" class="logo-img" style="height:42px;width:auto;object-fit:contain;flex-shrink:0;background:transparent" decoding="async">
  <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">فیزیوتراپی <span style="color:var(--amber)">ابن‌سینا</span> ساوه</span>
  </a>
- <button type="button" class="nav-toggle" aria-label="منو" aria-expanded="false"><span></span><span></span><span></span></button>
+ <button type="button" class="nav-toggle" aria-label="منو" aria-expanded="false">
+ <span></span><span></span><span></span>
+ </button>
  <nav class="nav-links">
- <a href="./about.html" aria-current="page">درباره ما</a>
- <a href="./services.html">خدمات</a>
- <a href="./blog/">مقالات</a>
- <a href="./contact.html">تماس</a>
+ <a href="about.html" aria-current="page">درباره ما</a> <a href="services.html">خدمات</a> <a href="blog/">مقالات</a> <a href="contact.html">تماس</a>
  </nav>
  <a class="nav-cta" href="tel:+989015555721">رزرو نوبت</a>
  <a class="nav-cta-mobile" href="tel:+989015555721">رزرو نوبت</a>
  </div>
 </header>
-<main id="main">
- <div class="about-wrap">
+<main id="main" class="page-main">
   <nav class="breadcrumb" aria-label="مسیر">
    <a href="./">صفحه اصلی</a> · <span>درباره ما</span>
   </nav>
   <h1>ABOUT_H1</h1>
-  <p class="about-lead">ABOUT_LEAD</p>
-  <div class="about-card">
+  <p class="page-lead">ABOUT_LEAD</p>
+  <div class="page-card about-card">
    <div>
     <strong>ABOUT_PHYSIO_NAME</strong>
-    <div style="font-size:.9rem;color:var(--muted,#64748b);margin-top:.25rem">ABOUT_ROLE — ABOUT_CLINIC</div>
+    <div style="font-size:.9rem;color:var(--muted);margin-top:.25rem">ABOUT_ROLE — ABOUT_CLINIC</div>
     <div style="font-size:.9rem;margin-top:.35rem">شماره نظام پزشکی: <a href="ABOUT_MEDICAL_URL" rel="noopener noreferrer" target="_blank">ABOUT_MEDICAL_ID</a></div>
    </div>
   </div>
 ABOUT_SECTIONS
-  <aside class="about-cta">
+  <aside class="page-cta">
    <p style="margin:0 0 .5rem">ABOUT_CTA_TEXT</p>
    <p style="margin:0">
     <a href="ABOUT_TEL_HREF">ABOUT_TEL_LABEL</a>
     <a href="ABOUT_WA_HREF" target="_blank" rel="noopener noreferrer">ABOUT_WA_LABEL</a>
    </p>
   </aside>
- </div>
 </main>
-<footer class="site-footer" style="padding:1.5rem 1rem;text-align:center;font-size:.9rem">
- <p><strong class="footer-name">ABOUT_PHYSIO_NAME</strong> — کلینیک فیزیوتراپی ابن‌سینا ساوه</p>
- <p><a href="./">صفحه اصلی</a> · <a href="./about.html">درباره ما</a> · <a href="./services.html">خدمات</a> · <a href="./blog/">مقالات</a> · <a href="./contact.html">تماس</a></p>
+<footer class="site-footer page-footer">
+ <div class="wrap footer-simple">
+ <p><strong class="footer-name">سجاد علی‌کرمی</strong> — کلینیک فیزیوتراپی ابن‌سینا ساوه</p>
+ <p class="footer-links-line"><a href="./">صفحه اصلی</a> · <a href="./about.html">درباره ما</a> · <a href="./services.html">خدمات</a> · <a href="./blog/">مقالات</a> · <a href="./contact.html">تماس</a></p>
+ </div>
 </footer>
 <script>
-(function(){var t=document.querySelector('.nav-toggle'),n=document.querySelector('.nav-links');if(t&&n){t.addEventListener('click',function(){var o=t.getAttribute('aria-expanded')==='true';t.setAttribute('aria-expanded',(!o).toString());n.classList.toggle('open',!o);});}})();
+(function(){
+  var btn = document.querySelector('.nav-toggle');
+  var header = document.querySelector('header');
+  if(!btn || !header) return;
+  btn.addEventListener('click', function(){
+    var open = header.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  header.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click', function(){
+      header.classList.remove('nav-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
 </script>
 </body>
 </html>
