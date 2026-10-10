@@ -34,7 +34,7 @@ def render_groups(groups: list) -> str:
     parts: list[str] = []
     for g in groups:
         title = esc(g.get("title", ""))
-        parts.append('<section class="svc-group">')
+        parts.append('<section class="svc-group page-section">')
         parts.append(f"<h2>{title}</h2>")
         parts.append('<div class="svc-grid">')
         for item in g.get("items", []):
