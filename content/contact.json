@@ -1,0 +1,37 @@
+{
+  "seo": {
+    "title": "تماس با ما | کلینیک فیزیوتراپی ابن‌سینا ساوه",
+    "description": "رزرو نوبت و تماس با کلینیک فیزیوتراپی ابن‌سینا ساوه. تلفن، واتساپ، آدرس و نقشه. شنبه تا چهارشنبه ۱۰–۱۳ و ۱۶–۲۰؛ پنج‌شنبه ۱۰–۱۳.",
+    "canonical": "https://savehphysio.ir/contact.html",
+    "og_title": "تماس و رزرو نوبت | فیزیوتراپی ابن‌سینا ساوه",
+    "og_description": "شماره تماس، واتساپ، آدرس و ساعات کاری کلینیک فیزیوتراپی ابن‌سینا در ساوه.",
+    "og_image": "https://savehphysio.ir/clinic.jpg",
+    "twitter_title": "تماس با ما | فیزیوتراپی ابن‌سینا ساوه",
+    "twitter_description": "رزرو نوبت از تلفن یا واتساپ — کلینیک ابن‌سینا ساوه.",
+    "twitter_image": "https://savehphysio.ir/clinic.jpg",
+    "robots": "index,follow"
+  },
+  "page": {
+    "h1": "تماس و رزرو نوبت",
+    "intro": "برای رزرو نوبت در کلینیک فیزیوتراپی ابن‌سینا ساوه از تلفن، واتساپ یا مراجعه حضوری استفاده کنید. در پیام خود نام و شرح کوتاه مشکل را بنویسید."
+  },
+  "contact": {
+    "landline": "۰۸۶۴۲۲۳۰۳۰۰",
+    "landline_href": "tel:+988642230300",
+    "mobile": "۰۹۰۱۵۵۵۵۷۲۱",
+    "mobile_href": "tel:+989015555721",
+    "whatsapp_label": "واتساپ",
+    "whatsapp_href": "https://wa.me/989015555721",
+    "instagram": "@savehphysio",
+    "instagram_url": "https://www.instagram.com/savehphysio",
+    "address": "ساوه، خیابان جمهوری، جمهوری ۱۱، تقاطع وزیری، روبروی مدرسه الزهرا",
+    "hours": "شنبه تا چهارشنبه ۱۰ تا ۱۳ و ۱۶ تا ۲۰؛ پنج‌شنبه ۱۰ تا ۱۳",
+    "map_lat": 35.0274873,
+    "map_lng": 50.3543705,
+    "map_embed": "https://www.google.com/maps?q=35.0274873,50.3543705&z=16&output=embed"
+  },
+  "meta": {
+    "version": "2026-10-10-contact-skeleton",
+    "notes": "اسکلت صفحه تماس؛ ساعات به‌روز"
+  }
+}
