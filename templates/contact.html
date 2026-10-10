@@ -122,6 +122,36 @@
 }
 .contact-info-note{font-size:.9rem;color:var(--muted);margin:0 0 .75rem}
 
+
+/* دکمه‌های اصلی تماس */
+.contact-actions{display:flex;flex-wrap:wrap;gap:.65rem;margin:1.25rem 0 1.5rem;align-items:stretch}
+.contact-actions a,.contact-socials a{
+  display:inline-flex;align-items:center;justify-content:center;text-align:center;
+  min-height:46px;min-width:128px;padding:0.7em 1.25em;border-radius:var(--radius,10px);
+  font-weight:600;font-size:.92rem;text-decoration:none;box-sizing:border-box;color:#F5F7FA;
+  transition:background .15s,filter .15s,box-shadow .15s
+}
+.btn-call{background:var(--blue-deep,#0C243D);box-shadow:0 2px 8px rgba(12,36,61,.16)}
+.btn-call:hover{background:var(--blue,#143F6B)}
+.btn-wa{background:#0F6B63;box-shadow:0 2px 8px rgba(15,107,99,.18)}
+.btn-wa:hover{background:#0C5852}
+.btn-land{background:var(--blue-mid,#1A5688)}
+.btn-land:hover{background:var(--blue,#143F6B)}
+/* شبکه‌ها — پالت جدا و شیک */
+.contact-socials{display:flex;flex-wrap:wrap;gap:.65rem;margin:0 0 1.75rem}
+.contact-socials a{min-width:120px}
+.btn-ig{background:#8B4A6B}
+.btn-ig:hover{background:#733D58}
+.btn-tg{background:#2F6F8F}
+.btn-tg:hover{background:#255A74}
+.btn-bale{background:#3D6B5A}
+.btn-bale:hover{background:#325647}
+.btn-rubika{background:#6B5B8A}
+.btn-rubika:hover{background:#574A70}
+.contact-info-note{font-size:.9rem;color:var(--muted);margin:0 0 .65rem}
+.contact-card a{color:var(--blue-mid,#1A5688);text-decoration:none;font-weight:600}
+.contact-card a:hover{color:var(--amber,#D9891F)}
+
 </style>
 <script type="application/ld+json">
 CONTACT_SCHEMA_JSON
@@ -150,19 +180,31 @@ CONTACT_SCHEMA_JSON
   </nav>
   <h1>CONTACT_H1</h1>
   <p class="page-intro">CONTACT_INTRO</p>
-    <div class="contact-actions">
+      <div class="contact-actions">
    <a class="btn-call" href="CONTACT_MOBILE_HREF">تماس موبایل</a>
    <a class="btn-wa" href="CONTACT_WA_HREF" target="_blank" rel="noopener noreferrer">واتساپ</a>
    <a class="btn-land" href="CONTACT_LANDLINE_HREF">تلفن ثابت</a>
   </div>
-  <p class="contact-info-note">شبکه‌های اجتماعی کلینیک:</p>
+  <p class="contact-info-note">شبکه‌های اجتماعی:</p>
   <div class="contact-socials">
-   <a class="btn-social" href="CONTACT_IG_URL" target="_blank" rel="noopener noreferrer">اینستاگرام</a>
-   <a class="btn-social" href="CONTACT_TG_URL" target="_blank" rel="noopener noreferrer">تلگرام</a>
-   <a class="btn-social" href="CONTACT_BALE_URL" target="_blank" rel="noopener noreferrer">بله</a>
-   <a class="btn-social" href="CONTACT_RUBIKA_URL" target="_blank" rel="noopener noreferrer">روبیکا</a>
+   <a class="btn-ig" href="CONTACT_IG_URL" target="_blank" rel="noopener noreferrer">اینستاگرام</a>
+   <a class="btn-tg" href="CONTACT_TG_URL" target="_blank" rel="noopener noreferrer">تلگرام</a>
+   <a class="btn-bale" href="CONTACT_BALE_URL" target="_blank" rel="noopener noreferrer">بله</a>
+   <a class="btn-rubika" href="CONTACT_RUBIKA_URL" target="_blank" rel="noopener noreferrer">روبیکا</a>
   </div>
   <div class="page-grid">
+   <div class="contact-card">
+    <div class="label">تلفن ثابت</div>
+    <div class="value"><a href="CONTACT_LANDLINE_HREF">CONTACT_LANDLINE</a></div>
+   </div>
+   <div class="contact-card">
+    <div class="label">موبایل</div>
+    <div class="value"><a href="CONTACT_MOBILE_HREF">CONTACT_MOBILE</a></div>
+   </div>
+   <div class="contact-card">
+    <div class="label">واتساپ</div>
+    <div class="value"><a href="CONTACT_WA_HREF" target="_blank" rel="noopener noreferrer">CONTACT_MOBILE</a></div>
+   </div>
    <div class="contact-card" style="grid-column:1/-1">
     <div class="label">آدرس</div>
     <div class="value">CONTACT_ADDRESS</div>
