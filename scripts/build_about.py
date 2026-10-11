@@ -42,6 +42,49 @@ def render_sections(sections: list) -> str:
     return "\n".join(parts)
 
 
+
+def render_licenses(lic: dict) -> str:
+    if not lic:
+        return ""
+    items = lic.get("items") or []
+    if not items:
+        return ""
+    parts: list[str] = ['<section class="page-section licenses-section" id="licenses">']
+    heading = esc(lic.get("heading", "مدارک و مجوزها"))
+    parts.append(f"<h2>{heading}</h2>")
+    intro = lic.get("intro")
+    if intro:
+        parts.append(f'<p class="licenses-intro">{esc(intro)}</p>')
+    parts.append('<div class="licenses-grid">')
+    for it in items:
+        src = esc(it.get("src", ""))
+        webp = esc(it.get("src_webp", ""))
+        thumb = esc(it.get("thumb") or src)
+        title = esc(it.get("title", ""))
+        desc = esc(it.get("desc", ""))
+        alt = esc(it.get("alt") or title)
+        parts.append('<figure class="license-card">')
+        parts.append(f'<a href="{src}" target="_blank" rel="noopener noreferrer" class="license-link">')
+        if webp:
+            parts.append(
+                "<picture>"
+                f'<source type="image/webp" srcset="{webp}">'
+                f'<img src="{thumb}" alt="{alt}" width="420" height="300" loading="lazy" decoding="async">'
+                "</picture>"
+            )
+        else:
+            parts.append(
+                f'<img src="{thumb}" alt="{alt}" width="420" height="300" loading="lazy" decoding="async">'
+            )
+        parts.append("</a>")
+        parts.append(f"<figcaption><strong>{title}</strong>")
+        if desc:
+            parts.append(f"<span>{desc}</span>")
+        parts.append("</figcaption></figure>")
+    parts.append("</div></section>")
+    return chr(10).join(parts)
+
+
 def build_schema(data: dict) -> str:
     brand = data.get("brand", {})
     seo = data.get("seo", {})
@@ -95,7 +138,7 @@ def build() -> None:
         "ABOUT_CLINIC": esc(brand.get("clinic_name", "")),
         "ABOUT_MEDICAL_ID": esc(brand.get("medical_id", "")),
         "ABOUT_MEDICAL_URL": esc(brand.get("medical_id_url", "#")),
-        "ABOUT_SECTIONS": render_sections(data.get("sections", [])),
+        "ABOUT_SECTIONS": render_sections(data.get("sections", [])) + "\n" + render_licenses(data.get("licenses") or {}),
         "ABOUT_CTA_TEXT": esc(cta.get("text", "")),
         "ABOUT_TEL_LABEL": esc(cta.get("tel_label", "تماس")),
         "ABOUT_TEL_HREF": esc(cta.get("tel_href", "tel:+989015555721")),
