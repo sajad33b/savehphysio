@@ -101,6 +101,51 @@
 .page-cta-actions .btn-wa{background:#0F6B63!important;color:#F5F7FA!important}
 .page-cta-actions .btn-primary{background:var(--amber,#D9891F)!important;color:#fff!important}
 .page-main p,.page-lead,.page-intro,.article-body p,.blog-card .excerpt{text-align:justify;text-align-last:right;text-justify:inter-word}
+
+.licenses-intro{color:var(--muted);margin:0 0 1rem;font-size:.95rem}
+.licenses-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+  margin-top:.5rem;
+}
+.license-card{
+  margin:0;
+  background:var(--surface,#fff);
+  border:1px solid var(--line,#D5DEE8);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 4px 14px -8px rgba(12,36,61,.12);
+}
+.license-card a{display:block}
+.license-card img{
+  width:100%;
+  height:auto;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  object-position:top center;
+  display:block;
+  background:#f4f6f8;
+}
+.license-card figcaption{
+  padding:.75rem .85rem 1rem;
+  display:flex;
+  flex-direction:column;
+  gap:.25rem;
+}
+.license-card figcaption strong{
+  font-size:.9rem;
+  color:var(--blue-deep,#0C243D);
+}
+.license-card figcaption span{
+  font-size:.8rem;
+  color:var(--muted,#4A5A6C);
+  line-height:1.45;
+}
+@media (max-width:520px){
+  .licenses-grid{grid-template-columns:1fr}
+}
+
 </style>
 <script type="application/ld+json">
 {
@@ -145,7 +190,7 @@
    <a href="./">صفحه اصلی</a> · <span>درباره ما</span>
   </nav>
   <h1>درباره کلینیک فیزیوتراپی ابن‌سینا ساوه</h1>
-  <p class="page-lead">کلینیک ابن‌سینا در ساوه با تمرکز بر ارزیابی دقیق و برنامه اختصاصی هر بیمار فعالیت می‌کند. هدف ما کاهش پایدار درد و بازگشت حرکت است.</p>
+  <p class="page-lead">کلینیک ابن‌سینا در ساوه با تمرکز بر ارزیابی حرکتی و برنامه متناسب با هر بیمار کار می‌کند. هدف، کاهش درد و برگشت به فعالیت روزمره است.</p>
   <div class="page-card about-card">
    <div>
     <strong>سجاد علی‌کرمی</strong>
@@ -154,15 +199,41 @@
    </div>
   </div>
 <section class="page-section">
-<h2>رویکرد درمانی</h2>
-<p>درمان از ارزیابی کامل حرکتی شروع می‌شود. فقط به کاهش موقت علائم بسنده نمی‌کنیم. علت درد و محدودیت را پیدا می‌کنیم و برنامه را بر اساس بدن و سبک زندگی شما می‌نویسیم.</p>
-<p>روش ما ترکیبی از دست‌ورزی، تمرین هدفمند و در صورت نیاز درای نیدلینگ است. سه اصل ثابت داریم: تشخیص علت پیش از شروع درمان، پیگیری مستمر در جلسات بعد، و آموزش تمرین خانگی برای ماندگاری نتیجه.</p>
+<h2>رویکرد درمان</h2>
+<p>درمان از ارزیابی حرکتی شروع می‌شود. علت درد و محدودیت را پیدا می‌کنیم و برنامه را بر اساس وضعیت شما می‌نویسیم.</p>
+<p>ترکیب کار: دست‌ورزی، تمرین هدفمند و در صورت نیاز درای نیدلینگ. هر جلسه با پاسخ بدن شما تنظیم می‌شود.</p>
 </section>
 <section class="page-section">
 <h2>حوزه‌های تمرکز</h2>
-<p>کمردرد، دیسک، سیاتیک و درد گردن بخش مهمی از مراجعان را تشکیل می‌دهند. زانو، شانه، آسیب ورزشی و بازتوانی پس از جراحی نیز پوشش داده می‌شود.</p>
-<p>بیماران سکته و سالمندان برنامه جداگانه دارند. هدف نهایی کاهش درد پایدار و بازگشت واقعی به عملکرد روزمره است.</p>
+<p>کمردرد، دیسک، سیاتیک و درد گردن؛ زانو، شانه، آسیب ورزشی و بازتوانی پس از جراحی.</p>
+<p>برای بیماران سکته و سالمندان برنامه جدا نوشته می‌شود.</p>
 </section>
+<section class="page-section licenses-section" id="licenses">
+<h2>مدارک و مجوزها</h2>
+<p class="licenses-intro">پروانه بهره‌برداری موسسه، پروانه مسئول فنی و کارت نظام پزشکی فیزیوتراپی.</p>
+<div class="licenses-grid">
+<figure class="license-card">
+<a href="license-operation.jpg" target="_blank" rel="noopener noreferrer" class="license-link">
+<picture><source type="image/webp" srcset="license-operation.webp"><img src="license-operation-thumb.jpg" alt="پروانه بهره‌برداری موسسه فیزیوتراپی ابن‌سینا ساوه" width="420" height="300" loading="lazy" decoding="async"></picture>
+</a>
+<figcaption><strong>پروانه بهره‌برداری موسسه فیزیوتراپی</strong>
+<span>موسسه ابن‌سینا — دانشکده علوم پزشکی ساوه</span>
+</figcaption></figure>
+<figure class="license-card">
+<a href="license-technical.jpg" target="_blank" rel="noopener noreferrer" class="license-link">
+<picture><source type="image/webp" srcset="license-technical.webp"><img src="license-technical-thumb.jpg" alt="پروانه مسئول فنی سجاد علی‌کرمی کلینیک ابن‌سینا" width="420" height="300" loading="lazy" decoding="async"></picture>
+</a>
+<figcaption><strong>پروانه مسئول فنی</strong>
+<span>سجاد علی‌کرمی — اعتبار تا ۱۴۰۵/۱۱/۱۹</span>
+</figcaption></figure>
+<figure class="license-card">
+<a href="license-medical-id.jpg" target="_blank" rel="noopener noreferrer" class="license-link">
+<picture><source type="image/webp" srcset="license-medical-id.webp"><img src="license-medical-id-thumb.jpg" alt="کارت نظام پزشکی سجاد علی‌کرمی ف-۷۱۹۴" width="420" height="300" loading="lazy" decoding="async"></picture>
+</a>
+<figcaption><strong>کارت نظام پزشکی</strong>
+<span>ف-۷۱۹۴ — کارشناس فیزیوتراپی — اعتبار تا ۱۴۰۷/۱۱/۱۴</span>
+</figcaption></figure>
+</div></section>
   <aside class="page-cta">
    <p style="margin:0 0 .65rem">برای ارزیابی و نوبت با کلینیک در تماس باشید.</p>
    <div class="page-cta-actions">
