@@ -102,6 +102,10 @@ def build() -> None:
         "CONTACT_RUBIKA_URL": esc(c.get("rubika_url", "https://rubika.ir/savehphysio")),
         "CONTACT_ADDRESS": esc(c.get("address", "")),
         "CONTACT_HOURS": esc(c.get("hours", "")),
+        "CONTACT_NAV_GOOGLE": esc(c.get("nav_google") or f"https://www.google.com/maps/dir/?api=1&destination={c.get('map_lat')},{c.get('map_lng')}"),
+        "CONTACT_NAV_NESHAN": esc(c.get("nav_neshan") or f"https://nshn.ir/?lat={c.get('map_lat')}&lng={c.get('map_lng')}"),
+        "CONTACT_NAV_BALAD": esc(c.get("nav_balad") or f"https://balad.ir/location?latitude={c.get('map_lat')}&longitude={c.get('map_lng')}"),
+        "CONTACT_NAV_SNAPP": esc(c.get("nav_snapp") or f"https://app.snapp.taxi/pre-ride?destination_lat={c.get('map_lat')}&destination_lng={c.get('map_lng')}"),
         "CONTACT_MAP_EMBED": esc(
             c.get("map_embed")
             or f"https://www.google.com/maps?q={c.get('map_lat')},{c.get('map_lng')}&z=16&output=embed"
