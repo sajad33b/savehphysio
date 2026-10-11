@@ -477,3 +477,25 @@ div.hero-actions > a {
 }
 .cred-dot.is-active{background:#F0AD52;transform:scale(1.2)}
 
+/* Testimonial decorative quote (top-left) */
+.testimonial{
+  position:relative;
+  padding-top:1.75rem !important;
+}
+.testimonial-quote{
+  position:absolute;
+  top:0.15rem;
+  left:0.85rem;
+  font-size:3.2rem;
+  line-height:1;
+  font-family:Georgia,"Times New Roman",serif;
+  color:var(--amber,#D9891F);
+  opacity:0.55;
+  pointer-events:none;
+  user-select:none;
+  font-weight:700;
+}
+.testimonial-text{
+  display:block;
+}
+
