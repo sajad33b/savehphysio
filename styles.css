@@ -389,48 +389,62 @@ div.hero-actions > a {
   }
 }
 
-/* Credentials: title right, slider left (RTL) */
-.credentials-split{
+/* Credentials block: text above, license slider below */
+.credentials-block{
   display:flex !important;
-  flex-direction:row !important;
+  flex-direction:column !important;
   align-items:center !important;
-  justify-content:space-between !important;
-  gap:1.25rem !important;
-  text-align:right !important;
-  max-width:640px;
-  margin:1.25rem auto 0 !important;
-  padding:1rem 1.1rem !important;
+  text-align:center !important;
+  gap:1.15rem !important;
+  max-width:520px;
+  margin:1.5rem auto 0 !important;
+  padding:1.35rem 1.25rem 1.15rem !important;
+  background:var(--blue-deep,#0C243D) !important;
+  color:#E8EEF5 !important;
+  border-radius:14px !important;
+  box-shadow:0 12px 32px -8px rgba(12,36,61,.35);
 }
-.credentials-copy{
-  flex:1 1 45%;
-  text-align:right !important;
+.credentials-head{
   display:flex;
   flex-direction:column;
-  gap:.45rem;
-  align-items:flex-start;
+  align-items:center;
+  gap:.55rem;
+  width:100%;
+}
+.credentials-photo{
+  width:110px !important;
+  height:110px !important;
+  border-radius:50% !important;
+  object-fit:cover !important;
+  border:3px solid rgba(255,255,255,0.35) !important;
+  display:block !important;
+  margin:0 auto !important;
 }
 .credentials-title{
   display:block;
-  font-size:1.05rem;
+  font-size:1.08rem;
+  font-weight:700;
   margin:0;
-  color:#fff;
+  color:#fff !important;
 }
 .credentials-text{
   display:block;
   line-height:1.7;
   font-size:.9rem;
-  color:#E8EEF5;
+  color:#E8EEF5 !important;
 }
-.credentials-text a{color:#F0AD52;text-decoration:underline}
+.credentials-text a{
+  color:#F0AD52 !important;
+  text-decoration:underline;
+}
 .credentials-more{
   color:#E8EEF5 !important;
   text-decoration:underline;
   font-size:.85rem;
-  margin-top:.25rem;
 }
 .credentials-slider{
-  flex:0 0 auto;
-  width:min(42vw, 260px);
+  width:100%;
+  max-width:420px;
   position:relative;
 }
 .credentials-track{position:relative;width:100%}
@@ -445,28 +459,21 @@ div.hero-actions > a {
   aspect-ratio:1.618 / 1;
   object-fit:cover;
   object-position:top center;
-  border-radius:8px;
+  border-radius:10px;
   border:1px solid rgba(255,255,255,.25);
   display:block;
+  background:rgba(255,255,255,.06);
 }
 .credentials-dots{
   display:flex;
-  gap:6px;
+  gap:7px;
   justify-content:center;
-  margin-top:8px;
+  margin-top:10px;
 }
 .cred-dot{
-  width:8px;height:8px;border-radius:50%;
+  width:9px;height:9px;border-radius:50%;
   border:none;padding:0;cursor:pointer;
   background:rgba(255,255,255,.35);
 }
-.cred-dot.is-active{background:#F0AD52;transform:scale(1.15)}
-@media (max-width:560px){
-  .credentials-split{
-    flex-direction:column !important;
-    align-items:stretch !important;
-  }
-  .credentials-copy{align-items:flex-start}
-  .credentials-slider{width:100%;max-width:280px;margin-inline:auto}
-}
+.cred-dot.is-active{background:#F0AD52;transform:scale(1.2)}
 
