@@ -171,6 +171,39 @@
 .contact-meta{display:grid;gap:0.75rem;margin-bottom:1.25rem}
 
 main p,.page-intro,.page-lead{text-align:justify;text-align-last:right;text-justify:inter-word}
+
+.contact-nav-wrap{margin-top:1.25rem}
+.contact-nav-note{font-size:.9rem;color:var(--muted,#4A5A6C);margin:0 0 .75rem;text-align:center}
+.contact-navs{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:0.618rem !important;
+  max-width:22rem;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  width:100%;
+}
+.contact-navs a{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:100% !important;
+  min-height:48px !important;
+  padding:0.7em 0.5em !important;
+  border-radius:0.618rem !important;
+  font-weight:700 !important;
+  font-size:0.9rem !important;
+  text-decoration:none !important;
+  box-sizing:border-box !important;
+  aspect-ratio:1.618 / 1;
+  max-height:3.5rem;
+}
+.btn-nav-google{background:#1A5688 !important;color:#F5F7FA !important}
+.btn-nav-neshan{background:#0F6B63 !important;color:#F5F7FA !important}
+.btn-nav-balad{background:#2F6F8F !important;color:#F5F7FA !important}
+.btn-nav-snapp{background:#6B5B8A !important;color:#F5F7FA !important}
+.contact-map{background:#eef2f6}
+
 </style>
 <script type="application/ld+json">
 CONTACT_SCHEMA_JSON
@@ -217,6 +250,15 @@ CONTACT_SCHEMA_JSON
   </div>
   <div class="contact-map">
    <iframe src="CONTACT_MAP_EMBED" title="نقشه کلینیک فیزیوتراپی ابن‌سینا ساوه" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  </div>
+  <div class="contact-nav-wrap">
+   <p class="contact-nav-note">مسیریابی:</p>
+   <div class="contact-navs">
+    <a class="btn-nav-google" href="CONTACT_NAV_GOOGLE" target="_blank" rel="noopener noreferrer">گوگل‌مپ</a>
+    <a class="btn-nav-neshan" href="CONTACT_NAV_NESHAN" target="_blank" rel="noopener noreferrer">نشان</a>
+    <a class="btn-nav-balad" href="CONTACT_NAV_BALAD" target="_blank" rel="noopener noreferrer">بلد</a>
+    <a class="btn-nav-snapp" href="CONTACT_NAV_SNAPP" target="_blank" rel="noopener noreferrer">اسنپ</a>
+   </div>
   </div>
       <div class="contact-socials-wrap">
    <p class="contact-info-note">ارتباط در شبکه‌های اجتماعی:</p>
