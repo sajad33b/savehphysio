@@ -202,12 +202,36 @@ def build() -> None:
         )
     paras = about.get("paragraphs") or []
     if paras:
-        # replace consecutive <p> inside #about until next section heading services
+        creds_html = (
+            '<div class="credentials" style="text-align: center;">'
+            '<img src="sajad-profile.jpg" alt="سجاد علی‌کرمی فیزیوتراپیست ساوه" width="110" height="110" '
+            'style="width:110px;height:110px;border-radius:50%;object-fit: cover;border:3px solid rgba(255,255,255,0.35);'
+            'margin:0 auto 14px;display: block;">'
+            '<b style="display: block;margin-bottom:8px;">مدارک و مجوزها</b>'
+            '<span style="display: block;line-height:1.7;margin-bottom:14px;">فیزیوتراپیست سجاد علی‌کرمی — نظام پزشکی '
+            '<a href="https://membersearch.irimc.org/member/profile?id=8ae69768-d2c0-4781-9610-7c2270e85cd5" '
+            'target="_blank" rel="noopener noreferrer" style="color:#F0AD52;text-decoration: underline;">ف-۷۱۹۴</a></span>'
+            '<div class="home-licenses" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 auto 12px;max-width:420px">'
+            '<a href="license-operation.jpg" target="_blank" rel="noopener noreferrer" title="پروانه بهره‌برداری">'
+            '<img src="license-operation-thumb.jpg" alt="پروانه بهره‌برداری موسسه فیزیوتراپی ابن‌سینا" width="120" height="84" '
+            'style="width:120px;height:84px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.25)" loading="lazy" decoding="async"></a>'
+            '<a href="license-technical.jpg" target="_blank" rel="noopener noreferrer" title="پروانه مسئول فنی">'
+            '<img src="license-technical-thumb.jpg" alt="پروانه مسئول فنی سجاد علی‌کرمی" width="120" height="84" '
+            'style="width:120px;height:84px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.25)" loading="lazy" decoding="async"></a>'
+            '<a href="license-medical-id.jpg" target="_blank" rel="noopener noreferrer" title="کارت نظام پزشکی">'
+            '<img src="license-medical-id-thumb.jpg" alt="کارت نظام پزشکی ف-۷۱۹۴" width="120" height="84" '
+            'style="width:120px;height:84px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.25)" loading="lazy" decoding="async"></a>'
+            '</div>'
+            '<p style="margin:0;font-size:.85rem;opacity:.9">'
+            '<a href="about.html#licenses" style="color:#E8EEF5;text-decoration:underline">مشاهده همه مدارک</a></p>'
+            '</div>'
+        )
+
         def about_repl(m):
             head = m.group(1)
             tail = m.group(3)
-            body = "\n".join(f"<p>{esc(p)}</p>" for p in paras)
-            return head + body + tail
+            body = chr(10).join(f"<p>{esc(p)}</p>" for p in paras)
+            return head + body + creds_html + tail
 
         html = re.sub(
             r'(id="about"[\s\S]*?<h2>[^<]*</h2>\s*)([\s\S]*?)(\s*</div>\s*</div>\s*</section>|\s*</div>\s*</section>|\s*</div>\s*<section)',
