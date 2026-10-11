@@ -101,6 +101,51 @@
 .page-cta-actions .btn-wa{background:#0F6B63!important;color:#F5F7FA!important}
 .page-cta-actions .btn-primary{background:var(--amber,#D9891F)!important;color:#fff!important}
 .page-main p,.page-lead,.page-intro,.article-body p,.blog-card .excerpt{text-align:justify;text-align-last:right;text-justify:inter-word}
+
+.licenses-intro{color:var(--muted);margin:0 0 1rem;font-size:.95rem}
+.licenses-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+  margin-top:.5rem;
+}
+.license-card{
+  margin:0;
+  background:var(--surface,#fff);
+  border:1px solid var(--line,#D5DEE8);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 4px 14px -8px rgba(12,36,61,.12);
+}
+.license-card a{display:block}
+.license-card img{
+  width:100%;
+  height:auto;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  object-position:top center;
+  display:block;
+  background:#f4f6f8;
+}
+.license-card figcaption{
+  padding:.75rem .85rem 1rem;
+  display:flex;
+  flex-direction:column;
+  gap:.25rem;
+}
+.license-card figcaption strong{
+  font-size:.9rem;
+  color:var(--blue-deep,#0C243D);
+}
+.license-card figcaption span{
+  font-size:.8rem;
+  color:var(--muted,#4A5A6C);
+  line-height:1.45;
+}
+@media (max-width:520px){
+  .licenses-grid{grid-template-columns:1fr}
+}
+
 </style>
 <script type="application/ld+json">
 ABOUT_SCHEMA_JSON
