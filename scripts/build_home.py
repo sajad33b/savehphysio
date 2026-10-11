@@ -203,8 +203,9 @@ def build() -> None:
     paras = about.get("paragraphs") or []
     if paras:
         creds_html = (
-            '<div class="credentials credentials-split">'
-            '<div class="credentials-copy">'
+            '<div class="credentials credentials-block">'
+            '<div class="credentials-head">'
+            '<img src="sajad-profile.jpg" alt="سجاد علی‌کرمی فیزیوتراپیست ساوه" width="110" height="110" class="credentials-photo" loading="lazy" decoding="async">'
             '<b class="credentials-title">مدارک و مجوزها</b>'
             '<span class="credentials-text">فیزیوتراپیست سجاد علی‌کرمی — نظام پزشکی '
             '<a href="https://membersearch.irimc.org/member/profile?id=8ae69768-d2c0-4781-9610-7c2270e85cd5" '
@@ -214,13 +215,13 @@ def build() -> None:
             '<div class="credentials-slider" data-interval="4000" aria-label="مدارک و مجوزها">'
             '<div class="credentials-track">'
             '<a class="cred-slide is-active" href="license-operation.jpg" target="_blank" rel="noopener noreferrer" data-index="0">'
-            '<img src="license-operation-thumb.jpg" alt="پروانه بهره‌برداری موسسه فیزیوتراپی ابن‌سینا" width="260" height="161" loading="lazy" decoding="async">'
+            '<img src="license-operation-thumb.jpg" alt="پروانه بهره‌برداری موسسه فیزیوتراپی ابن‌سینا" width="420" height="260" loading="lazy" decoding="async">'
             '</a>'
             '<a class="cred-slide" href="license-technical.jpg" target="_blank" rel="noopener noreferrer" data-index="1">'
-            '<img src="license-technical-thumb.jpg" alt="پروانه مسئول فنی سجاد علی‌کرمی" width="260" height="161" loading="lazy" decoding="async">'
+            '<img src="license-technical-thumb.jpg" alt="پروانه مسئول فنی سجاد علی‌کرمی" width="420" height="260" loading="lazy" decoding="async">'
             '</a>'
             '<a class="cred-slide" href="license-medical-id.jpg" target="_blank" rel="noopener noreferrer" data-index="2">'
-            '<img src="license-medical-id-thumb.jpg" alt="کارت نظام پزشکی ف-۷۱۹۴" width="260" height="161" loading="lazy" decoding="async">'
+            '<img src="license-medical-id-thumb.jpg" alt="کارت نظام پزشکی ف-۷۱۹۴" width="420" height="260" loading="lazy" decoding="async">'
             '</a>'
             '</div>'
             '<div class="credentials-dots" role="tablist">'
