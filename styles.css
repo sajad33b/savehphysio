@@ -253,52 +253,77 @@ div.hero-actions > a {
   }
 }
 
-
-/* Footer links pair — closer columns */
+/* Footer links pair — golden gap, larger text, right align */
 .footer-links-pair {
   display: grid !important;
-  grid-template-columns: max-content max-content !important;
-  column-gap: 1.35rem !important;
+  grid-template-columns: 1fr 1fr !important;
+  column-gap: 1rem !important; /* نزدیک‌تر، نزدیک به نسبت طلایی با عرض ستون */
   row-gap: 0.75rem !important;
-  justify-content: start !important;
+  justify-content: stretch !important;
   align-items: start !important;
-  width: auto !important;
-  max-width: 100%;
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  text-align: right !important;
 }
 .footer-links-pair .footer-col {
   min-width: 0;
+  text-align: right !important;
+}
+.footer-links-pair .footer-heading,
+.footer-links-pair .footer-col h3 {
+  text-align: right !important;
+  margin-bottom: 0.75rem !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
 }
 .footer-links-pair .footer-col ul {
-  gap: 0.45rem !important;
+  gap: 0.5rem !important;
+  text-align: right !important;
+}
+.footer-links-pair .footer-col li,
+.footer-links-pair .footer-col a {
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+  text-align: right !important;
 }
 @media (max-width: 860px) {
   .footer-links-pair {
     grid-template-columns: 1fr 1fr !important;
-    column-gap: 0.75rem !important;
-    row-gap: 0.5rem !important;
+    column-gap: 0.75rem !important; /* ~0.618–1 فاصله طلایی فشرده موبایل */
     width: 100% !important;
-    max-width: 20rem !important;
-    margin-inline: auto !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+    text-align: right !important;
   }
-  .footer-links-pair .footer-col {
-    padding: 0 !important;
+  .footer-links-pair .footer-col,
+  .footer-links-pair .footer-heading,
+  .footer-links-pair .footer-col ul,
+  .footer-links-pair .footer-col li,
+  .footer-links-pair .footer-col a {
+    text-align: right !important;
   }
   .footer-links-pair .footer-heading,
   .footer-links-pair .footer-col h3 {
-    margin-bottom: 0.5rem !important;
-    font-size: 0.9rem !important;
-  }
-  .footer-links-pair .footer-col ul {
-    gap: 0.35rem !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 0.65rem !important;
   }
   .footer-links-pair .footer-col li,
   .footer-links-pair .footer-col a {
-    font-size: 0.82rem !important;
+    font-size: 0.9rem !important;
+    line-height: 1.65 !important;
+  }
+  .footer-links-pair .footer-col ul {
+    gap: 0.5rem !important;
   }
 }
 @media (max-width: 520px) {
   .footer-links-pair {
-    column-gap: 0.5rem !important;
-    max-width: 17rem !important;
+    column-gap: 0.65rem !important;
+  }
+  .footer-links-pair .footer-col li,
+  .footer-links-pair .footer-col a {
+    font-size: 0.88rem !important;
   }
 }
+
