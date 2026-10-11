@@ -132,3 +132,23 @@ main p,
   text-align-last: right;
   text-justify: inter-word;
 }
+
+
+/* Hero actions: always 2 columns, golden gap */
+.hero-actions{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:0.618rem !important;
+  width:100% !important;
+  max-width:22rem !important;
+  flex-direction:unset !important;
+  flex-wrap:unset !important;
+}
+.hero-actions .btn-primary,
+.hero-actions .btn-wa,
+.hero-actions .btn-secondary{
+  flex:unset !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}
