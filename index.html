@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261012quote">
+<link rel="stylesheet" href="styles.css?v=20261012tslide">
 
 <script type="application/ld+json">
 {
@@ -438,48 +438,28 @@
   if(!root) return;
   var slides = Array.prototype.slice.call(root.querySelectorAll('.testimonial'));
   var dots = Array.prototype.slice.call(root.querySelectorAll('.testimonial-dot'));
-  var i = 0;
-  var n = slides.length;
-  var timer = null;
-  var interval = parseInt(root.getAttribute('data-interval'), 10) || 5000;
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function show(index){
-    i = (index + n) % n;
-    slides.forEach(function(s, k){
-      s.classList.toggle('is-active', k === i);
-    });
+  if(slides.length < 2) return;
+  var i = 0, timer = null;
+  var interval = parseInt(root.getAttribute('data-interval') || '5000', 10);
+  function show(n){
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function(s, k){ s.classList.toggle('is-active', k === i); });
     dots.forEach(function(d, k){
-      var on = k === i;
-      d.classList.toggle('is-active', on);
-      d.setAttribute('aria-selected', on ? 'true' : 'false');
+      d.classList.toggle('is-active', k === i);
+      d.setAttribute('aria-selected', k === i ? 'true' : 'false');
     });
   }
-
   function next(){ show(i + 1); }
-
-  function start(){
-    stop();
-    if(reduceMotion) return;
-    timer = setInterval(next, interval);
-  }
-  function stop(){
-    if(timer){ clearInterval(timer); timer = null; }
-  }
-
+  function start(){ stop(); timer = setInterval(next, interval); }
+  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
   dots.forEach(function(d){
     d.addEventListener('click', function(){
-      var idx = parseInt(d.getAttribute('data-index'), 10);
-      show(idx);
+      show(parseInt(d.getAttribute('data-index'), 10) || 0);
       start();
     });
   });
-
   root.addEventListener('mouseenter', stop);
   root.addEventListener('mouseleave', start);
-  root.addEventListener('focusin', stop);
-  root.addEventListener('focusout', start);
-
   show(0);
   start();
 })();
