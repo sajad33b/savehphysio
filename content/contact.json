@@ -32,11 +32,13 @@
     "telegram_url": "https://t.me/savehphysio",
     "bale_url": "https://ble.ir/savehphysio",
     "rubika_url": "https://rubika.ir/savehphysio",
-    "map_provider": "openstreetmap",
+    "map_provider": "static-osm",
     "nav_google": "https://www.google.com/maps/dir/?api=1&destination=35.0274873,50.3543705",
     "nav_neshan": "https://nshn.ir/?lat=35.0274873&lng=50.3543705",
     "nav_balad": "https://balad.ir/location?latitude=35.0274873&longitude=50.3543705",
-    "nav_snapp": "https://app.snapp.taxi/pre-ride?destination_lat=35.0274873&destination_lng=50.3543705"
+    "nav_snapp": "https://app.snapp.taxi/pre-ride?destination_lat=35.0274873&destination_lng=50.3543705",
+    "map_image": "clinic-map.jpg",
+    "map_image_webp": "clinic-map.webp"
   },
   "meta": {
     "version": "2026-10-10-contact-skeleton",
