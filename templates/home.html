@@ -551,5 +551,31 @@
 </script>
 
 <!-- typography-v3-20261009 -->
+
+<script>
+(function(){
+  var root = document.querySelector('.credentials-slider');
+  if(!root) return;
+  var slides = Array.prototype.slice.call(root.querySelectorAll('.cred-slide'));
+  var dots = Array.prototype.slice.call(root.querySelectorAll('.cred-dot'));
+  if(!slides.length) return;
+  var i = 0, timer, interval = parseInt(root.getAttribute('data-interval')||'4000',10);
+  function show(n){
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function(s,k){ s.classList.toggle('is-active', k===i); });
+    dots.forEach(function(d,k){ d.classList.toggle('is-active', k===i); });
+  }
+  function next(){ show(i+1); }
+  function start(){ stop(); timer = setInterval(next, interval); }
+  function stop(){ if(timer) clearInterval(timer); }
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){ show(parseInt(d.getAttribute('data-index'),10)||0); start(); });
+  });
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+  start();
+})();
+</script>
+
 </body>
 </html>
