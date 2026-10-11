@@ -104,28 +104,34 @@ def render_faq(items: list) -> str:
     return "\n".join(parts)
 
 
+
 def render_testimonials(items: list) -> str:
-    parts = ['<div class="testimonials-carousel" id="testimonials-carousel">']
+    parts = ['<div class="testimonial-slider" data-interval="5000">', '<div class="testimonial-track">']
     for i, it in enumerate(items):
         active = " is-active" if i == 0 else ""
         name = esc(it.get("name", ""))
         city = esc(it.get("city", "ساوه"))
+        date = esc(it.get("date", ""))
         text = esc(it.get("text", ""))
+        cite = f"{name}، {city}" + (f" — {date}" if date else "")
         parts.append(
             f'<blockquote class="testimonial{active}" data-index="{i}">'
             f'<span class="testimonial-text">«{text}»</span>'
-            f"<cite>{name}، {city}</cite>"
+            f"<cite>{cite}</cite>"
             "</blockquote>"
         )
+    parts.append("</div>")
     parts.append('<div class="testimonial-dots" role="tablist" aria-label="انتخاب نظر">')
     for i in range(len(items)):
-        sel = ' aria-selected="true"' if i == 0 else ' aria-selected="false"'
+        sel = "true" if i == 0 else "false"
+        act = " is-active" if i == 0 else ""
         parts.append(
-            f'<button type="button" class="dot{" is-active" if i == 0 else ""}" '
-            f'data-index="{i}" role="tab"{sel} aria-label="نظر {i+1}"></button>'
+            f'<button type="button" class="testimonial-dot{act}" role="tab" '
+            f'aria-selected="{sel}" aria-label="نظر {i + 1}" data-index="{i}"></button>'
         )
     parts.append("</div></div>")
-    return "\n".join(parts)
+    return chr(10).join(parts)
+
 
 
 def build() -> None:
@@ -222,7 +228,7 @@ def build() -> None:
     if services.get("intro"):
         html = re.sub(
             r'(id="services"[\s\S]*?<h2>[^<]*</h2>\s*)<p[^>]*>.*?</p>',
-            rf"\1<p style=\"color: var(--muted);margin:0;\">{esc(services['intro'])}</p>",
+            lambda m: m.group(1) + '<p style="color: var(--muted);margin:0;">' + esc(services["intro"]) + "</p>",
             html,
             count=1,
             flags=re.S,
@@ -258,7 +264,7 @@ def build() -> None:
     if faq.get("intro"):
         html = re.sub(
             r'(id="faq"[\s\S]*?<h2>[^<]*</h2>\s*)<p[^>]*>.*?</p>',
-            rf"\1<p style=\"color: var(--muted);margin:0;\">{esc(faq['intro'])}</p>",
+            lambda m: m.group(1) + '<p style="color: var(--muted);margin:0;">' + esc(faq["intro"]) + "</p>",
             html,
             count=1,
             flags=re.S,
@@ -279,22 +285,52 @@ def build() -> None:
     if testi.get("intro"):
         html = re.sub(
             r'(id="testimonials"[\s\S]*?<h2>[^<]*</h2>\s*)<p[^>]*>.*?</p>',
-            rf"\1<p style=\"color: var(--muted);margin:0;\">{esc(testi['intro'])}</p>",
+            lambda m: m.group(1) + '<p style="color: var(--muted);margin:0;">' + esc(testi["intro"]) + "</p>",
+            html,
+            count=1,
+            flags=re.S,
+        )
+    if testi.get("google_reviews_url"):
+        gurl = esc(testi["google_reviews_url"])
+        html = re.sub(
+            r'(id="testimonials"[\s\S]*?<h2>[^<]*</h2>\s*<p[^>]*>.*?</p>)',
+            rf'\1<p class="reviews-link" style="margin:0.75rem 0 0"><a href="{gurl}" target="_blank" rel="noopener noreferrer">مشاهده نظرات در گوگل مپ</a></p>',
             html,
             count=1,
             flags=re.S,
         )
     if testi.get("items"):
         block = render_testimonials(testi["items"])
-        html = re.sub(
-            r'<div class="testimonials-carousel"[\s\S]*?</div>\s*</div>\s*</section>',
-            block + "\n</div>\n</section>",
+        html2, nsub = re.subn(
+            r'<div class="testimonial-slider"[^>]*>[\s\S]*?</div>\s*</div>\s*</section>',
+            block + "\n </div>\n</section>",
             html,
             count=1,
         )
+        if nsub:
+            html = html2
+        else:
+            html = re.sub(
+                r'<div class="testimonial-slider"[\s\S]*?<div class="testimonial-dots"[\s\S]*?</div>\s*</div>',
+                block,
+                html,
+                count=1,
+            )
+
+    # --- Stats ---
+    stats = c.get("stats", {})
+    if stats.get("items"):
+        parts = ['<div class="wrap">']
+        for it in stats["items"]:
+            parts.append(
+                f'<div class="stat"><b>{esc(it.get("value", ""))}</b>'
+                f'<span>{esc(it.get("label", ""))}</span></div>'
+            )
+        parts.append("</div>")
+        block = chr(10).join(parts)
         html = re.sub(
-            r'<div class="testimonials-carousel"[^>]*>[\s\S]*?</div>(\s*</div>\s*</section>)',
-            block + r"\1",
+            r'<section class="stats"[^>]*>[\s\S]*?</section>',
+            '<section class="stats">\n' + block + '\n</section>',
             html,
             count=1,
         )
