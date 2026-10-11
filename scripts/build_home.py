@@ -116,7 +116,7 @@ def render_testimonials(items: list) -> str:
         cite = f"{name}، {city}" + (f" — {date}" if date else "")
         parts.append(
             f'<blockquote class="testimonial{active}" data-index="{i}">'
-            f'<span class="testimonial-text">«{text}»</span>'
+            f'<span class="testimonial-quote" aria-hidden="true">“</span><span class="testimonial-text">{text}</span>'
             f"<cite>{cite}</cite>"
             "</blockquote>"
         )
