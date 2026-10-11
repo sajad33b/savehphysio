@@ -86,7 +86,6 @@ a.btn-secondary {
 .btn-call, .btn-land { background: var(--blue-deep, #0C243D) !important; color: #F5F7FA !important; }
 
 /* ردیف دکمه‌ها — همیشه کنار هم مثل صفحه اصلی */
-.hero-actions,
 .mid-cta-actions,
 .page-cta-actions,
 .contact-socials {
@@ -133,22 +132,44 @@ main p,
   text-justify: inter-word;
 }
 
-
-/* Hero actions: always 2 columns, golden gap */
-.hero-actions{
-  display:grid !important;
-  grid-template-columns:1fr 1fr !important;
-  gap:0.618rem !important;
-  width:100% !important;
-  max-width:22rem !important;
-  flex-direction:unset !important;
-  flex-wrap:unset !important;
+/* Hero 2-col FORCE */
+.hero .hero-actions,
+.hero-actions {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  grid-auto-flow: column !important;
+  grid-template-rows: auto !important;
+  gap: 0.618rem !important;
+  width: 100% !important;
+  max-width: 24rem !important;
+  margin-top: 0.5rem !important;
+  align-items: stretch !important;
 }
+.hero .hero-actions > a,
+.hero-actions > a,
 .hero-actions .btn-primary,
 .hero-actions .btn-wa,
-.hero-actions .btn-secondary{
-  flex:unset !important;
-  width:100% !important;
-  min-width:0 !important;
-  max-width:none !important;
+.hero-actions .btn-secondary,
+a.btn-wa.hero-btn,
+a.btn-secondary.hero-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  flex: none !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  font-size: 0.88rem !important;
+  padding: 0.618em 0.5em !important;
 }
+@media (max-width: 860px) {
+  .hero .hero-actions,
+  .hero-actions {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    width: 100% !important;
+  }
+}
+
