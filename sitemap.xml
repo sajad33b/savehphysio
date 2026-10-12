@@ -37,6 +37,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://savehphysio.ir/sitemap.html</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://savehphysio.ir/amp.html</loc>
     <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
