@@ -41,7 +41,6 @@
       font-family: inherit;
       margin-left: 10px;
     }
-    .menu-toggle:hover { background: rgba(255,255,255,0.15); }
     .layout {
       display: flex;
       min-height: calc(100vh - 42px);
@@ -108,6 +107,7 @@
       font-weight: bold;
     }
     .form-group input[type="text"],
+    .form-group input[type="password"],
     .form-group textarea {
       width: 100%;
       padding: 8px 10px;
@@ -142,12 +142,18 @@
       cursor: pointer;
     }
     .btn:hover { background: #e9ecef; }
+    .btn:disabled { opacity: 0.6; cursor: wait; }
     .btn-primary {
       background: #3a6ea5;
       border-color: #2c5282;
       color: #fff;
     }
     .btn-primary:hover { background: #2c5282; }
+    .btn-danger {
+      background: #c92a2a;
+      border-color: #a61e1e;
+      color: #fff;
+    }
     .msg {
       padding: 10px 12px;
       margin-bottom: 12px;
@@ -169,6 +175,14 @@
       border: 1px solid #dee2e6;
       border-radius: 2px;
     }
+    .token-status {
+      font-size: 12px;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 2px;
+    }
+    .token-status.ok { background: #d3f9d8; color: #2b8a3e; }
+    .token-status.missing { background: #fff3bf; color: #e67700; }
     .overlay {
       display: none;
       position: fixed;
@@ -208,12 +222,12 @@
       <button data-section="about">درباره ما</button>
       <button data-section="services">خدمات</button>
       <button data-section="posts">مطالب</button>
+      <button data-section="settings">تنظیمات ذخیره</button>
     </div>
 
     <div class="main" id="main">
       <div id="msg" class="msg"></div>
 
-      <!-- صفحه اصلی -->
       <div id="home" class="section active">
         <h2>ویرایش صفحه اصلی</h2>
         <div class="form-group">
@@ -229,13 +243,12 @@
           <input type="text" id="home-cta" />
         </div>
         <div class="buttons">
-          <button class="btn btn-primary" onclick="prepareSave('home')">ذخیره</button>
+          <button class="btn btn-primary" id="btn-save-home" onclick="realSave('home')">ذخیره</button>
           <button class="btn" onclick="loadHome(true)">بازخوانی</button>
         </div>
-        <div class="hint">بعد از زدن دکمه ذخیره، به من بگو «ذخیره کن home» تا تغییرات روی سایت اعمال شود.</div>
+        <div class="hint">با زدن ذخیره، فایل content/home.json مستقیماً در گیت‌هاب به‌روز می‌شود.</div>
       </div>
 
-      <!-- تماس -->
       <div id="contact" class="section">
         <h2>ویرایش اطلاعات تماس</h2>
         <div class="form-group">
@@ -267,13 +280,11 @@
           <input type="text" id="contact-instagram" />
         </div>
         <div class="buttons">
-          <button class="btn btn-primary" onclick="prepareSave('contact')">ذخیره</button>
+          <button class="btn btn-primary" onclick="realSave('contact')">ذخیره</button>
           <button class="btn" onclick="loadContact(true)">بازخوانی</button>
         </div>
-        <div class="hint">بعد از ذخیره به من بگو «ذخیره کن contact»</div>
       </div>
 
-      <!-- درباره ما -->
       <div id="about" class="section">
         <h2>ویرایش صفحه درباره ما</h2>
         <div class="form-group">
@@ -297,13 +308,11 @@
           <input type="text" id="about-medical-id" />
         </div>
         <div class="buttons">
-          <button class="btn btn-primary" onclick="prepareSave('about')">ذخیره</button>
+          <button class="btn btn-primary" onclick="realSave('about')">ذخیره</button>
           <button class="btn" onclick="loadAbout(true)">بازخوانی</button>
         </div>
-        <div class="hint">بعد از ذخیره به من بگو «ذخیره کن about»</div>
       </div>
 
-      <!-- خدمات -->
       <div id="services" class="section">
         <h2>ویرایش صفحه خدمات</h2>
         <div class="form-group">
@@ -315,28 +324,96 @@
           <textarea id="services-intro"></textarea>
         </div>
         <div class="buttons">
-          <button class="btn btn-primary" onclick="prepareSave('services')">ذخیره</button>
+          <button class="btn btn-primary" onclick="realSave('services')">ذخیره</button>
           <button class="btn" onclick="loadServices(true)">بازخوانی</button>
         </div>
-        <div class="hint">ویرایش لیست گروه‌ها و آیتم‌های خدمات در نسخه بعدی اضافه می‌شود. بعد از ذخیره به من بگو «ذخیره کن services»</div>
+        <div class="hint">ویرایش لیست گروه‌ها و آیتم‌های خدمات در نسخه بعدی اضافه می‌شود.</div>
       </div>
 
-      <!-- مطالب -->
       <div id="posts" class="section">
         <h2>مطالب وبلاگ</h2>
         <p style="color:#666; margin-bottom:12px;">در نسخه بعدی امکان افزودن و ویرایش مطالب اضافه می‌شود.</p>
-        <div class="hint">فعلاً فقط صفحات اصلی سایت از این پنل قابل ویرایش هستند.</div>
+      </div>
+
+      <div id="settings" class="section">
+        <h2>تنظیمات ذخیره (توکن گیت‌هاب)</h2>
+        <p style="margin-bottom:12px;color:#444;line-height:1.7;">
+          برای ذخیره واقعی، یک‌بار باید <strong>Personal Access Token</strong> از گیت‌هاب بسازی و اینجا ذخیره کنی.
+          توکن فقط روی همین مرورگر (localStorage) نگه داشته می‌شود و داخل سایت منتشر نمی‌شود.
+        </p>
+        <div class="form-group">
+          <label>توکن گیت‌هاب (ghp_...)</label>
+          <input type="password" id="gh-token" placeholder="ghp_xxxxxxxx" autocomplete="off" />
+        </div>
+        <div id="token-status" class="token-status missing">توکن تنظیم نشده</div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="saveToken()">ذخیره توکن</button>
+          <button class="btn btn-danger" onclick="clearToken()">پاک کردن توکن</button>
+        </div>
+        <div class="hint">
+          <strong>نحوه ساخت توکن:</strong><br>
+          1. برو به GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)<br>
+          2. Generate new token (classic)<br>
+          3. فقط تیک <strong>repo</strong> را بزن<br>
+          4. توکن را کپی کن و اینجا بچسبان
+        </div>
       </div>
     </div>
   </div>
 
   <script>
+    const REPO = 'sajad33b/savehphysio';
+    const BRANCH = 'main';
+    const FILE_MAP = {
+      home: 'content/home.json',
+      contact: 'content/contact.json',
+      about: 'content/about.json',
+      services: 'content/services.json'
+    };
+
     const sidebar = document.getElementById('sidebar');
     const main = document.getElementById('main');
     const overlay = document.getElementById('overlay');
     const menuToggle = document.getElementById('menuToggle');
     let menuOpen = true;
-    const loaded = { home: false, contact: false, about: false, services: false };
+
+    function getToken() {
+      return localStorage.getItem('gh_token') || '';
+    }
+
+    function updateTokenStatus() {
+      const el = document.getElementById('token-status');
+      const t = getToken();
+      if (t && t.startsWith('ghp_')) {
+        el.className = 'token-status ok';
+        el.textContent = 'توکن ذخیره شده است ✓ — آماده ذخیره واقعی';
+      } else {
+        el.className = 'token-status missing';
+        el.textContent = 'توکن تنظیم نشده — از منوی «تنظیمات ذخیره» وارد کن';
+      }
+    }
+
+    function saveToken() {
+      const v = document.getElementById('gh-token').value.trim();
+      if (!v) {
+        showMsg('توکن خالی است.', 'err');
+        return;
+      }
+      if (!v.startsWith('ghp_') && !v.startsWith('github_pat_')) {
+        showMsg('فرمت توکن درست به نظر نمی‌رسد (معمولاً با ghp_ شروع می‌شود).', 'err');
+        return;
+      }
+      localStorage.setItem('gh_token', v);
+      document.getElementById('gh-token').value = '';
+      updateTokenStatus();
+      showMsg('توکن ذخیره شد. حالا می‌توانی از بخش‌ها ذخیره واقعی بگیری.', 'ok');
+    }
+
+    function clearToken() {
+      localStorage.removeItem('gh_token');
+      updateTokenStatus();
+      showMsg('توکن پاک شد.', 'info');
+    }
 
     function updateMenuUI() {
       if (menuOpen) {
@@ -369,11 +446,11 @@
         btn.classList.add('active');
         document.getElementById(section).classList.add('active');
 
-        // بارگذاری خودکار اطلاعات هر بخش
         if (section === 'home') loadHome(false);
         else if (section === 'contact') loadContact(false);
         else if (section === 'about') loadAbout(false);
         else if (section === 'services') loadServices(false);
+        else if (section === 'settings') updateTokenStatus();
 
         if (window.innerWidth <= 700 && menuOpen) {
           menuOpen = false;
@@ -387,7 +464,7 @@
       el.className = 'msg ' + type;
       el.textContent = text;
       el.style.display = 'block';
-      setTimeout(() => el.style.display = 'none', 4000);
+      setTimeout(() => el.style.display = 'none', 6000);
     }
 
     async function loadHome(showMessage) {
@@ -397,7 +474,6 @@
         document.getElementById('home-h1').value = d.content?.hero?.h1 || '';
         document.getElementById('home-lead').value = d.content?.hero?.lead || '';
         document.getElementById('home-cta').value = d.content?.hero?.primary_cta_label || '';
-        loaded.home = true;
         if (showMessage) showMsg('اطلاعات صفحه اصلی خوانده شد.', 'ok');
       } catch (e) {
         showMsg('خطا در خواندن صفحه اصلی: ' + e.message, 'err');
@@ -415,7 +491,6 @@
         document.getElementById('contact-address').value = d.contact?.address || '';
         document.getElementById('contact-hours').value = d.contact?.hours || '';
         document.getElementById('contact-instagram').value = d.contact?.instagram || '';
-        loaded.contact = true;
         if (showMessage) showMsg('اطلاعات تماس خوانده شد.', 'ok');
       } catch (e) {
         showMsg('خطا در خواندن تماس: ' + e.message, 'err');
@@ -431,7 +506,6 @@
         document.getElementById('about-clinic').value = d.brand?.clinic_name || '';
         document.getElementById('about-physio').value = d.brand?.physiotherapist_name || '';
         document.getElementById('about-medical-id').value = d.brand?.medical_id || '';
-        loaded.about = true;
         if (showMessage) showMsg('صفحه درباره ما خوانده شد.', 'ok');
       } catch (e) {
         showMsg('خطا در خواندن درباره ما: ' + e.message, 'err');
@@ -444,28 +518,27 @@
         const d = await r.json();
         document.getElementById('services-h1').value = d.page?.h1 || '';
         document.getElementById('services-intro').value = d.page?.intro || '';
-        loaded.services = true;
         if (showMessage) showMsg('صفحه خدمات خوانده شد.', 'ok');
       } catch (e) {
         showMsg('خطا در خواندن خدمات: ' + e.message, 'err');
       }
     }
 
-    async function prepareSave(section) {
-      try {
-        let data;
+    function buildData(section) {
+      return (async () => {
         if (section === 'home') {
           const r = await fetch('/content/home.json?' + Date.now());
-          data = await r.json();
+          const data = await r.json();
           if (!data.content) data.content = {};
           if (!data.content.hero) data.content.hero = {};
           data.content.hero.h1 = document.getElementById('home-h1').value;
           data.content.hero.lead = document.getElementById('home-lead').value;
           data.content.hero.primary_cta_label = document.getElementById('home-cta').value;
-          localStorage.setItem('pending-home', JSON.stringify(data, null, 2));
-        } else if (section === 'contact') {
+          return data;
+        }
+        if (section === 'contact') {
           const r = await fetch('/content/contact.json?' + Date.now());
-          data = await r.json();
+          const data = await r.json();
           if (!data.page) data.page = {};
           if (!data.contact) data.contact = {};
           data.page.h1 = document.getElementById('contact-h1').value;
@@ -475,10 +548,11 @@
           data.contact.address = document.getElementById('contact-address').value;
           data.contact.hours = document.getElementById('contact-hours').value;
           data.contact.instagram = document.getElementById('contact-instagram').value;
-          localStorage.setItem('pending-contact', JSON.stringify(data, null, 2));
-        } else if (section === 'about') {
+          return data;
+        }
+        if (section === 'about') {
           const r = await fetch('/content/about.json?' + Date.now());
-          data = await r.json();
+          const data = await r.json();
           if (!data.page) data.page = {};
           if (!data.brand) data.brand = {};
           data.page.h1 = document.getElementById('about-h1').value;
@@ -486,23 +560,96 @@
           data.brand.clinic_name = document.getElementById('about-clinic').value;
           data.brand.physiotherapist_name = document.getElementById('about-physio').value;
           data.brand.medical_id = document.getElementById('about-medical-id').value;
-          localStorage.setItem('pending-about', JSON.stringify(data, null, 2));
-        } else if (section === 'services') {
+          return data;
+        }
+        if (section === 'services') {
           const r = await fetch('/content/services.json?' + Date.now());
-          data = await r.json();
+          const data = await r.json();
           if (!data.page) data.page = {};
           data.page.h1 = document.getElementById('services-h1').value;
           data.page.intro = document.getElementById('services-intro').value;
-          localStorage.setItem('pending-services', JSON.stringify(data, null, 2));
+          return data;
         }
-        showMsg('تغییرات آماده شد. بنویس: ذخیره کن ' + section, 'ok');
+        throw new Error('بخش نامعتبر');
+      })();
+    }
+
+    function toBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    async function realSave(section) {
+      const token = getToken();
+      if (!token) {
+        showMsg('اول از منوی «تنظیمات ذخیره» توکن گیت‌هاب را وارد کن.', 'err');
+        return;
+      }
+
+      const path = FILE_MAP[section];
+      if (!path) {
+        showMsg('بخش نامعتبر است.', 'err');
+        return;
+      }
+
+      showMsg('در حال ذخیره روی گیت‌هاب...', 'info');
+
+      try {
+        const data = await buildData(section);
+        const content = JSON.stringify(data, null, 2) + '\n';
+
+        // گرفتن SHA فعلی فایل
+        const metaRes = await fetch(
+          'https://api.github.com/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH,
+          {
+            headers: {
+              'Accept': 'application/vnd.github+json',
+              'Authorization': 'Bearer ' + token,
+              'X-GitHub-Api-Version': '2022-11-28'
+            }
+          }
+        );
+
+        if (!metaRes.ok) {
+          const err = await metaRes.json().catch(() => ({}));
+          throw new Error(err.message || ('خطا در خواندن فایل: ' + metaRes.status));
+        }
+
+        const meta = await metaRes.json();
+        const sha = meta.sha;
+
+        // نوشتن فایل
+        const putRes = await fetch(
+          'https://api.github.com/repos/' + REPO + '/contents/' + path,
+          {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/vnd.github+json',
+              'Authorization': 'Bearer ' + token,
+              'X-GitHub-Api-Version': '2022-11-28',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              message: 'admin: update ' + path,
+              content: toBase64(content),
+              sha: sha,
+              branch: BRANCH
+            })
+          }
+        );
+
+        if (!putRes.ok) {
+          const err = await putRes.json().catch(() => ({}));
+          throw new Error(err.message || ('خطا در ذخیره: ' + putRes.status));
+        }
+
+        showMsg('ذخیره شد ✓ — تغییرات روی گیت‌هاب ثبت شد. (صفحات HTML بعد از build به‌روز می‌شوند)', 'ok');
       } catch (e) {
-        showMsg('خطا: ' + e.message, 'err');
+        showMsg('خطا در ذخیره: ' + e.message, 'err');
       }
     }
 
-    // بارگذاری اولیه همه بخش‌ها
     updateMenuUI();
+    updateTokenStatus();
     loadHome(true);
     loadContact(false);
     loadAbout(false);
