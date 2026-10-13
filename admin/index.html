@@ -1,15 +1,354 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex" />
-  <title>پنل مدیریت | ابن‌سینا</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <title>پنل مدیریت | کلینیک ابن‌سینا ساوه</title>
+  <link rel="icon" type="image/png" href="/favicon-32.png" />
   <style>
-    body { margin:0; font-family:Tahoma,sans-serif; background:#f0f4f8; }
+    :root {
+      --blue: #0C243D;
+      --blue-mid: #1A5688;
+      --amber: #D9891F;
+      --bg: #F4F7FA;
+      --panel: #ffffff;
+      --text: #1a202c;
+      --muted: #4A5568;
+      --border: #E2E8F0;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Tahoma, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    .header {
+      background: var(--blue);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header h1 { font-size: 1.15rem; font-weight: 700; }
+    .header small { opacity: 0.8; font-size: 0.8rem; }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+    }
+    .card {
+      background: var(--panel);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(12,36,61,0.04);
+    }
+    .card h2 {
+      font-size: 1.05rem;
+      color: var(--blue);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+    label:first-child { margin-top: 0; }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #fff;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--blue-mid);
+      box-shadow: 0 0 0 3px rgba(26,86,136,0.12);
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    .btn {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-amber { background: var(--amber); }
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .status {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .status.ok { background: #c6f6d5; color: #22543d; display: block; }
+    .status.err { background: #fed7d7; color: #742a2a; display: block; }
+    .status.info { background: #bee3f8; color: #2a4365; display: block; }
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .menu button {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 14px 10px;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--blue);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .menu button.active, .menu button:hover {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue);
+    }
+    .section { display: none; }
+    .section.active { display: block; }
+    .note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      background: #edf2f7;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+    @media (max-width: 480px) {
+      .menu { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+  <div class="header">
+    <div>
+      <h1>پنل مدیریت</h1>
+      <small>کلینیک فیزیوتراپی ابن‌سینا ساوه</small>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="status" class="status"></div>
+
+    <div class="menu" id="menu">
+      <button data-section="home" class="active">صفحه اصلی</button>
+      <button data-section="contact">تماس و نوبت</button>
+      <button data-section="about">درباره ما</button>
+      <button data-section="services">خدمات</button>
+    </div>
+
+    <div id="home" class="section active">
+      <div class="card">
+        <h2>اطلاعات اصلی صفحه اول</h2>
+        <label>عنوان اصلی (H1)</label>
+        <input type="text" id="home-h1" />
+
+        <label>متن معرفی کوتاه</label>
+        <textarea id="home-lead"></textarea>
+
+        <label>متن دکمه تماس</label>
+        <input type="text" id="home-cta" />
+
+        <div class="btn-row">
+          <button class="btn" onclick="loadHome()">بارگذاری مجدد</button>
+          <button class="btn btn-amber" onclick="prepareSave('home')">آماده ذخیره</button>
+        </div>
+        <div class="note">
+          بعد از زدن «آماده ذخیره»، به من بگو «ذخیره کن» تا تغییرات را در سایت اعمال کنم.
+        </div>
+      </div>
+    </div>
+
+    <div id="contact" class="section">
+      <div class="card">
+        <h2>اطلاعات تماس و نوبت</h2>
+        <label>تلفن ثابت</label>
+        <input type="text" id="contact-landline" />
+        <label>موبایل / واتساپ</label>
+        <input type="text" id="contact-mobile" />
+        <label>آدرس</label>
+        <textarea id="contact-address"></textarea>
+        <label>ساعات کاری</label>
+        <input type="text" id="contact-hours" />
+        <label>اینستاگرام</label>
+        <input type="text" id="contact-instagram" />
+
+        <div class="btn-row">
+          <button class="btn" onclick="loadContact()">بارگذاری مجدد</button>
+          <button class="btn btn-amber" onclick="prepareSave('contact')">آماده ذخیره</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="about" class="section">
+      <div class="card">
+        <h2>صفحه درباره ما</h2>
+        <label>عنوان صفحه</label>
+        <input type="text" id="about-h1" />
+        <label>متن کوتاه معرفی</label>
+        <textarea id="about-lead"></textarea>
+
+        <div class="btn-row">
+          <button class="btn" onclick="loadAbout()">بارگذاری مجدد</button>
+          <button class="btn btn-amber" onclick="prepareSave('about')">آماده ذخیره</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="services" class="section">
+      <div class="card">
+        <h2>صفحه خدمات</h2>
+        <label>عنوان صفحه</label>
+        <input type="text" id="services-h1" />
+        <label>متن معرفی</label>
+        <textarea id="services-intro"></textarea>
+
+        <div class="btn-row">
+          <button class="btn" onclick="loadServices()">بارگذاری مجدد</button>
+          <button class="btn btn-amber" onclick="prepareSave('services')">آماده ذخیره</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.menu button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.menu button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.section).classList.add('active');
+      });
+    });
+
+    function showStatus(msg, type = 'info') {
+      const el = document.getElementById('status');
+      el.className = 'status ' + type;
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, 6000);
+    }
+
+    async function loadHome() {
+      try {
+        const res = await fetch('/content/home.json?t=' + Date.now());
+        const data = await res.json();
+        document.getElementById('home-h1').value = data.content?.hero?.h1 || '';
+        document.getElementById('home-lead').value = data.content?.hero?.lead || '';
+        document.getElementById('home-cta').value = data.content?.hero?.primary_cta_label || '';
+        showStatus('صفحه اصلی بارگذاری شد ✓', 'ok');
+      } catch (e) { showStatus('خطا: ' + e.message, 'err'); }
+    }
+
+    async function loadContact() {
+      try {
+        const res = await fetch('/content/contact.json?t=' + Date.now());
+        const data = await res.json();
+        document.getElementById('contact-landline').value = data.contact?.landline || '';
+        document.getElementById('contact-mobile').value = data.contact?.mobile || '';
+        document.getElementById('contact-address').value = data.contact?.address || '';
+        document.getElementById('contact-hours').value = data.contact?.hours || '';
+        document.getElementById('contact-instagram').value = data.contact?.instagram || '';
+        showStatus('اطلاعات تماس بارگذاری شد ✓', 'ok');
+      } catch (e) { showStatus('خطا: ' + e.message, 'err'); }
+    }
+
+    async function loadAbout() {
+      try {
+        const res = await fetch('/content/about.json?t=' + Date.now());
+        const data = await res.json();
+        document.getElementById('about-h1').value = data.page?.h1 || '';
+        document.getElementById('about-lead').value = data.page?.lead || '';
+        showStatus('درباره ما بارگذاری شد ✓', 'ok');
+      } catch (e) { showStatus('خطا: ' + e.message, 'err'); }
+    }
+
+    async function loadServices() {
+      try {
+        const res = await fetch('/content/services.json?t=' + Date.now());
+        const data = await res.json();
+        document.getElementById('services-h1').value = data.page?.h1 || '';
+        document.getElementById('services-intro').value = data.page?.intro || '';
+        showStatus('خدمات بارگذاری شد ✓', 'ok');
+      } catch (e) { showStatus('خطا: ' + e.message, 'err'); }
+    }
+
+    async function prepareSave(section) {
+      try {
+        let url, data;
+        if (section === 'home') {
+          const res = await fetch('/content/home.json?t=' + Date.now());
+          data = await res.json();
+          if (!data.content) data.content = {};
+          if (!data.content.hero) data.content.hero = {};
+          data.content.hero.h1 = document.getElementById('home-h1').value;
+          data.content.hero.lead = document.getElementById('home-lead').value;
+          data.content.hero.primary_cta_label = document.getElementById('home-cta').value;
+          localStorage.setItem('pending-home', JSON.stringify(data, null, 2));
+        } else if (section === 'contact') {
+          const res = await fetch('/content/contact.json?t=' + Date.now());
+          data = await res.json();
+          if (!data.contact) data.contact = {};
+          data.contact.landline = document.getElementById('contact-landline').value;
+          data.contact.mobile = document.getElementById('contact-mobile').value;
+          data.contact.address = document.getElementById('contact-address').value;
+          data.contact.hours = document.getElementById('contact-hours').value;
+          data.contact.instagram = document.getElementById('contact-instagram').value;
+          localStorage.setItem('pending-contact', JSON.stringify(data, null, 2));
+        } else if (section === 'about') {
+          const res = await fetch('/content/about.json?t=' + Date.now());
+          data = await res.json();
+          if (!data.page) data.page = {};
+          data.page.h1 = document.getElementById('about-h1').value;
+          data.page.lead = document.getElementById('about-lead').value;
+          localStorage.setItem('pending-about', JSON.stringify(data, null, 2));
+        } else if (section === 'services') {
+          const res = await fetch('/content/services.json?t=' + Date.now());
+          data = await res.json();
+          if (!data.page) data.page = {};
+          data.page.h1 = document.getElementById('services-h1').value;
+          data.page.intro = document.getElementById('services-intro').value;
+          localStorage.setItem('pending-services', JSON.stringify(data, null, 2));
+        }
+        showStatus('تغییرات آماده شد. حالا به من بگو «ذخیره کن ' + section + '» تا اعمال کنم.', 'ok');
+      } catch (e) {
+        showStatus('خطا: ' + e.message, 'err');
+      }
+    }
+
+    // بارگذاری اولیه
+    loadHome();
+  </script>
 </body>
 </html>
