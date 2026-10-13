@@ -14,61 +14,96 @@
       color: #222;
       font-size: 13px;
       line-height: 1.6;
+      overflow-x: hidden;
     }
+
+    /* هدر */
     .topbar {
       background: #3a6ea5;
       color: #fff;
-      padding: 8px 16px;
+      padding: 8px 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid #2c5282;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     .topbar .title { font-size: 14px; font-weight: bold; }
     .topbar .user { font-size: 12px; opacity: 0.9; }
+    .menu-toggle {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: inherit;
+      margin-left: 10px;
+    }
+    .menu-toggle:hover { background: rgba(255,255,255,0.15); }
 
+    /* لایه اصلی */
     .layout {
       display: flex;
-      flex-direction: row-reverse;
-      min-height: calc(100vh - 40px);
+      min-height: calc(100vh - 42px);
+      position: relative;
     }
 
+    /* منوی کشویی سمت راست */
     .sidebar {
-      width: 150px;
-      min-width: 150px;
+      width: 200px;
       background: #f8f9fa;
-      border-right: 1px solid #ced4da;
-      padding: 10px 0;
+      border-left: 1px solid #ced4da;
+      padding: 12px 0;
+      position: fixed;
+      top: 42px;
+      right: 0;
+      bottom: 0;
+      z-index: 90;
+      transform: translateX(0);
+      transition: transform 0.25s ease;
+      overflow-y: auto;
+    }
+    .sidebar.closed {
+      transform: translateX(100%);
     }
     .sidebar button {
       display: block;
       width: 100%;
       text-align: right;
-      padding: 10px 12px;
+      padding: 11px 16px;
       color: #333;
       border: none;
       background: none;
       font-family: inherit;
       font-size: 13px;
       cursor: pointer;
-      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
     }
     .sidebar button:hover,
     .sidebar button.active {
       background: #e9ecef;
-      border-left-color: #3a6ea5;
+      border-right-color: #3a6ea5;
       color: #1a365d;
       font-weight: bold;
     }
 
+    /* محتوای اصلی */
     .main {
       flex: 1;
       padding: 14px;
       background: #fff;
       border: 1px solid #ced4da;
       margin: 10px;
+      margin-right: 210px; /* جا برای منوی باز */
       border-radius: 3px;
-      overflow-x: auto;
+      transition: margin-right 0.25s ease;
+    }
+    .main.full {
+      margin-right: 10px;
     }
     .main h2 {
       font-size: 15px;
@@ -152,30 +187,46 @@
       border-radius: 2px;
     }
 
-    /* موبایل: منو همچنان عمودی و سمت راست بماند */
-    @media (max-width: 640px) {
+    /* اورلی برای موبایل وقتی منو باز است */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 42px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 80;
+    }
+    .overlay.show { display: block; }
+
+    @media (max-width: 700px) {
       .sidebar {
-        width: 120px;
-        min-width: 120px;
-      }
-      .sidebar button {
-        padding: 9px 8px;
-        font-size: 12px;
+        width: 220px;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.12);
       }
       .main {
-        margin: 6px;
-        padding: 12px;
+        margin-right: 10px;
+      }
+      .main.full {
+        margin-right: 10px;
       }
     }
   </style>
 </head>
 <body>
   <div class="topbar">
-    <div class="title">مدیریت وبلاگ — کلینیک ابن‌سینا ساوه</div>
+    <div style="display:flex;align-items:center;">
+      <button class="menu-toggle" id="menuToggle" title="باز و بسته کردن منو">☰</button>
+      <div class="title">مدیریت وبلاگ — کلینیک ابن‌سینا ساوه</div>
+    </div>
     <div class="user">سجاد علی‌کرمی</div>
   </div>
 
+  <div class="overlay" id="overlay"></div>
+
   <div class="layout">
+    <!-- منوی کشویی سمت راست -->
     <div class="sidebar" id="sidebar">
       <button data-section="home" class="active">صفحه اصلی</button>
       <button data-section="contact">تماس و نوبت</button>
@@ -184,7 +235,7 @@
       <button data-section="posts">مطالب</button>
     </div>
 
-    <div class="main">
+    <div class="main" id="main">
       <div id="msg" class="msg"></div>
 
       <div id="home" class="section active">
@@ -280,12 +331,47 @@
   </div>
 
   <script>
+    const sidebar = document.getElementById('sidebar');
+    const main = document.getElementById('main');
+    const overlay = document.getElementById('overlay');
+    const menuToggle = document.getElementById('menuToggle');
+
+    // وضعیت اولیه: منو باز
+    let menuOpen = true;
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        sidebar.classList.remove('closed');
+        main.classList.remove('full');
+        overlay.classList.remove('show');
+      } else {
+        sidebar.classList.add('closed');
+        main.classList.add('full');
+        // روی موبایل اورلی نشان بده
+        if (window.innerWidth <= 700) {
+          overlay.classList.add('show');
+        }
+      }
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', () => {
+      if (menuOpen) toggleMenu();
+    });
+
+    // کلیک روی آیتم منو
     document.querySelectorAll('.sidebar button').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         btn.classList.add('active');
         document.getElementById(btn.dataset.section).classList.add('active');
+
+        // روی موبایل بعد از انتخاب، منو را ببند
+        if (window.innerWidth <= 700 && menuOpen) {
+          toggleMenu();
+        }
       });
     });
 
