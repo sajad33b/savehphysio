@@ -29,17 +29,16 @@
 
     .layout {
       display: flex;
-      flex-direction: row;
+      flex-direction: row-reverse; /* منو را به راست می‌فرستد */
       min-height: calc(100vh - 40px);
     }
-    /* منو سمت راست */
+
     .sidebar {
       width: 180px;
       min-width: 180px;
       background: #f8f9fa;
-      border-left: 1px solid #ced4da;
+      border-right: 1px solid #ced4da;
       padding: 12px 0;
-      order: 2; /* در RTL این باعث می‌شود سمت راست بماند */
     }
     .sidebar button {
       display: block;
@@ -52,19 +51,18 @@
       font-family: inherit;
       font-size: 13px;
       cursor: pointer;
-      border-right: 3px solid transparent;
+      border-left: 3px solid transparent;
     }
     .sidebar button:hover,
     .sidebar button.active {
       background: #e9ecef;
-      border-right-color: #3a6ea5;
+      border-left-color: #3a6ea5;
       color: #1a365d;
       font-weight: bold;
     }
 
     .main {
       flex: 1;
-      order: 1;
       padding: 16px;
       background: #fff;
       border: 1px solid #ced4da;
@@ -159,23 +157,22 @@
       .sidebar {
         width: 100%;
         min-width: 100%;
-        order: 0;
         display: flex;
         overflow-x: auto;
-        border-left: none;
+        border-right: none;
         border-bottom: 1px solid #ced4da;
         padding: 0;
       }
       .sidebar button {
         white-space: nowrap;
-        border-right: none;
+        border-left: none;
         border-bottom: 3px solid transparent;
         padding: 10px 14px;
       }
       .sidebar button.active {
         border-bottom-color: #3a6ea5;
       }
-      .main { order: 1; margin: 8px; }
+      .main { margin: 8px; }
     }
   </style>
 </head>
@@ -186,6 +183,15 @@
   </div>
 
   <div class="layout">
+    <!-- منوی سمت راست -->
+    <div class="sidebar" id="sidebar">
+      <button data-section="home" class="active">صفحه اصلی</button>
+      <button data-section="contact">تماس و نوبت</button>
+      <button data-section="about">درباره ما</button>
+      <button data-section="services">خدمات</button>
+      <button data-section="posts">مطالب</button>
+    </div>
+
     <div class="main">
       <div id="msg" class="msg"></div>
 
@@ -278,15 +284,6 @@
         <p style="color:#666; margin-bottom:12px;">در نسخه بعدی امکان افزودن و ویرایش مطالب اضافه می‌شود.</p>
         <div class="hint">فعلاً فقط صفحات اصلی سایت از این پنل قابل ویرایش هستند.</div>
       </div>
-    </div>
-
-    <!-- منو سمت راست -->
-    <div class="sidebar" id="sidebar">
-      <button data-section="home" class="active">صفحه اصلی</button>
-      <button data-section="contact">تماس و نوبت</button>
-      <button data-section="about">درباره ما</button>
-      <button data-section="services">خدمات</button>
-      <button data-section="posts">مطالب</button>
     </div>
   </div>
 
