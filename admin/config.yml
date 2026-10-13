@@ -2,7 +2,12 @@ backend:
   name: github
   repo: sajad33b/savehphysio
   branch: main
-  base_url: https://savehphysio.ir
+  base_url: https://decap-cms-oauth.netlify.app
+  auth_endpoint: /auth
+
+# Client ID از OAuth App
+identity:
+  client_id: Ov23li2GuqGcnedFuJDO
 
 media_folder: ""
 public_folder: ""
@@ -88,16 +93,10 @@ collections:
             name: testimonials
             widget: object
             fields:
-              - { label: عنوان بخش, name: heading, widget: string }
-              - { label: متن معرفی, name: intro, widget: text }
-              - label: نظرات
-                name: items
-                widget: list
-                fields:
-                  - { label: نام, name: name, widget: string }
-                  - { label: شهر, name: city, widget: string }
-                  - { label: تاریخ, name: date, widget: string }
-                  - { label: متن نظر, name: text, widget: text }
+              - { label: نام, name: name, widget: string }
+              - { label: شهر, name: city, widget: string }
+              - { label: تاریخ, name: date, widget: string }
+              - { label: متن نظر, name: text, widget: text }
 
           - label: اطلاعات تماس (صفحه اصلی)
             name: contact
