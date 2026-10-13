@@ -15,7 +15,6 @@
       font-size: 13px;
       line-height: 1.6;
     }
-    /* هدر ساده شبیه بیان */
     .topbar {
       background: #3a6ea5;
       color: #fff;
@@ -28,24 +27,26 @@
     .topbar .title { font-size: 14px; font-weight: bold; }
     .topbar .user { font-size: 12px; opacity: 0.9; }
 
-    /* منوی کناری ساده */
     .layout {
       display: flex;
+      flex-direction: row;
       min-height: calc(100vh - 40px);
     }
+    /* منو سمت راست */
     .sidebar {
       width: 180px;
+      min-width: 180px;
       background: #f8f9fa;
       border-left: 1px solid #ced4da;
       padding: 12px 0;
+      order: 2; /* در RTL این باعث می‌شود سمت راست بماند */
     }
-    .sidebar a, .sidebar button {
+    .sidebar button {
       display: block;
       width: 100%;
       text-align: right;
       padding: 9px 16px;
       color: #333;
-      text-decoration: none;
       border: none;
       background: none;
       font-family: inherit;
@@ -53,17 +54,17 @@
       cursor: pointer;
       border-right: 3px solid transparent;
     }
-    .sidebar a:hover, .sidebar button:hover,
-    .sidebar a.active, .sidebar button.active {
+    .sidebar button:hover,
+    .sidebar button.active {
       background: #e9ecef;
       border-right-color: #3a6ea5;
       color: #1a365d;
       font-weight: bold;
     }
 
-    /* محتوای اصلی */
     .main {
       flex: 1;
+      order: 1;
       padding: 16px;
       background: #fff;
       border: 1px solid #ced4da;
@@ -78,10 +79,7 @@
       margin-bottom: 16px;
     }
 
-    /* فرم‌ها شبیه بیان */
-    .form-group {
-      margin-bottom: 14px;
-    }
+    .form-group { margin-bottom: 14px; }
     .form-group label {
       display: block;
       margin-bottom: 4px;
@@ -99,10 +97,7 @@
       font-size: 13px;
       background: #fff;
     }
-    .form-group textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+    .form-group textarea { min-height: 100px; resize: vertical; }
     .form-group input:focus,
     .form-group textarea:focus {
       outline: none;
@@ -110,7 +105,6 @@
       background: #f8fafc;
     }
 
-    /* دکمه‌ها */
     .buttons {
       margin-top: 18px;
       padding-top: 12px;
@@ -136,7 +130,6 @@
     }
     .btn-primary:hover { background: #2c5282; }
 
-    /* پیام وضعیت */
     .msg {
       padding: 10px 14px;
       margin-bottom: 14px;
@@ -161,11 +154,12 @@
       border-radius: 2px;
     }
 
-    /* موبایل */
     @media (max-width: 640px) {
       .layout { flex-direction: column; }
       .sidebar {
         width: 100%;
+        min-width: 100%;
+        order: 0;
         display: flex;
         overflow-x: auto;
         border-left: none;
@@ -180,9 +174,8 @@
       }
       .sidebar button.active {
         border-bottom-color: #3a6ea5;
-        border-right: none;
       }
-      .main { margin: 8px; }
+      .main { order: 1; margin: 8px; }
     }
   </style>
 </head>
@@ -193,18 +186,9 @@
   </div>
 
   <div class="layout">
-    <div class="sidebar" id="sidebar">
-      <button data-section="home" class="active">صفحه اصلی</button>
-      <button data-section="contact">تماس و نوبت</button>
-      <button data-section="about">درباره ما</button>
-      <button data-section="services">خدمات</button>
-      <button data-section="posts">مطالب</button>
-    </div>
-
     <div class="main">
       <div id="msg" class="msg"></div>
 
-      <!-- صفحه اصلی -->
       <div id="home" class="section active">
         <h2>ویرایش صفحه اصلی</h2>
         <div class="form-group">
@@ -226,7 +210,6 @@
         <div class="hint">بعد از زدن دکمه ذخیره، به من بگو «ذخیره کن home» تا تغییرات روی سایت اعمال شود.</div>
       </div>
 
-      <!-- تماس -->
       <div id="contact" class="section">
         <h2>ویرایش اطلاعات تماس</h2>
         <div class="form-group">
@@ -256,7 +239,6 @@
         <div class="hint">بعد از ذخیره به من بگو «ذخیره کن contact»</div>
       </div>
 
-      <!-- درباره ما -->
       <div id="about" class="section">
         <h2>ویرایش صفحه درباره ما</h2>
         <div class="form-group">
@@ -274,7 +256,6 @@
         <div class="hint">بعد از ذخیره به من بگو «ذخیره کن about»</div>
       </div>
 
-      <!-- خدمات -->
       <div id="services" class="section">
         <h2>ویرایش صفحه خدمات</h2>
         <div class="form-group">
@@ -292,17 +273,24 @@
         <div class="hint">بعد از ذخیره به من بگو «ذخیره کن services»</div>
       </div>
 
-      <!-- مطالب -->
       <div id="posts" class="section">
         <h2>مطالب وبلاگ</h2>
         <p style="color:#666; margin-bottom:12px;">در نسخه بعدی امکان افزودن و ویرایش مطالب اضافه می‌شود.</p>
         <div class="hint">فعلاً فقط صفحات اصلی سایت از این پنل قابل ویرایش هستند.</div>
       </div>
     </div>
+
+    <!-- منو سمت راست -->
+    <div class="sidebar" id="sidebar">
+      <button data-section="home" class="active">صفحه اصلی</button>
+      <button data-section="contact">تماس و نوبت</button>
+      <button data-section="about">درباره ما</button>
+      <button data-section="services">خدمات</button>
+      <button data-section="posts">مطالب</button>
+    </div>
   </div>
 
   <script>
-    // منو
     document.querySelectorAll('.sidebar button').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active'));
@@ -407,7 +395,6 @@
       }
     }
 
-    // بارگذاری اولیه
     loadHome();
   </script>
 </body>
