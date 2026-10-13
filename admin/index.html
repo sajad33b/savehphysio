@@ -4,312 +4,372 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>پنل مدیریت | کلینیک ابن‌سینا ساوه</title>
+  <title>مدیریت وبلاگ | ابن‌سینا ساوه</title>
   <link rel="icon" type="image/png" href="/favicon-32.png" />
   <style>
-    :root {
-      --blue: #0C243D;
-      --blue-mid: #1A5688;
-      --amber: #D9891F;
-      --bg: #F4F7FA;
-      --panel: #ffffff;
-      --text: #1a202c;
-      --muted: #4A5568;
-      --border: #E2E8F0;
-      --radius: 10px;
-    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: Tahoma, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-    .header {
-      background: var(--blue);
-      color: white;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .header h1 { font-size: 1.15rem; font-weight: 700; }
-    .header small { opacity: 0.8; font-size: 0.8rem; }
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 20px 16px 60px;
-    }
-    .card {
-      background: var(--panel);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(12,36,61,0.04);
-    }
-    .card h2 {
-      font-size: 1.05rem;
-      color: var(--blue);
-      margin-bottom: 14px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-    label {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 6px;
-      margin-top: 14px;
-    }
-    label:first-child { margin-top: 0; }
-    input[type="text"], textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-family: inherit;
-      background: #fff;
-    }
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: var(--blue-mid);
-      box-shadow: 0 0 0 3px rgba(26,86,136,0.12);
-    }
-    textarea { min-height: 90px; resize: vertical; }
-    .btn {
-      display: inline-block;
-      background: var(--blue);
-      color: white;
-      border: none;
-      padding: 12px 22px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .btn-amber { background: var(--amber); }
-    .btn-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .status {
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      font-size: 0.9rem;
-      display: none;
-    }
-    .status.ok { background: #c6f6d5; color: #22543d; display: block; }
-    .status.err { background: #fed7d7; color: #742a2a; display: block; }
-    .status.info { background: #bee3f8; color: #2a4365; display: block; }
-    .menu {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .menu button {
-      background: white;
-      border: 1px solid var(--border);
-      padding: 14px 10px;
-      border-radius: var(--radius);
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--blue);
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .menu button.active, .menu button:hover {
-      background: var(--blue);
-      color: white;
-      border-color: var(--blue);
-    }
-    .section { display: none; }
-    .section.active { display: block; }
-    .note {
-      font-size: 0.85rem;
-      color: var(--muted);
-      background: #edf2f7;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 16px;
+      font-family: Tahoma, Arial, sans-serif;
+      background: #e9ecef;
+      color: #222;
+      font-size: 13px;
       line-height: 1.6;
     }
-    @media (max-width: 480px) {
-      .menu { grid-template-columns: 1fr; }
+    /* هدر ساده شبیه بیان */
+    .topbar {
+      background: #3a6ea5;
+      color: #fff;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #2c5282;
+    }
+    .topbar .title { font-size: 14px; font-weight: bold; }
+    .topbar .user { font-size: 12px; opacity: 0.9; }
+
+    /* منوی کناری ساده */
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 40px);
+    }
+    .sidebar {
+      width: 180px;
+      background: #f8f9fa;
+      border-left: 1px solid #ced4da;
+      padding: 12px 0;
+    }
+    .sidebar a, .sidebar button {
+      display: block;
+      width: 100%;
+      text-align: right;
+      padding: 9px 16px;
+      color: #333;
+      text-decoration: none;
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      border-right: 3px solid transparent;
+    }
+    .sidebar a:hover, .sidebar button:hover,
+    .sidebar a.active, .sidebar button.active {
+      background: #e9ecef;
+      border-right-color: #3a6ea5;
+      color: #1a365d;
+      font-weight: bold;
+    }
+
+    /* محتوای اصلی */
+    .main {
+      flex: 1;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid #ced4da;
+      margin: 12px;
+      border-radius: 3px;
+    }
+    .main h2 {
+      font-size: 15px;
+      color: #1a365d;
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    /* فرم‌ها شبیه بیان */
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      color: #444;
+      font-weight: bold;
+    }
+    .form-group input[type="text"],
+    .form-group textarea {
+      width: 100%;
+      max-width: 560px;
+      padding: 7px 10px;
+      border: 1px solid #adb5bd;
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 13px;
+      background: #fff;
+    }
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #3a6ea5;
+      background: #f8fafc;
+    }
+
+    /* دکمه‌ها */
+    .buttons {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid #dee2e6;
+    }
+    .btn {
+      display: inline-block;
+      padding: 7px 18px;
+      margin-left: 8px;
+      border: 1px solid #adb5bd;
+      border-radius: 2px;
+      background: #f1f3f5;
+      color: #333;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .btn:hover { background: #e9ecef; }
+    .btn-primary {
+      background: #3a6ea5;
+      border-color: #2c5282;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #2c5282; }
+
+    /* پیام وضعیت */
+    .msg {
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      border-radius: 2px;
+      font-size: 13px;
+      display: none;
+    }
+    .msg.ok { background: #d3f9d8; border: 1px solid #8ce99a; color: #2b8a3e; display: block; }
+    .msg.err { background: #ffe3e3; border: 1px solid #ffa8a8; color: #c92a2a; display: block; }
+    .msg.info { background: #d0ebff; border: 1px solid #74c0fc; color: #1864ab; display: block; }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .hint {
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+      background: #f8f9fa;
+      padding: 8px 12px;
+      border: 1px solid #dee2e6;
+      border-radius: 2px;
+    }
+
+    /* موبایل */
+    @media (max-width: 640px) {
+      .layout { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+        border-left: none;
+        border-bottom: 1px solid #ced4da;
+        padding: 0;
+      }
+      .sidebar button {
+        white-space: nowrap;
+        border-right: none;
+        border-bottom: 3px solid transparent;
+        padding: 10px 14px;
+      }
+      .sidebar button.active {
+        border-bottom-color: #3a6ea5;
+        border-right: none;
+      }
+      .main { margin: 8px; }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div>
-      <h1>پنل مدیریت</h1>
-      <small>کلینیک فیزیوتراپی ابن‌سینا ساوه</small>
-    </div>
+  <div class="topbar">
+    <div class="title">مدیریت وبلاگ — کلینیک ابن‌سینا ساوه</div>
+    <div class="user">سجاد علی‌کرمی</div>
   </div>
 
-  <div class="container">
-    <div id="status" class="status"></div>
-
-    <div class="menu" id="menu">
+  <div class="layout">
+    <div class="sidebar" id="sidebar">
       <button data-section="home" class="active">صفحه اصلی</button>
       <button data-section="contact">تماس و نوبت</button>
       <button data-section="about">درباره ما</button>
       <button data-section="services">خدمات</button>
+      <button data-section="posts">مطالب</button>
     </div>
 
-    <div id="home" class="section active">
-      <div class="card">
-        <h2>اطلاعات اصلی صفحه اول</h2>
-        <label>عنوان اصلی (H1)</label>
-        <input type="text" id="home-h1" />
+    <div class="main">
+      <div id="msg" class="msg"></div>
 
-        <label>متن معرفی کوتاه</label>
-        <textarea id="home-lead"></textarea>
-
-        <label>متن دکمه تماس</label>
-        <input type="text" id="home-cta" />
-
-        <div class="btn-row">
-          <button class="btn" onclick="loadHome()">بارگذاری مجدد</button>
-          <button class="btn btn-amber" onclick="prepareSave('home')">آماده ذخیره</button>
+      <!-- صفحه اصلی -->
+      <div id="home" class="section active">
+        <h2>ویرایش صفحه اصلی</h2>
+        <div class="form-group">
+          <label>عنوان اصلی صفحه</label>
+          <input type="text" id="home-h1" />
         </div>
-        <div class="note">
-          بعد از زدن «آماده ذخیره»، به من بگو «ذخیره کن» تا تغییرات را در سایت اعمال کنم.
+        <div class="form-group">
+          <label>متن معرفی (لید)</label>
+          <textarea id="home-lead"></textarea>
         </div>
+        <div class="form-group">
+          <label>متن دکمه تماس</label>
+          <input type="text" id="home-cta" />
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="prepareSave('home')">ذخیره</button>
+          <button class="btn" onclick="loadHome()">بازخوانی</button>
+        </div>
+        <div class="hint">بعد از زدن دکمه ذخیره، به من بگو «ذخیره کن home» تا تغییرات روی سایت اعمال شود.</div>
       </div>
-    </div>
 
-    <div id="contact" class="section">
-      <div class="card">
-        <h2>اطلاعات تماس و نوبت</h2>
-        <label>تلفن ثابت</label>
-        <input type="text" id="contact-landline" />
-        <label>موبایل / واتساپ</label>
-        <input type="text" id="contact-mobile" />
-        <label>آدرس</label>
-        <textarea id="contact-address"></textarea>
-        <label>ساعات کاری</label>
-        <input type="text" id="contact-hours" />
-        <label>اینستاگرام</label>
-        <input type="text" id="contact-instagram" />
-
-        <div class="btn-row">
-          <button class="btn" onclick="loadContact()">بارگذاری مجدد</button>
-          <button class="btn btn-amber" onclick="prepareSave('contact')">آماده ذخیره</button>
+      <!-- تماس -->
+      <div id="contact" class="section">
+        <h2>ویرایش اطلاعات تماس</h2>
+        <div class="form-group">
+          <label>تلفن ثابت</label>
+          <input type="text" id="contact-landline" />
         </div>
+        <div class="form-group">
+          <label>موبایل / واتساپ</label>
+          <input type="text" id="contact-mobile" />
+        </div>
+        <div class="form-group">
+          <label>آدرس</label>
+          <textarea id="contact-address"></textarea>
+        </div>
+        <div class="form-group">
+          <label>ساعات کاری</label>
+          <input type="text" id="contact-hours" />
+        </div>
+        <div class="form-group">
+          <label>اینستاگرام</label>
+          <input type="text" id="contact-instagram" />
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="prepareSave('contact')">ذخیره</button>
+          <button class="btn" onclick="loadContact()">بازخوانی</button>
+        </div>
+        <div class="hint">بعد از ذخیره به من بگو «ذخیره کن contact»</div>
       </div>
-    </div>
 
-    <div id="about" class="section">
-      <div class="card">
-        <h2>صفحه درباره ما</h2>
-        <label>عنوان صفحه</label>
-        <input type="text" id="about-h1" />
-        <label>متن کوتاه معرفی</label>
-        <textarea id="about-lead"></textarea>
-
-        <div class="btn-row">
-          <button class="btn" onclick="loadAbout()">بارگذاری مجدد</button>
-          <button class="btn btn-amber" onclick="prepareSave('about')">آماده ذخیره</button>
+      <!-- درباره ما -->
+      <div id="about" class="section">
+        <h2>ویرایش صفحه درباره ما</h2>
+        <div class="form-group">
+          <label>عنوان صفحه</label>
+          <input type="text" id="about-h1" />
         </div>
+        <div class="form-group">
+          <label>متن کوتاه</label>
+          <textarea id="about-lead"></textarea>
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="prepareSave('about')">ذخیره</button>
+          <button class="btn" onclick="loadAbout()">بازخوانی</button>
+        </div>
+        <div class="hint">بعد از ذخیره به من بگو «ذخیره کن about»</div>
       </div>
-    </div>
 
-    <div id="services" class="section">
-      <div class="card">
-        <h2>صفحه خدمات</h2>
-        <label>عنوان صفحه</label>
-        <input type="text" id="services-h1" />
-        <label>متن معرفی</label>
-        <textarea id="services-intro"></textarea>
-
-        <div class="btn-row">
-          <button class="btn" onclick="loadServices()">بارگذاری مجدد</button>
-          <button class="btn btn-amber" onclick="prepareSave('services')">آماده ذخیره</button>
+      <!-- خدمات -->
+      <div id="services" class="section">
+        <h2>ویرایش صفحه خدمات</h2>
+        <div class="form-group">
+          <label>عنوان صفحه</label>
+          <input type="text" id="services-h1" />
         </div>
+        <div class="form-group">
+          <label>متن معرفی</label>
+          <textarea id="services-intro"></textarea>
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="prepareSave('services')">ذخیره</button>
+          <button class="btn" onclick="loadServices()">بازخوانی</button>
+        </div>
+        <div class="hint">بعد از ذخیره به من بگو «ذخیره کن services»</div>
+      </div>
+
+      <!-- مطالب -->
+      <div id="posts" class="section">
+        <h2>مطالب وبلاگ</h2>
+        <p style="color:#666; margin-bottom:12px;">در نسخه بعدی امکان افزودن و ویرایش مطالب اضافه می‌شود.</p>
+        <div class="hint">فعلاً فقط صفحات اصلی سایت از این پنل قابل ویرایش هستند.</div>
       </div>
     </div>
   </div>
 
   <script>
-    document.querySelectorAll('.menu button').forEach(btn => {
+    // منو
+    document.querySelectorAll('.sidebar button').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.menu button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         btn.classList.add('active');
         document.getElementById(btn.dataset.section).classList.add('active');
       });
     });
 
-    function showStatus(msg, type = 'info') {
-      const el = document.getElementById('status');
-      el.className = 'status ' + type;
-      el.textContent = msg;
+    function showMsg(text, type) {
+      const el = document.getElementById('msg');
+      el.className = 'msg ' + type;
+      el.textContent = text;
       el.style.display = 'block';
-      setTimeout(() => { el.style.display = 'none'; }, 6000);
+      setTimeout(() => el.style.display = 'none', 5000);
     }
 
     async function loadHome() {
       try {
-        const res = await fetch('/content/home.json?t=' + Date.now());
-        const data = await res.json();
-        document.getElementById('home-h1').value = data.content?.hero?.h1 || '';
-        document.getElementById('home-lead').value = data.content?.hero?.lead || '';
-        document.getElementById('home-cta').value = data.content?.hero?.primary_cta_label || '';
-        showStatus('صفحه اصلی بارگذاری شد ✓', 'ok');
-      } catch (e) { showStatus('خطا: ' + e.message, 'err'); }
+        const r = await fetch('/content/home.json?' + Date.now());
+        const d = await r.json();
+        document.getElementById('home-h1').value = d.content?.hero?.h1 || '';
+        document.getElementById('home-lead').value = d.content?.hero?.lead || '';
+        document.getElementById('home-cta').value = d.content?.hero?.primary_cta_label || '';
+        showMsg('اطلاعات صفحه اصلی خوانده شد.', 'ok');
+      } catch(e) { showMsg('خطا در خواندن: ' + e.message, 'err'); }
     }
 
     async function loadContact() {
       try {
-        const res = await fetch('/content/contact.json?t=' + Date.now());
-        const data = await res.json();
-        document.getElementById('contact-landline').value = data.contact?.landline || '';
-        document.getElementById('contact-mobile').value = data.contact?.mobile || '';
-        document.getElementById('contact-address').value = data.contact?.address || '';
-        document.getElementById('contact-hours').value = data.contact?.hours || '';
-        document.getElementById('contact-instagram').value = data.contact?.instagram || '';
-        showStatus('اطلاعات تماس بارگذاری شد ✓', 'ok');
-      } catch (e) { showStatus('خطا: ' + e.message, 'err'); }
+        const r = await fetch('/content/contact.json?' + Date.now());
+        const d = await r.json();
+        document.getElementById('contact-landline').value = d.contact?.landline || '';
+        document.getElementById('contact-mobile').value = d.contact?.mobile || '';
+        document.getElementById('contact-address').value = d.contact?.address || '';
+        document.getElementById('contact-hours').value = d.contact?.hours || '';
+        document.getElementById('contact-instagram').value = d.contact?.instagram || '';
+        showMsg('اطلاعات تماس خوانده شد.', 'ok');
+      } catch(e) { showMsg('خطا: ' + e.message, 'err'); }
     }
 
     async function loadAbout() {
       try {
-        const res = await fetch('/content/about.json?t=' + Date.now());
-        const data = await res.json();
-        document.getElementById('about-h1').value = data.page?.h1 || '';
-        document.getElementById('about-lead').value = data.page?.lead || '';
-        showStatus('درباره ما بارگذاری شد ✓', 'ok');
-      } catch (e) { showStatus('خطا: ' + e.message, 'err'); }
+        const r = await fetch('/content/about.json?' + Date.now());
+        const d = await r.json();
+        document.getElementById('about-h1').value = d.page?.h1 || '';
+        document.getElementById('about-lead').value = d.page?.lead || '';
+        showMsg('صفحه درباره ما خوانده شد.', 'ok');
+      } catch(e) { showMsg('خطا: ' + e.message, 'err'); }
     }
 
     async function loadServices() {
       try {
-        const res = await fetch('/content/services.json?t=' + Date.now());
-        const data = await res.json();
-        document.getElementById('services-h1').value = data.page?.h1 || '';
-        document.getElementById('services-intro').value = data.page?.intro || '';
-        showStatus('خدمات بارگذاری شد ✓', 'ok');
-      } catch (e) { showStatus('خطا: ' + e.message, 'err'); }
+        const r = await fetch('/content/services.json?' + Date.now());
+        const d = await r.json();
+        document.getElementById('services-h1').value = d.page?.h1 || '';
+        document.getElementById('services-intro').value = d.page?.intro || '';
+        showMsg('صفحه خدمات خوانده شد.', 'ok');
+      } catch(e) { showMsg('خطا: ' + e.message, 'err'); }
     }
 
     async function prepareSave(section) {
       try {
-        let url, data;
+        let data;
         if (section === 'home') {
-          const res = await fetch('/content/home.json?t=' + Date.now());
-          data = await res.json();
+          const r = await fetch('/content/home.json?' + Date.now());
+          data = await r.json();
           if (!data.content) data.content = {};
           if (!data.content.hero) data.content.hero = {};
           data.content.hero.h1 = document.getElementById('home-h1').value;
@@ -317,8 +377,8 @@
           data.content.hero.primary_cta_label = document.getElementById('home-cta').value;
           localStorage.setItem('pending-home', JSON.stringify(data, null, 2));
         } else if (section === 'contact') {
-          const res = await fetch('/content/contact.json?t=' + Date.now());
-          data = await res.json();
+          const r = await fetch('/content/contact.json?' + Date.now());
+          data = await r.json();
           if (!data.contact) data.contact = {};
           data.contact.landline = document.getElementById('contact-landline').value;
           data.contact.mobile = document.getElementById('contact-mobile').value;
@@ -327,23 +387,23 @@
           data.contact.instagram = document.getElementById('contact-instagram').value;
           localStorage.setItem('pending-contact', JSON.stringify(data, null, 2));
         } else if (section === 'about') {
-          const res = await fetch('/content/about.json?t=' + Date.now());
-          data = await res.json();
+          const r = await fetch('/content/about.json?' + Date.now());
+          data = await r.json();
           if (!data.page) data.page = {};
           data.page.h1 = document.getElementById('about-h1').value;
           data.page.lead = document.getElementById('about-lead').value;
           localStorage.setItem('pending-about', JSON.stringify(data, null, 2));
         } else if (section === 'services') {
-          const res = await fetch('/content/services.json?t=' + Date.now());
-          data = await res.json();
+          const r = await fetch('/content/services.json?' + Date.now());
+          data = await r.json();
           if (!data.page) data.page = {};
           data.page.h1 = document.getElementById('services-h1').value;
           data.page.intro = document.getElementById('services-intro').value;
           localStorage.setItem('pending-services', JSON.stringify(data, null, 2));
         }
-        showStatus('تغییرات آماده شد. حالا به من بگو «ذخیره کن ' + section + '» تا اعمال کنم.', 'ok');
-      } catch (e) {
-        showStatus('خطا: ' + e.message, 'err');
+        showMsg('تغییرات آماده شد. حالا بنویس: ذخیره کن ' + section, 'ok');
+      } catch(e) {
+        showMsg('خطا: ' + e.message, 'err');
       }
     }
 
