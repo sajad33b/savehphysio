@@ -5,175 +5,22 @@ backend:
   base_url: https://decap-cms-oauth.netlify.app
   auth_endpoint: /auth
 
-media_folder: "media"
-public_folder: "/media"
+media_folder: media
+public_folder: /media
 
-locale: 'fa'
-
-slug:
-  encoding: 'unicode'
-  clean_accents: false
+locale: fa
 
 collections:
-  - name: 'home'
-    label: 'صفحه اصلی'
-    file: 'content/home.json'
-    format: 'json'
+  - name: home
+    label: صفحه اصلی
+    file: content/home.json
+    format: json
     fields:
-      - label: 'سئو'
-        name: 'seo'
-        widget: 'object'
-        collapsed: true
-        fields:
-          - {label: 'عنوان صفحه', name: 'title', widget: 'string'}
-          - {label: 'توضیحات', name: 'description', widget: 'text'}
-          - {label: 'آدرس کانونیکال', name: 'canonical', widget: 'string'}
-          - {label: 'عنوان شبکه‌های اجتماعی', name: 'og_title', widget: 'string'}
-          - {label: 'توضیح شبکه‌های اجتماعی', name: 'og_description', widget: 'text'}
+      - { label: عنوان صفحه, name: title, widget: string, required: false }
 
-      - label: 'محتوای صفحه'
-        name: 'content'
-        widget: 'object'
-        fields:
-          - label: 'برند'
-            name: 'brand'
-            widget: 'object'
-            fields:
-              - {label: 'نام کلینیک', name: 'clinic_name', widget: 'string'}
-              - {label: 'نام کوتاه', name: 'short_name', widget: 'string'}
-              - {label: 'نام فیزیوتراپیست', name: 'physiotherapist_name', widget: 'string'}
-              - {label: 'شماره نظام پزشکی', name: 'medical_id', widget: 'string'}
-
-          - label: 'بخش قهرمان'
-            name: 'hero'
-            widget: 'object'
-            fields:
-              - {label: 'عنوان اصلی', name: 'h1', widget: 'string'}
-              - {label: 'متن معرفی', name: 'lead', widget: 'text'}
-              - {label: 'متن دکمه اصلی', name: 'primary_cta_label', widget: 'string'}
-
-          - label: 'رویکرد درمان'
-            name: 'about'
-            widget: 'object'
-            fields:
-              - {label: 'عنوان بخش', name: 'heading', widget: 'string'}
-              - label: 'پاراگراف‌ها'
-                name: 'paragraphs'
-                widget: 'list'
-                field: {label: 'پاراگراف', name: 'p', widget: 'text'}
-
-          - label: 'سوالات متداول'
-            name: 'faq'
-            widget: 'object'
-            fields:
-              - {label: 'عنوان بخش', name: 'heading', widget: 'string'}
-              - {label: 'متن معرفی', name: 'intro', widget: 'text'}
-              - label: 'سوالات'
-                name: 'items'
-                widget: 'list'
-                fields:
-                  - {label: 'سوال', name: 'question', widget: 'string'}
-                  - {label: 'پاسخ', name: 'answer', widget: 'text'}
-
-          - label: 'نظرات مراجعان'
-            name: 'testimonials'
-            widget: 'object'
-            fields:
-              - {label: 'عنوان بخش', name: 'heading', widget: 'string'}
-              - {label: 'متن معرفی', name: 'intro', widget: 'text'}
-              - label: 'نظرات'
-                name: 'items'
-                widget: 'list'
-                fields:
-                  - {label: 'نام', name: 'name', widget: 'string'}
-                  - {label: 'شهر', name: 'city', widget: 'string'}
-                  - {label: 'تاریخ', name: 'date', widget: 'string'}
-                  - {label: 'متن نظر', name: 'text', widget: 'text'}
-
-          - label: 'اطلاعات تماس'
-            name: 'contact'
-            widget: 'object'
-            fields:
-              - {label: 'تلفن ثابت', name: 'landline', widget: 'string'}
-              - {label: 'موبایل', name: 'mobile', widget: 'string'}
-              - {label: 'آدرس', name: 'address', widget: 'text'}
-              - {label: 'ساعات کاری', name: 'hours', widget: 'string'}
-
-  - name: 'about'
-    label: 'درباره ما'
-    file: 'content/about.json'
-    format: 'json'
+  - name: contact
+    label: تماس
+    file: content/contact.json
+    format: json
     fields:
-      - label: 'سئو'
-        name: 'seo'
-        widget: 'object'
-        collapsed: true
-        fields:
-          - {label: 'عنوان', name: 'title', widget: 'string'}
-          - {label: 'توضیحات', name: 'description', widget: 'text'}
-      - label: 'صفحه'
-        name: 'page'
-        widget: 'object'
-        fields:
-          - {label: 'عنوان اصلی', name: 'h1', widget: 'string'}
-          - {label: 'متن کوتاه', name: 'lead', widget: 'text'}
-
-  - name: 'services'
-    label: 'خدمات'
-    file: 'content/services.json'
-    format: 'json'
-    fields:
-      - label: 'سئو'
-        name: 'seo'
-        widget: 'object'
-        collapsed: true
-        fields:
-          - {label: 'عنوان', name: 'title', widget: 'string'}
-          - {label: 'توضیحات', name: 'description', widget: 'text'}
-      - label: 'صفحه'
-        name: 'page'
-        widget: 'object'
-        fields:
-          - {label: 'عنوان اصلی', name: 'h1', widget: 'string'}
-          - {label: 'متن معرفی', name: 'intro', widget: 'text'}
-
-  - name: 'contact'
-    label: 'تماس و نوبت'
-    file: 'content/contact.json'
-    format: 'json'
-    fields:
-      - label: 'سئو'
-        name: 'seo'
-        widget: 'object'
-        collapsed: true
-        fields:
-          - {label: 'عنوان', name: 'title', widget: 'string'}
-          - {label: 'توضیحات', name: 'description', widget: 'text'}
-      - label: 'صفحه'
-        name: 'page'
-        widget: 'object'
-        fields:
-          - {label: 'عنوان اصلی', name: 'h1', widget: 'string'}
-          - {label: 'متن معرفی', name: 'intro', widget: 'text'}
-      - label: 'اطلاعات تماس'
-        name: 'contact'
-        widget: 'object'
-        fields:
-          - {label: 'تلفن ثابت', name: 'landline', widget: 'string'}
-          - {label: 'موبایل', name: 'mobile', widget: 'string'}
-          - {label: 'آدرس', name: 'address', widget: 'text'}
-          - {label: 'ساعات کاری', name: 'hours', widget: 'string'}
-          - {label: 'اینستاگرام', name: 'instagram', widget: 'string'}
-
-  - name: 'posts'
-    label: 'مقالات وبلاگ'
-    label_singular: 'مقاله'
-    folder: 'content/posts'
-    create: true
-    slug: '{{slug}}'
-    extension: 'json'
-    format: 'json'
-    fields:
-      - {label: 'عنوان', name: 'title', widget: 'string'}
-      - {label: 'خلاصه', name: 'excerpt', widget: 'text'}
-      - {label: 'تاریخ انتشار', name: 'published', widget: 'string'}
+      - { label: عنوان, name: title, widget: string, required: false }
