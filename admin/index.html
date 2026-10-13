@@ -3,58 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>پنل مدیریت | کلینیک ابن‌سینا ساوه</title>
-  <link rel="icon" type="image/png" href="/favicon-32.png" />
+  <meta name="robots" content="noindex" />
+  <title>پنل مدیریت | ابن‌سینا</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Tahoma, sans-serif;
-      background: #f0f4f8;
-      min-height: 100vh;
-    }
-    #status {
-      max-width: 480px;
-      margin: 40px auto;
-      padding: 24px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      text-align: center;
-      line-height: 1.7;
-    }
-    #status h1 { font-size: 1.3rem; margin: 0 0 12px; color: #1a365d; }
-    #status p { color: #4a5568; margin: 8px 0; font-size: 0.95rem; }
-    .error { color: #c53030; background: #fff5f5; padding: 12px; border-radius: 8px; margin-top: 16px; }
-    code { background: #edf2f7; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; }
+    body { margin:0; font-family:Tahoma,sans-serif; background:#f0f4f8; }
   </style>
 </head>
 <body>
-  <div id="status">
-    <h1>در حال بارگذاری پنل مدیریت...</h1>
-    <p>لطفاً چند لحظه صبر کنید</p>
-    <p style="font-size:0.85rem;color:#718096">اگر بیش از ۱۰ ثانیه طول کشید، صفحه را رفرش کنید</p>
-  </div>
-
   <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
-  <script>
-    // نمایش خطا در صورت مشکل
-    window.onerror = function(msg, url, line) {
-      var el = document.getElementById('status');
-      if (el) {
-        el.innerHTML = '<h1>خطا در بارگذاری پنل</h1><div class="error"><strong>پیام خطا:</strong><br>' + msg + '</div><p style="margin-top:16px">این اطلاعات را برای پشتیبانی ارسال کنید.</p>';
-      }
-      return false;
-    };
-
-    // بررسی لود شدن CMS
-    setTimeout(function() {
-      var el = document.getElementById('status');
-      if (el && el.innerText.indexOf('بارگذاری') > -1) {
-        // هنوز پیام لودینگ هست یعنی CMS بالا نیامده
-        el.innerHTML = '<h1>پنل بارگذاری نشد</h1><p>احتمالاً مشکل از تنظیمات یا اتصال است.</p><div class="error">لطفاً اسکرین‌شات این صفحه + کنسول مرورگر (F12) را ارسال کنید.</div>';
-      }
-    }, 8000);
-  </script>
 </body>
 </html>
