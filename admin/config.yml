@@ -1,0 +1,220 @@
+backend:
+  name: github
+  repo: sajad33b/savehphysio
+  branch: main
+  base_url: https://savehphysio.ir
+
+media_folder: ""
+public_folder: ""
+
+locale: fa
+
+# ظاهر ساده و خلوت (نزدیک به حس بلاگ بیان)
+slug:
+  encoding: unicode
+  clean_accents: false
+
+collections:
+  # ---------- صفحه اصلی ----------
+  - name: home
+    label: صفحه اصلی
+    label_singular: صفحه اصلی
+    file: content/home.json
+    format: json
+    fields:
+      - label: سئو
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - { label: عنوان صفحه, name: title, widget: string }
+          - { label: توضیحات, name: description, widget: text }
+          - { label: آدرس کانونیکال, name: canonical, widget: string }
+          - { label: عنوان شبکه‌های اجتماعی, name: og_title, widget: string }
+          - { label: توضیح شبکه‌های اجتماعی, name: og_description, widget: text }
+
+      - label: برند و هویت
+        name: content
+        widget: object
+        fields:
+          - label: برند
+            name: brand
+            widget: object
+            fields:
+              - { label: نام کلینیک, name: clinic_name, widget: string }
+              - { label: نام کوتاه, name: short_name, widget: string }
+              - { label: نام فیزیوتراپیست, name: physiotherapist_name, widget: string }
+              - { label: شماره نظام پزشکی, name: medical_id, widget: string }
+
+          - label: بخش قهرمان (Hero)
+            name: hero
+            widget: object
+            fields:
+              - { label: عنوان اصلی (H1), name: h1, widget: string }
+              - { label: متن معرفی, name: lead, widget: text }
+              - { label: متن دکمه اصلی, name: primary_cta_label, widget: string }
+
+          - label: رویکرد درمان
+            name: about
+            widget: object
+            fields:
+              - { label: عنوان بخش, name: heading, widget: string }
+              - label: پاراگراف‌ها
+                name: paragraphs
+                widget: list
+                field: { label: پاراگراف, name: paragraph, widget: text }
+
+          - label: خدمات (گروه‌ها)
+            name: services
+            widget: object
+            fields:
+              - { label: عنوان بخش, name: heading, widget: string }
+              - { label: متن معرفی, name: intro, widget: text }
+
+          - label: سوالات متداول
+            name: faq
+            widget: object
+            fields:
+              - { label: عنوان بخش, name: heading, widget: string }
+              - { label: متن معرفی, name: intro, widget: text }
+              - label: سوالات
+                name: items
+                widget: list
+                fields:
+                  - { label: سوال, name: question, widget: string }
+                  - { label: پاسخ, name: answer, widget: text }
+
+          - label: نظرات مراجعان
+            name: testimonials
+            widget: object
+            fields:
+              - { label: عنوان بخش, name: heading, widget: string }
+              - { label: متن معرفی, name: intro, widget: text }
+              - label: نظرات
+                name: items
+                widget: list
+                fields:
+                  - { label: نام, name: name, widget: string }
+                  - { label: شهر, name: city, widget: string }
+                  - { label: تاریخ, name: date, widget: string }
+                  - { label: متن نظر, name: text, widget: text }
+
+          - label: اطلاعات تماس (صفحه اصلی)
+            name: contact
+            widget: object
+            fields:
+              - { label: تلفن ثابت, name: landline, widget: string }
+              - { label: موبایل, name: mobile, widget: string }
+              - { label: آدرس, name: address, widget: text }
+              - { label: ساعات کاری, name: hours, widget: string }
+
+  # ---------- صفحه درباره ما ----------
+  - name: about
+    label: درباره ما
+    file: content/about.json
+    format: json
+    fields:
+      - label: سئو
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - { label: عنوان, name: title, widget: string }
+          - { label: توضیحات, name: description, widget: text }
+
+      - label: صفحه
+        name: page
+        widget: object
+        fields:
+          - { label: عنوان اصلی, name: h1, widget: string }
+          - { label: متن کوتاه, name: lead, widget: text }
+
+      - label: بخش‌ها
+        name: sections
+        widget: list
+        fields:
+          - { label: عنوان بخش, name: heading, widget: string }
+          - label: پاراگراف‌ها
+            name: paragraphs
+            widget: list
+            field: { label: پاراگراف, name: p, widget: text }
+
+  # ---------- صفحه خدمات ----------
+  - name: services
+    label: خدمات
+    file: content/services.json
+    format: json
+    fields:
+      - label: سئو
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - { label: عنوان, name: title, widget: string }
+          - { label: توضیحات, name: description, widget: text }
+
+      - label: صفحه
+        name: page
+        widget: object
+        fields:
+          - { label: عنوان اصلی, name: h1, widget: string }
+          - { label: متن معرفی, name: intro, widget: text }
+
+      - label: گروه‌های خدمات
+        name: groups
+        widget: list
+        fields:
+          - { label: شناسه گروه, name: id, widget: string }
+          - { label: عنوان گروه, name: title, widget: string }
+          - label: آیتم‌ها
+            name: items
+            widget: list
+            fields:
+              - { label: عنوان خدمت, name: title, widget: string }
+              - { label: توضیح کوتاه, name: description, widget: text }
+
+  # ---------- صفحه تماس ----------
+  - name: contact
+    label: تماس و نوبت
+    file: content/contact.json
+    format: json
+    fields:
+      - label: سئو
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - { label: عنوان, name: title, widget: string }
+          - { label: توضیحات, name: description, widget: text }
+
+      - label: صفحه
+        name: page
+        widget: object
+        fields:
+          - { label: عنوان اصلی, name: h1, widget: string }
+          - { label: متن معرفی, name: intro, widget: text }
+
+      - label: اطلاعات تماس
+        name: contact
+        widget: object
+        fields:
+          - { label: تلفن ثابت, name: landline, widget: string }
+          - { label: موبایل, name: mobile, widget: string }
+          - { label: آدرس, name: address, widget: text }
+          - { label: ساعات کاری, name: hours, widget: string }
+          - { label: اینستاگرام, name: instagram, widget: string }
+
+  # ---------- مقالات وبلاگ ----------
+  - name: posts
+    label: مقالات وبلاگ
+    label_singular: مقاله
+    folder: content/posts
+    create: true
+    slug: "{{slug}}"
+    extension: json
+    format: json
+    fields:
+      - { label: عنوان, name: title, widget: string }
+      - { label: خلاصه, name: excerpt, widget: text }
+      - { label: تاریخ انتشار, name: published, widget: string, hint: "مثال: 2026-10-10" }
+      - { label: محتوای کامل (اختیاری فعلاً), name: body, widget: text, required: false }
