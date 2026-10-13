@@ -9,21 +9,43 @@
   <style>
     body {
       margin: 0;
-      font-family: Tahoma, Vazirmatn, sans-serif;
+      font-family: Tahoma, sans-serif;
       background: #f0f4f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #333;
     }
-    /* کمی سفارشی‌سازی برای حس ساده‌تر */
-    [data-slate-editor] {
-      direction: rtl;
-      text-align: right;
+    .loading {
+      text-align: center;
+      padding: 2rem;
+    }
+    .loading h1 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .loading p {
+      color: #666;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
+  <div class="loading" id="loading">
+    <h1>در حال بارگذاری پنل مدیریت...</h1>
+    <p>لطفاً چند لحظه صبر کنید</p>
+  </div>
+
   <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
   <script>
-    // بارگذاری تنظیمات از config.yml
-    // Decap به صورت پیش‌فرض /admin/config.yml را می‌خواند
+    // بعد از لود شدن CMS، پیام لودینگ را مخفی کن
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var el = document.getElementById('loading');
+        if (el) el.style.display = 'none';
+      }, 1500);
+    });
   </script>
 </body>
 </html>
