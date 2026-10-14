@@ -307,7 +307,7 @@
       <input type="password" id="login-pass" autocomplete="current-password" placeholder="رمز پنل را وارد کنید" />
       <button type="button" class="btn-login" id="login-btn">ورود با رمز پنل</button>
       <button type="button" class="btn-login" id="gh-login-btn" style="margin-top:10px;background:#24292f;border-color:#24292f;">ورود با GitHub</button>
-      <p class="hint" style="margin-top:14px;">پیشنهاد: ورود با GitHub — امن‌تر است و توکن ذخیره هم تنظیم می‌شود.<br>فقط مدیر کلینیک به این بخش دسترسی دارد.</p>
+      <p class="hint" style="margin-top:14px;">با ایمیل Cloudflare وارد شده‌اید؛ مستقیم پنل باز می‌شود.<br>برای ذخیره روی گیت‌هاب یک‌بار «ورود با GitHub» را بزنید.</p>
     </div>
   </div>
 
@@ -652,8 +652,19 @@
     });
     document.getElementById('logout-btn').addEventListener('click', logout);
 
-    if (isLoggedIn()) showApp();
-    else showLogin();
+    function hasCloudflareAccess() {
+      try {
+        return document.cookie.split(';').some(function(c) {
+          return c.trim().indexOf('CF_Authorization=') === 0;
+        });
+      } catch (e) { return false; }
+    }
+    if (isLoggedIn() || hasCloudflareAccess()) {
+      if (hasCloudflareAccess()) setLoggedIn(true);
+      showApp();
+    } else {
+      showLogin();
+    }
 
     const sidebar = document.getElementById('sidebar');
     const main = document.getElementById('main');
