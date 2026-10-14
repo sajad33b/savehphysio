@@ -23,13 +23,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build pages from content JSON
+        run: |
+          python3 scripts/build_home.py
+          python3 scripts/build_about.py
+          python3 scripts/build_services.py
+          python3 scripts/build_contact.py
+          python3 scripts/build_posts.py
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
