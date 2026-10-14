@@ -1,1 +1,1066 @@
-PLACEHOLDER_WILL_FAIL
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>ورود | مدیریت وبلاگ ابن‌سینا ساوه</title>
+  <link rel="icon" type="image/png" href="/favicon-32.png" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background: #e9ecef;
+      color: #222;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e9ecef;
+      padding: 16px;
+    }
+    #login-screen.hidden { display: none; }
+    .login-box {
+      width: 100%;
+      max-width: 360px;
+      background: #fff;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      padding: 24px 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .login-box h1 {
+      font-size: 16px;
+      color: #1a365d;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .login-box .sub {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .login-box label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #444;
+    }
+    .login-box input[type="password"],
+    .login-box input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #adb5bd;
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .login-box input:focus {
+      outline: none;
+      border-color: #3a6ea5;
+      background: #f8fafc;
+    }
+    .login-box .btn-login {
+      width: 100%;
+      padding: 10px;
+      background: #3a6ea5;
+      border: 1px solid #2c5282;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      border-radius: 2px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .login-box .btn-login:hover { background: #2c5282; }
+    .login-err {
+      background: #ffe3e3;
+      border: 1px solid #ffa8a8;
+      color: #c92a2a;
+      padding: 8px 10px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+      display: none;
+      font-size: 12px;
+    }
+    .login-err.show { display: block; }
+    #app { display: none; }
+    #app.show { display: block; }
+    .topbar {
+      background: #3a6ea5;
+      color: #fff;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #2c5282;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar .title { font-size: 14px; font-weight: bold; }
+    .topbar .user { font-size: 12px; opacity: 0.9; display: flex; align-items: center; gap: 10px; }
+    .topbar .btn-out {
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.4);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .topbar .btn-out:hover { background: rgba(255,255,255,.25); }
+    .menu-toggle {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: inherit;
+      margin-left: 10px;
+    }
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 42px);
+      position: relative;
+    }
+    .sidebar {
+      width: 200px;
+      background: #f8f9fa;
+      border-left: 1px solid #ced4da;
+      padding: 12px 0;
+      position: fixed;
+      top: 42px;
+      right: 0;
+      bottom: 0;
+      z-index: 90;
+      transform: translateX(0);
+      transition: transform 0.25s ease;
+      overflow-y: auto;
+    }
+    .sidebar.closed { transform: translateX(100%); }
+    .sidebar button {
+      display: block;
+      width: 100%;
+      text-align: right;
+      padding: 11px 16px;
+      color: #333;
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      border-right: 3px solid transparent;
+    }
+    .sidebar button:hover,
+    .sidebar button.active {
+      background: #e9ecef;
+      border-right-color: #3a6ea5;
+      color: #1a365d;
+      font-weight: bold;
+    }
+    .main {
+      flex: 1;
+      padding: 14px;
+      background: #fff;
+      border: 1px solid #ced4da;
+      margin: 10px;
+      margin-right: 210px;
+      border-radius: 3px;
+      transition: margin-right 0.25s ease;
+    }
+    .main.full { margin-right: 10px; }
+    .main h2 {
+      font-size: 15px;
+      color: #1a365d;
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+    }
+    .form-group { margin-bottom: 12px; }
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      color: #444;
+      font-weight: bold;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="password"],
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #adb5bd;
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 13px;
+      background: #fff;
+    }
+    .form-group textarea { min-height: 90px; resize: vertical; }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #3a6ea5;
+      background: #f8fafc;
+    }
+    .buttons {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #dee2e6;
+    }
+    .btn {
+      display: inline-block;
+      padding: 7px 16px;
+      margin-left: 6px;
+      border: 1px solid #adb5bd;
+      border-radius: 2px;
+      background: #f1f3f5;
+      color: #333;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .btn:hover { background: #e9ecef; }
+    .btn:disabled { opacity: 0.6; cursor: wait; }
+    .btn-primary {
+      background: #3a6ea5;
+      border-color: #2c5282;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #2c5282; }
+    .btn-danger {
+      background: #c92a2a;
+      border-color: #a61e1e;
+      color: #fff;
+    }
+    .msg {
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      border-radius: 2px;
+      font-size: 13px;
+      display: none;
+    }
+    .msg.ok { background: #d3f9d8; border: 1px solid #8ce99a; color: #2b8a3e; display: block; }
+    .msg.err { background: #ffe3e3; border: 1px solid #ffa8a8; color: #c92a2a; display: block; }
+    .msg.info { background: #d0ebff; border: 1px solid #74c0fc; color: #1864ab; display: block; }
+    .section { display: none; }
+    .section.active { display: block; }
+    .hint {
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+      background: #f8f9fa;
+      padding: 8px 10px;
+      border: 1px solid #dee2e6;
+      border-radius: 2px;
+    }
+    .token-status {
+      font-size: 12px;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 2px;
+    }
+    .token-status.ok { background: #d3f9d8; color: #2b8a3e; }
+    .token-status.missing { background: #fff3bf; color: #e67700; }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 42px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 80;
+    }
+    .overlay.show { display: block; }
+
+    #posts-list li { border: 1px solid #dee2e6; border-radius: 3px; padding: 10px 12px; margin-bottom: 8px; background: #f8f9fa; display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+    #posts-list .t { font-weight: bold; color: #1a365d; }
+    #posts-list .e { font-size: 12px; color: #666; margin-top: 4px; }
+    #posts-list .d { font-size: 11px; color: #888; margin-top: 4px; }
+    @media (max-width: 700px) {
+      .sidebar {
+        width: 220px;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.12);
+      }
+      .main { margin-right: 10px; }
+      .main.full { margin-right: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="login-screen">
+    <div class="login-box">
+      <h1>مدیریت وبلاگ</h1>
+      <p class="sub">کلینیک فیزیوتراپی ابن‌سینا ساوه</p>
+      <div id="login-err" class="login-err"></div>
+      <label for="login-pass">رمز ورود</label>
+      <input type="password" id="login-pass" autocomplete="current-password" placeholder="رمز پنل را وارد کنید" />
+      <button type="button" class="btn-login" id="login-btn">ورود</button>
+      <p class="hint" style="margin-top:14px;">فقط مدیر کلینیک به این بخش دسترسی دارد.</p>
+    </div>
+  </div>
+
+  <div id="app">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;">
+      <button class="menu-toggle" id="menuToggle" title="باز و بسته کردن منو">☰</button>
+      <div class="title">مدیریت وبلاگ — کلینیک ابن‌سینا ساوه</div>
+    </div>
+    <div class="user">
+      <span>سجاد علی‌کرمی</span>
+      <button type="button" class="btn-out" id="logout-btn">خروج</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="layout">
+    <div class="sidebar" id="sidebar">
+      <button data-section="home" class="active">صفحه اصلی</button>
+      <button data-section="contact">تماس و نوبت</button>
+      <button data-section="about">درباره ما</button>
+      <button data-section="services">خدمات</button>
+      <button data-section="posts">مطالب</button>
+      <button data-section="settings">تنظیمات ذخیره</button>
+      <button data-section="security">امنیت و رمز</button>
+    </div>
+
+    <div class="main" id="main">
+      <div id="msg" class="msg"></div>
+
+      <div id="home" class="section active">
+        <h2>ویرایش صفحه اصلی</h2>
+        <div class="form-group">
+          <label>عنوان اصلی صفحه</label>
+          <input type="text" id="home-h1" />
+        </div>
+        <div class="form-group">
+          <label>متن معرفی (لید)</label>
+          <textarea id="home-lead"></textarea>
+        </div>
+        <div class="form-group">
+          <label>متن دکمه تماس</label>
+          <input type="text" id="home-cta" />
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="realSave('home')">ذخیره</button>
+          <button class="btn" onclick="loadHome(true)">بازخوانی</button>
+        </div>
+        <div class="hint">با زدن ذخیره، فایل content/home.json در گیت‌هاب به‌روز می‌شود. بعد از ۱ تا ۳ دقیقه روی سایت دیده می‌شود.</div>
+      </div>
+
+      <div id="contact" class="section">
+        <h2>ویرایش اطلاعات تماس</h2>
+        <div class="form-group">
+          <label>عنوان صفحه</label>
+          <input type="text" id="contact-h1" />
+        </div>
+        <div class="form-group">
+          <label>متن معرفی صفحه</label>
+          <textarea id="contact-intro"></textarea>
+        </div>
+        <div class="form-group">
+          <label>تلفن ثابت</label>
+          <input type="text" id="contact-landline" />
+        </div>
+        <div class="form-group">
+          <label>موبایل / واتساپ</label>
+          <input type="text" id="contact-mobile" />
+        </div>
+        <div class="form-group">
+          <label>آدرس</label>
+          <textarea id="contact-address"></textarea>
+        </div>
+        <div class="form-group">
+          <label>ساعات کاری</label>
+          <input type="text" id="contact-hours" />
+        </div>
+        <div class="form-group">
+          <label>اینستاگرام</label>
+          <input type="text" id="contact-instagram" />
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="realSave('contact')">ذخیره</button>
+          <button class="btn" onclick="loadContact(true)">بازخوانی</button>
+        </div>
+      </div>
+
+      <div id="about" class="section">
+        <h2>ویرایش صفحه درباره ما</h2>
+        <div class="form-group">
+          <label>عنوان صفحه</label>
+          <input type="text" id="about-h1" />
+        </div>
+        <div class="form-group">
+          <label>متن کوتاه (لید)</label>
+          <textarea id="about-lead"></textarea>
+        </div>
+        <div class="form-group">
+          <label>نام کلینیک</label>
+          <input type="text" id="about-clinic" />
+        </div>
+        <div class="form-group">
+          <label>نام فیزیوتراپیست</label>
+          <input type="text" id="about-physio" />
+        </div>
+        <div class="form-group">
+          <label>شماره نظام پزشکی</label>
+          <input type="text" id="about-medical-id" />
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="realSave('about')">ذخیره</button>
+          <button class="btn" onclick="loadAbout(true)">بازخوانی</button>
+        </div>
+      </div>
+
+      <div id="services" class="section">
+        <h2>ویرایش صفحه خدمات</h2>
+        <div class="form-group">
+          <label>عنوان صفحه</label>
+          <input type="text" id="services-h1" />
+        </div>
+        <div class="form-group">
+          <label>متن معرفی</label>
+          <textarea id="services-intro"></textarea>
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="realSave('services')">ذخیره</button>
+          <button class="btn" onclick="loadServices(true)">بازخوانی</button>
+        </div>
+      </div>
+
+      <div id="posts" class="section">
+        <h2>مطالب وبلاگ</h2>
+        <div style="margin-bottom:12px;">
+          <button type="button" class="btn btn-primary" onclick="startNewPost()">+ مطلب جدید</button>
+          <button type="button" class="btn" onclick="loadPostsList(true)">بازخوانی لیست</button>
+        </div>
+        <ul id="posts-list" style="list-style:none;padding:0;margin:0 0 14px;"></ul>
+        <div id="post-editor" style="display:none;border-top:1px solid #dee2e6;padding-top:14px;">
+          <h2 id="post-editor-title">ویرایش مطلب</h2>
+          <input type="hidden" id="post-slug-original" />
+          <div class="form-group">
+            <label>شناسه انگلیسی (slug)</label>
+            <input type="text" id="post-slug" dir="ltr" style="text-align:left" placeholder="dard-siatik-chist" />
+          </div>
+          <div class="form-group"><label>عنوان مطلب</label><input type="text" id="post-title" /></div>
+          <div class="form-group"><label>عنوان داخل صفحه (H1)</label><input type="text" id="post-h1" /></div>
+          <div class="form-group"><label>خلاصه کوتاه</label><textarea id="post-excerpt"></textarea></div>
+          <div class="form-group"><label>تاریخ انتشار</label><input type="text" id="post-published" placeholder="2026-10-14" dir="ltr" style="text-align:left" /></div>
+          <div class="form-group"><label>دسته‌بندی</label><input type="text" id="post-category" placeholder="آموزشی" /></div>
+          <div class="form-group"><label>برچسب‌ها (با کاما)</label><input type="text" id="post-tags" /></div>
+          <div class="form-group">
+            <label>متن مطلب (پاراگراف‌ها با خط خالی؛ زیرعنوان با ## )</label>
+            <textarea id="post-body" style="min-height:220px;line-height:1.7;"></textarea>
+          </div>
+          <div class="form-group"><label>توضیح سئو</label><textarea id="post-seo-desc"></textarea></div>
+          <div class="buttons">
+            <button class="btn btn-primary" onclick="savePost()">ذخیره مطلب</button>
+            <button class="btn" onclick="closePostEditor()">بستن</button>
+          </div>
+          <div class="hint">بعد از ذخیره، تا چند دقیقه بعد در /blog/ دیده می‌شود.</div>
+        </div>
+      </div>
+
+      <div id="settings" class="section">
+        <h2>تنظیمات ذخیره (توکن گیت‌هاب)</h2>
+        <p style="margin-bottom:12px;color:#444;line-height:1.7;">
+          برای ذخیره واقعی، یک‌بار باید <strong>Personal Access Token</strong> از گیت‌هاب بسازی و اینجا ذخیره کنی.
+        </p>
+        <div class="form-group">
+          <label>توکن گیت‌هاب (ghp_...)</label>
+          <input type="password" id="gh-token" placeholder="ghp_xxxxxxxx" autocomplete="off" />
+        </div>
+        <div id="token-status" class="token-status missing">توکن تنظیم نشده</div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="saveToken()">ذخیره توکن</button>
+          <button class="btn btn-danger" onclick="clearToken()">پاک کردن توکن</button>
+        </div>
+        <div class="hint">
+          GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) → فقط تیک repo
+        </div>
+      </div>
+
+      <div id="security" class="section">
+        <h2>امنیت و تغییر رمز پنل</h2>
+        <p style="margin-bottom:12px;color:#444;">برای تغییر رمز ورود، رمز فعلی و رمز جدید را وارد کن.</p>
+        <div class="form-group">
+          <label>رمز فعلی</label>
+          <input type="password" id="sec-current" autocomplete="current-password" />
+        </div>
+        <div class="form-group">
+          <label>رمز جدید</label>
+          <input type="password" id="sec-new" autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label>تکرار رمز جدید</label>
+          <input type="password" id="sec-new2" autocomplete="new-password" />
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="changePanelPassword()">تغییر رمز</button>
+        </div>
+        <div class="hint">رمز روی همین مرورگر ذخیره می‌شود. بعد از ورود حتماً رمز پیش‌فرض را عوض کن.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    const REPO = 'sajad33b/savehphysio';
+    const BRANCH = 'main';
+    const FILE_MAP = {
+      home: 'content/home.json',
+      contact: 'content/contact.json',
+      about: 'content/about.json',
+      services: 'content/services.json'
+    };
+    const SALT = 'savehphysio_v1';
+    const DEFAULT_HASH = '4695dbc34eeed531f897cd12413b4532c7e9966e7aa16240022798dbc8f1b503';
+
+    async function sha256Hex(text) {
+      const data = new TextEncoder().encode(SALT + text);
+      const buf = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function getPassHash() {
+      return localStorage.getItem('admin_pass_hash') || DEFAULT_HASH;
+    }
+
+    function isLoggedIn() {
+      return sessionStorage.getItem('admin_session') === '1';
+    }
+
+    function setLoggedIn(ok) {
+      if (ok) sessionStorage.setItem('admin_session', '1');
+      else sessionStorage.removeItem('admin_session');
+    }
+
+    function showApp() {
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('app').classList.add('show');
+      document.title = 'مدیریت وبلاگ | ابن‌سینا ساوه';
+      updateMenuUI();
+      updateTokenStatus();
+      loadHome(false);
+      loadContact(false);
+      loadAbout(false);
+      loadServices(false);
+    }
+
+    function showLogin() {
+      document.getElementById('login-screen').classList.remove('hidden');
+      document.getElementById('app').classList.remove('show');
+      document.title = 'ورود | مدیریت وبلاگ ابن‌سینا ساوه';
+    }
+
+    async function tryLogin() {
+      const pass = document.getElementById('login-pass').value;
+      const err = document.getElementById('login-err');
+      err.classList.remove('show');
+      if (!pass) {
+        err.textContent = 'رمز را وارد کنید.';
+        err.classList.add('show');
+        return;
+      }
+      const h = await sha256Hex(pass);
+      if (h !== getPassHash()) {
+        err.textContent = 'رمز اشتباه است.';
+        err.classList.add('show');
+        document.getElementById('login-pass').value = '';
+        return;
+      }
+      setLoggedIn(true);
+      document.getElementById('login-pass').value = '';
+      showApp();
+    }
+
+    function logout() {
+      setLoggedIn(false);
+      showLogin();
+    }
+
+    async function changePanelPassword() {
+      const cur = document.getElementById('sec-current').value;
+      const n1 = document.getElementById('sec-new').value;
+      const n2 = document.getElementById('sec-new2').value;
+      if (!cur || !n1 || !n2) {
+        showMsg('همه فیلدها را پر کنید.', 'err');
+        return;
+      }
+      if (n1.length < 6) {
+        showMsg('رمز جدید حداقل ۶ کاراکتر باشد.', 'err');
+        return;
+      }
+      if (n1 !== n2) {
+        showMsg('رمز جدید و تکرار آن یکسان نیستند.', 'err');
+        return;
+      }
+      const curH = await sha256Hex(cur);
+      if (curH !== getPassHash()) {
+        showMsg('رمز فعلی اشتباه است.', 'err');
+        return;
+      }
+      const newH = await sha256Hex(n1);
+      localStorage.setItem('admin_pass_hash', newH);
+      document.getElementById('sec-current').value = '';
+      document.getElementById('sec-new').value = '';
+      document.getElementById('sec-new2').value = '';
+      showMsg('رمز پنل تغییر کرد.', 'ok');
+    }
+
+    document.getElementById('login-btn').addEventListener('click', tryLogin);
+    document.getElementById('login-pass').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') tryLogin();
+    });
+    document.getElementById('logout-btn').addEventListener('click', logout);
+
+    if (isLoggedIn()) showApp();
+    else showLogin();
+
+    const sidebar = document.getElementById('sidebar');
+    const main = document.getElementById('main');
+    const overlay = document.getElementById('overlay');
+    const menuToggle = document.getElementById('menuToggle');
+    let menuOpen = true;
+
+    function getToken() {
+      return localStorage.getItem('gh_token') || '';
+    }
+
+    function updateTokenStatus() {
+      const el = document.getElementById('token-status');
+      if (!el) return;
+      const t = getToken();
+      if (t && (t.startsWith('ghp_') || t.startsWith('github_pat_'))) {
+        el.className = 'token-status ok';
+        el.textContent = 'توکن ذخیره شده است ✓';
+      } else {
+        el.className = 'token-status missing';
+        el.textContent = 'توکن تنظیم نشده';
+      }
+    }
+
+    function saveToken() {
+      const v = document.getElementById('gh-token').value.trim();
+      if (!v) { showMsg('توکن خالی است.', 'err'); return; }
+      if (!v.startsWith('ghp_') && !v.startsWith('github_pat_')) {
+        showMsg('فرمت توکن درست به نظر نمی‌رسد.', 'err');
+        return;
+      }
+      localStorage.setItem('gh_token', v);
+      document.getElementById('gh-token').value = '';
+      updateTokenStatus();
+      showMsg('توکن ذخیره شد.', 'ok');
+    }
+
+    function clearToken() {
+      localStorage.removeItem('gh_token');
+      updateTokenStatus();
+      showMsg('توکن پاک شد.', 'info');
+    }
+
+    function updateMenuUI() {
+      if (menuOpen) {
+        sidebar.classList.remove('closed');
+        main.classList.remove('full');
+        if (window.innerWidth <= 700) overlay.classList.add('show');
+        else overlay.classList.remove('show');
+      } else {
+        sidebar.classList.add('closed');
+        main.classList.add('full');
+        overlay.classList.remove('show');
+      }
+    }
+
+    menuToggle.addEventListener('click', function() {
+      menuOpen = !menuOpen;
+      updateMenuUI();
+    });
+    overlay.addEventListener('click', function() {
+      if (menuOpen) { menuOpen = false; updateMenuUI(); }
+    });
+
+    document.querySelectorAll('.sidebar button').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var section = btn.dataset.section;
+        document.querySelectorAll('.sidebar button').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById(section).classList.add('active');
+        if (section === 'home') loadHome(false);
+        else if (section === 'contact') loadContact(false);
+        else if (section === 'about') loadAbout(false);
+        else if (section === 'services') loadServices(false);
+        else if (section === 'posts') loadPostsList(false);
+        else if (section === 'settings') updateTokenStatus();
+        if (window.innerWidth <= 700 && menuOpen) {
+          menuOpen = false;
+          updateMenuUI();
+        }
+      });
+    });
+
+    function showMsg(text, type) {
+      var el = document.getElementById('msg');
+      el.className = 'msg ' + type;
+      el.textContent = text;
+      el.style.display = 'block';
+      setTimeout(function() { el.style.display = 'none'; }, 6000);
+    }
+
+    async function loadHome(showMessage) {
+      try {
+        var r = await fetch('/content/home.json?' + Date.now());
+        var d = await r.json();
+        document.getElementById('home-h1').value = (d.content && d.content.hero && d.content.hero.h1) || '';
+        document.getElementById('home-lead').value = (d.content && d.content.hero && d.content.hero.lead) || '';
+        document.getElementById('home-cta').value = (d.content && d.content.hero && d.content.hero.primary_cta_label) || '';
+        if (showMessage) showMsg('اطلاعات صفحه اصلی خوانده شد.', 'ok');
+      } catch (e) { showMsg('خطا: ' + e.message, 'err'); }
+    }
+
+    async function loadContact(showMessage) {
+      try {
+        var r = await fetch('/content/contact.json?' + Date.now());
+        var d = await r.json();
+        document.getElementById('contact-h1').value = (d.page && d.page.h1) || '';
+        document.getElementById('contact-intro').value = (d.page && d.page.intro) || '';
+        document.getElementById('contact-landline').value = (d.contact && d.contact.landline) || '';
+        document.getElementById('contact-mobile').value = (d.contact && d.contact.mobile) || '';
+        document.getElementById('contact-address').value = (d.contact && d.contact.address) || '';
+        document.getElementById('contact-hours').value = (d.contact && d.contact.hours) || '';
+        document.getElementById('contact-instagram').value = (d.contact && d.contact.instagram) || '';
+        if (showMessage) showMsg('اطلاعات تماس خوانده شد.', 'ok');
+      } catch (e) { showMsg('خطا: ' + e.message, 'err'); }
+    }
+
+    async function loadAbout(showMessage) {
+      try {
+        var r = await fetch('/content/about.json?' + Date.now());
+        var d = await r.json();
+        document.getElementById('about-h1').value = (d.page && d.page.h1) || '';
+        document.getElementById('about-lead').value = (d.page && d.page.lead) || '';
+        document.getElementById('about-clinic').value = (d.brand && d.brand.clinic_name) || '';
+        document.getElementById('about-physio').value = (d.brand && d.brand.physiotherapist_name) || '';
+        document.getElementById('about-medical-id').value = (d.brand && d.brand.medical_id) || '';
+        if (showMessage) showMsg('صفحه درباره ما خوانده شد.', 'ok');
+      } catch (e) { showMsg('خطا: ' + e.message, 'err'); }
+    }
+
+    async function loadServices(showMessage) {
+      try {
+        var r = await fetch('/content/services.json?' + Date.now());
+        var d = await r.json();
+        document.getElementById('services-h1').value = (d.page && d.page.h1) || '';
+        document.getElementById('services-intro').value = (d.page && d.page.intro) || '';
+        if (showMessage) showMsg('صفحه خدمات خوانده شد.', 'ok');
+      } catch (e) { showMsg('خطا: ' + e.message, 'err'); }
+    }
+
+    async function buildData(section) {
+      if (section === 'home') {
+        var r = await fetch('/content/home.json?' + Date.now());
+        var data = await r.json();
+        if (!data.content) data.content = {};
+        if (!data.content.hero) data.content.hero = {};
+        data.content.hero.h1 = document.getElementById('home-h1').value;
+        data.content.hero.lead = document.getElementById('home-lead').value;
+        data.content.hero.primary_cta_label = document.getElementById('home-cta').value;
+        return data;
+      }
+      if (section === 'contact') {
+        var r2 = await fetch('/content/contact.json?' + Date.now());
+        var data2 = await r2.json();
+        if (!data2.page) data2.page = {};
+        if (!data2.contact) data2.contact = {};
+        data2.page.h1 = document.getElementById('contact-h1').value;
+        data2.page.intro = document.getElementById('contact-intro').value;
+        data2.contact.landline = document.getElementById('contact-landline').value;
+        data2.contact.mobile = document.getElementById('contact-mobile').value;
+        data2.contact.address = document.getElementById('contact-address').value;
+        data2.contact.hours = document.getElementById('contact-hours').value;
+        data2.contact.instagram = document.getElementById('contact-instagram').value;
+        return data2;
+      }
+      if (section === 'about') {
+        var r3 = await fetch('/content/about.json?' + Date.now());
+        var data3 = await r3.json();
+        if (!data3.page) data3.page = {};
+        if (!data3.brand) data3.brand = {};
+        data3.page.h1 = document.getElementById('about-h1').value;
+        data3.page.lead = document.getElementById('about-lead').value;
+        data3.brand.clinic_name = document.getElementById('about-clinic').value;
+        data3.brand.physiotherapist_name = document.getElementById('about-physio').value;
+        data3.brand.medical_id = document.getElementById('about-medical-id').value;
+        return data3;
+      }
+      if (section === 'services') {
+        var r4 = await fetch('/content/services.json?' + Date.now());
+        var data4 = await r4.json();
+        if (!data4.page) data4.page = {};
+        data4.page.h1 = document.getElementById('services-h1').value;
+        data4.page.intro = document.getElementById('services-intro').value;
+        return data4;
+      }
+      throw new Error('بخش نامعتبر');
+    }
+
+    function toBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
+
+    let postsIndexCache = null;
+    let currentPostData = null;
+
+    function bodyToText(blocks) {
+      if (!blocks || !blocks.length) return '';
+      return blocks.map(function(b) {
+        if (b.type === 'h2') return '## ' + (b.text || '');
+        if (b.type === 'h3') return '### ' + (b.text || '');
+        return b.text || '';
+      }).join('\n\n');
+    }
+    function textToBody(text) {
+      var parts = (text || '').replace(/\r\n/g, '\n').split(/\n\s*\n/);
+      var blocks = [];
+      parts.forEach(function(p) {
+        p = p.trim();
+        if (!p) return;
+        if (p.indexOf('## ') === 0) blocks.push({ type: 'h2', text: p.slice(3).trim() });
+        else if (p.indexOf('### ') === 0) blocks.push({ type: 'h3', text: p.slice(4).trim() });
+        else blocks.push({ type: 'p', text: p });
+      });
+      return blocks;
+    }
+    function slugify(s) {
+      var x = String(s || '').toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '').replace(/\-+/g, '-').replace(/^\-|\-$/g, '');
+      return x || ('post-' + Date.now());
+    }
+    async function loadPostsList(showMessage) {
+      try {
+        var r = await fetch('/content/posts/index.json?' + Date.now());
+        postsIndexCache = await r.json();
+        var list = document.getElementById('posts-list');
+        list.innerHTML = '';
+        var posts = postsIndexCache.posts || [];
+        if (!posts.length) {
+          list.innerHTML = '<li><div><div class="e">هنوز مطلبی ثبت نشده.</div></div></li>';
+        } else {
+          posts.forEach(function(p) {
+            var li = document.createElement('li');
+            var meta = document.createElement('div');
+            meta.innerHTML = '<div class="t"></div><div class="e"></div><div class="d"></div>';
+            meta.querySelector('.t').textContent = p.title || p.slug;
+            meta.querySelector('.e').textContent = p.excerpt || '';
+            meta.querySelector('.d').textContent = (p.published || '') + ' — ' + (p.slug || '');
+            var btn = document.createElement('button');
+            btn.className = 'btn btn-primary';
+            btn.style.padding = '5px 10px';
+            btn.style.fontSize = '12px';
+            btn.textContent = 'ویرایش';
+            btn.onclick = function() { openPost(p.slug); };
+            li.appendChild(meta);
+            li.appendChild(btn);
+            list.appendChild(li);
+          });
+        }
+        if (showMessage) showMsg('لیست مطالب خوانده شد.', 'ok');
+      } catch (e) { showMsg('خطا در خواندن مطالب: ' + e.message, 'err'); }
+    }
+    async function openPost(slug) {
+      try {
+        showMsg('در حال بارگذاری مطلب...', 'info');
+        var r = await fetch('/content/posts/' + slug + '.json?' + Date.now());
+        if (!r.ok) throw new Error('مطلب پیدا نشد');
+        currentPostData = await r.json();
+        var post = currentPostData.post || {};
+        var seo = currentPostData.seo || {};
+        document.getElementById('post-slug-original').value = post.slug || slug;
+        document.getElementById('post-slug').value = post.slug || slug;
+        document.getElementById('post-slug').disabled = true;
+        document.getElementById('post-title').value = seo.title ? seo.title.split('|')[0].trim() : (post.h1 || '');
+        document.getElementById('post-h1').value = post.h1 || '';
+        document.getElementById('post-excerpt').value = post.excerpt || '';
+        document.getElementById('post-published').value = post.published || '';
+        document.getElementById('post-category').value = post.category || 'آموزشی';
+        document.getElementById('post-tags').value = (post.tags || []).join('، ');
+        document.getElementById('post-body').value = bodyToText(post.body || []);
+        document.getElementById('post-seo-desc').value = seo.description || '';
+        document.getElementById('post-editor-title').textContent = 'ویرایش مطلب';
+        document.getElementById('post-editor').style.display = 'block';
+        showMsg('مطلب بارگذاری شد.', 'ok');
+      } catch (e) { showMsg('خطا: ' + e.message, 'err'); }
+    }
+    function startNewPost() {
+      currentPostData = null;
+      var today = new Date().toISOString().slice(0, 10);
+      document.getElementById('post-slug-original').value = '';
+      document.getElementById('post-slug').value = '';
+      document.getElementById('post-slug').disabled = false;
+      document.getElementById('post-title').value = '';
+      document.getElementById('post-h1').value = '';
+      document.getElementById('post-excerpt').value = '';
+      document.getElementById('post-published').value = today;
+      document.getElementById('post-category').value = 'آموزشی';
+      document.getElementById('post-tags').value = '';
+      document.getElementById('post-body').value = '';
+      document.getElementById('post-seo-desc').value = '';
+      document.getElementById('post-editor-title').textContent = 'مطلب جدید';
+      document.getElementById('post-editor').style.display = 'block';
+    }
+    function closePostEditor() {
+      document.getElementById('post-editor').style.display = 'none';
+      currentPostData = null;
+    }
+    async function putGithubFile(path, obj, message) {
+      var token = getToken();
+      var content = JSON.stringify(obj, null, 2) + '\n';
+      var metaRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH, {
+        headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28' }
+      });
+      var sha = null;
+      if (metaRes.ok) { var meta = await metaRes.json(); sha = meta.sha; }
+      else if (metaRes.status !== 404) {
+        var err = await metaRes.json().catch(function(){return {};});
+        throw new Error(err.message || ('خواندن: ' + metaRes.status));
+      }
+      var body = { message: message, content: toBase64(content), branch: BRANCH };
+      if (sha) body.sha = sha;
+      var putRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, {
+        method: 'PUT',
+        headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (!putRes.ok) {
+        var err2 = await putRes.json().catch(function(){return {};});
+        throw new Error(err2.message || ('ذخیره: ' + putRes.status));
+      }
+    }
+    async function savePost() {
+      if (!isLoggedIn()) { showMsg('نشست منقضی شده.', 'err'); logout(); return; }
+      var token = getToken();
+      if (!token) { showMsg('اول توکن گیت‌هاب را وارد کن.', 'err'); return; }
+      var isNew = !document.getElementById('post-slug-original').value;
+      var slug = (document.getElementById('post-slug').value || '').trim().toLowerCase();
+      if (isNew) {
+        if (!slug) slug = slugify(document.getElementById('post-title').value);
+        if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) { showMsg('slug فقط انگلیسی کوچک، عدد و خط تیره.', 'err'); return; }
+      } else { slug = document.getElementById('post-slug-original').value; }
+      var title = document.getElementById('post-title').value.trim();
+      var h1 = document.getElementById('post-h1').value.trim() || title;
+      var excerpt = document.getElementById('post-excerpt').value.trim();
+      var published = document.getElementById('post-published').value || new Date().toISOString().slice(0, 10);
+      var category = document.getElementById('post-category').value.trim() || 'آموزشی';
+      var tags = document.getElementById('post-tags').value.split(/[,،]/).map(function(t){return t.trim();}).filter(Boolean);
+      var body = textToBody(document.getElementById('post-body').value);
+      var seoDesc = document.getElementById('post-seo-desc').value.trim() || excerpt;
+      if (!title || !h1) { showMsg('عنوان الزامی است.', 'err'); return; }
+      if (!body.length) { showMsg('متن مطلب خالی است.', 'err'); return; }
+      var data = currentPostData || { seo: {}, post: {}, meta: {} };
+      data.seo = data.seo || {}; data.post = data.post || {};
+      data.seo.title = title + ' | ابن‌سینا ساوه';
+      data.seo.description = seoDesc;
+      data.seo.canonical = 'https://savehphysio.ir/blog/' + slug + '.html';
+      data.seo.og_title = title; data.seo.og_description = seoDesc;
+      data.seo.og_image = data.seo.og_image || 'https://savehphysio.ir/clinic.jpg';
+      data.seo.twitter_title = title; data.seo.twitter_description = seoDesc;
+      data.seo.twitter_image = data.seo.twitter_image || data.seo.og_image;
+      data.seo.robots = data.seo.robots || 'index,follow';
+      data.post.slug = slug; data.post.h1 = h1; data.post.excerpt = excerpt;
+      data.post.published = published; data.post.updated = new Date().toISOString().slice(0, 10);
+      data.post.author = data.post.author || 'سجاد علی‌کرمی';
+      data.post.author_role = data.post.author_role || 'فیزیوتراپیست — کلینیک ابن‌سینا ساوه';
+      data.post.category = category; data.post.tags = tags; data.post.body = body;
+      if (!data.post.related_service) data.post.related_service = { label: 'مشاهده خدمات', href: '/#services' };
+      data.meta = data.meta || {}; data.meta.notes = 'ویرایش از پنل ادمین';
+      showMsg('در حال ذخیره مطلب...', 'info');
+      try {
+        await putGithubFile('content/posts/' + slug + '.json', data, 'admin: ' + (isNew ? 'create' : 'update') + ' post ' + slug);
+        if (!postsIndexCache) {
+          var ir = await fetch('/content/posts/index.json?' + Date.now());
+          postsIndexCache = await ir.json();
+        }
+        var entry = { slug: slug, title: title, excerpt: excerpt, published: published, href: slug + '.html' };
+        var posts = postsIndexCache.posts || [];
+        var found = false;
+        for (var i = 0; i < posts.length; i++) { if (posts[i].slug === slug) { posts[i] = entry; found = true; break; } }
+        if (!found) posts.unshift(entry);
+        postsIndexCache.posts = posts;
+        await putGithubFile('content/posts/index.json', postsIndexCache, 'admin: update posts index');
+        document.getElementById('post-slug-original').value = slug;
+        document.getElementById('post-slug').value = slug;
+        document.getElementById('post-slug').disabled = true;
+        currentPostData = data;
+        showMsg('مطلب ذخیره شد ✓', 'ok');
+        loadPostsList(false);
+      } catch (e) { showMsg('خطا در ذخیره مطلب: ' + e.message, 'err'); }
+    }
+
+    async function realSave(section) {
+      if (!isLoggedIn()) {
+        showMsg('نشست منقضی شده. دوباره وارد شوید.', 'err');
+        logout();
+        return;
+      }
+      var token = getToken();
+      if (!token) {
+        showMsg('اول از منوی تنظیمات ذخیره توکن گیت‌هاب را وارد کن.', 'err');
+        return;
+      }
+      var path = FILE_MAP[section];
+      if (!path) { showMsg('بخش نامعتبر است.', 'err'); return; }
+      showMsg('در حال ذخیره روی گیت‌هاب...', 'info');
+      try {
+        var data = await buildData(section);
+        var content = JSON.stringify(data, null, 2) + '\n';
+        var metaRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH, {
+          headers: {
+            'Accept': 'application/vnd.github+json',
+            'Authorization': 'Bearer ' + token,
+            'X-GitHub-Api-Version': '2022-11-28'
+          }
+        });
+        if (!metaRes.ok) {
+          var err = await metaRes.json().catch(function() { return {}; });
+          throw new Error(err.message || ('خطا: ' + metaRes.status));
+        }
+        var meta = await metaRes.json();
+        var putRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/vnd.github+json',
+            'Authorization': 'Bearer ' + token,
+            'X-GitHub-Api-Version': '2022-11-28',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'admin: update ' + path,
+            content: toBase64(content),
+            sha: meta.sha,
+            branch: BRANCH
+          })
+        });
+        if (!putRes.ok) {
+          var err2 = await putRes.json().catch(function() { return {}; });
+          throw new Error(err2.message || ('خطا: ' + putRes.status));
+        }
+        showMsg('ذخیره شد ✓ — تا ۱–۳ دقیقه دیگر روی سایت اعمال می‌شود.', 'ok');
+      } catch (e) {
+        showMsg('خطا در ذخیره: ' + e.message, 'err');
+      }
+    }
+  </script>
+</body>
+</html>
