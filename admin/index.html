@@ -18,13 +18,14 @@
     }
     #login-screen {
       min-height: 100vh;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       background: #e9ecef;
       padding: 16px;
     }
-    #login-screen.hidden { display: none; }
+    #login-screen.hidden { display: none !important; }
+    #login-screen.force-show { display: flex !important; }
     .login-box {
       width: 100%;
       max-width: 360px;
