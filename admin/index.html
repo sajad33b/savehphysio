@@ -91,7 +91,7 @@
       font-size: 12px;
     }
     .login-err.show { display: block; }
-    #app { display: none; }
+    #app { display: block; }
     #app.show { display: block; }
     .topbar {
       background: #3a6ea5;
@@ -578,7 +578,9 @@
     }
 
     function showLogin() {
+      document.getElementById('login-screen').classList.add('force-show');
       document.getElementById('login-screen').classList.remove('hidden');
+      document.getElementById('app').style.display = 'none';
       document.getElementById('app').classList.remove('show');
       document.title = 'ورود | مدیریت وبلاگ ابن‌سینا ساوه';
     }
