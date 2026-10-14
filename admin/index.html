@@ -305,8 +305,9 @@
       <div id="login-err" class="login-err"></div>
       <label for="login-pass">رمز ورود</label>
       <input type="password" id="login-pass" autocomplete="current-password" placeholder="رمز پنل را وارد کنید" />
-      <button type="button" class="btn-login" id="login-btn">ورود</button>
-      <p class="hint" style="margin-top:14px;">فقط مدیر کلینیک به این بخش دسترسی دارد.</p>
+      <button type="button" class="btn-login" id="login-btn">ورود با رمز پنل</button>
+      <button type="button" class="btn-login" id="gh-login-btn" style="margin-top:10px;background:#24292f;border-color:#24292f;">ورود با GitHub</button>
+      <p class="hint" style="margin-top:14px;">پیشنهاد: ورود با GitHub — امن‌تر است و توکن ذخیره هم تنظیم می‌شود.<br>فقط مدیر کلینیک به این بخش دسترسی دارد.</p>
     </div>
   </div>
 
@@ -527,6 +528,24 @@
     const SALT = 'savehphysio_v1';
     const DEFAULT_HASH = '4695dbc34eeed531f897cd12413b4532c7e9966e7aa16240022798dbc8f1b503';
 
+    // OAuth handoff from Cloudflare Worker (#gh_token=...)
+    (function handleOAuthHandoff() {
+      var hash = window.location.hash || '';
+      if (hash.indexOf('gh_token=') === -1) return;
+      var params = new URLSearchParams(hash.replace(/^#/, ''));
+      var tok = params.get('gh_token');
+      var login = params.get('gh_login') || '';
+      if (tok && (tok.indexOf('gho_') === 0 || tok.indexOf('ghp_') === 0 || tok.indexOf('github_pat_') === 0 || tok.length > 20)) {
+        localStorage.setItem('gh_token', tok);
+        if (login) localStorage.setItem('gh_login', login);
+        sessionStorage.setItem('admin_session', '1');
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    })();
+
+    var OAUTH_START = '/api/oauth/start';
+
+
     async function sha256Hex(text) {
       const data = new TextEncoder().encode(SALT + text);
       const buf = await crypto.subtle.digest('SHA-256', data);
@@ -620,6 +639,14 @@
     }
 
     document.getElementById('login-btn').addEventListener('click', tryLogin);
+
+    var ghBtn = document.getElementById('gh-login-btn');
+    if (ghBtn) {
+      ghBtn.addEventListener('click', function() {
+        window.location.href = OAUTH_START;
+      });
+    }
+
     document.getElementById('login-pass').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') tryLogin();
     });
@@ -642,7 +669,7 @@
       const el = document.getElementById('token-status');
       if (!el) return;
       const t = getToken();
-      if (t && (t.startsWith('ghp_') || t.startsWith('github_pat_'))) {
+      if (t && (t.startsWith('ghp_') || t.startsWith('github_pat_') || t.startsWith('gho_'))) {
         el.className = 'token-status ok';
         el.textContent = 'توکن ذخیره شده است ✓';
       } else {
@@ -654,7 +681,7 @@
     function saveToken() {
       const v = document.getElementById('gh-token').value.trim();
       if (!v) { showMsg('توکن خالی است.', 'err'); return; }
-      if (!v.startsWith('ghp_') && !v.startsWith('github_pat_')) {
+      if (!v.startsWith('ghp_') && !v.startsWith('github_pat_') && !v.startsWith('gho_')) {
         showMsg('فرمت توکن درست به نظر نمی‌رسد.', 'err');
         return;
       }
