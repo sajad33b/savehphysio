@@ -652,19 +652,9 @@
     });
     document.getElementById('logout-btn').addEventListener('click', logout);
 
-    function hasCloudflareAccess() {
-      try {
-        return document.cookie.split(';').some(function(c) {
-          return c.trim().indexOf('CF_Authorization=') === 0;
-        });
-      } catch (e) { return false; }
-    }
-    if (isLoggedIn() || hasCloudflareAccess()) {
-      if (hasCloudflareAccess()) setLoggedIn(true);
-      showApp();
-    } else {
-      showLogin();
-    }
+    // مسیر /admin با Cloudflare Access محافظت می‌شود؛ رمز جدا لازم نیست
+    setLoggedIn(true);
+    showApp();
 
     const sidebar = document.getElementById('sidebar');
     const main = document.getElementById('main');
