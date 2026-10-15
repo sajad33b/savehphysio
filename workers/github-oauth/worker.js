@@ -139,9 +139,10 @@ function cleanText(s, max) {
 }
 
 
-async function notifyBale(env, item) {
-  const token = env.BALE_BOT_TOKEN;
-  const chatId = env.BALE_CHAT_ID;
+
+async function notifyTelegram(env, item) {
+  const token = env.TELEGRAM_BOT_TOKEN || env.BALE_BOT_TOKEN;
+  const chatId = env.TELEGRAM_CHAT_ID || env.BALE_CHAT_ID;
   if (!token || !chatId) return;
   const stars = "★".repeat(item.rating || 0) + "☆".repeat(5 - (item.rating || 0));
   const text =
@@ -151,16 +152,22 @@ async function notifyBale(env, item) {
     "متن: " + (item.text || "") + "\n" +
     (item.phone ? ("تلفن: " + item.phone + "\n") : "") +
     "شناسه: " + (item.id || "") + "\n\n" +
-    "برای تأیید: https://savehphysio.ir/admin/";
+    "تأیید در پنل:\nhttps://savehphysio.ir/admin/";
+  const apiBase = env.TELEGRAM_BOT_TOKEN
+    ? ("https://api.telegram.org/bot" + token)
+    : ("https://tapi.bale.ai/bot" + token);
   try {
-    await fetch("https://tapi.bale.ai/bot" + token + "/sendMessage", {
+    await fetch(apiBase + "/sendMessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text }),
+      body: JSON.stringify({ chat_id: chatId, text: text }),
     });
-  } catch (e) {
-    // non-fatal
-  }
+  } catch (e) {}
+}
+
+async function notifyBale(env, item) {
+  // backward-compatible alias
+  return notifyTelegram(env, item);
 }
 
 export default {
@@ -232,7 +239,7 @@ export default {
           "review: new pending " + id,
           file.sha
         );
-        await notifyBale(env, item);
+        await notifyTelegram(env, item);
         return jsonResp({ ok: true, id }, 200, origin);
       } catch (e) {
         return jsonResp({ error: String(e.message || e) }, 500, origin);
