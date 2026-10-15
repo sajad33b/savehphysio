@@ -306,7 +306,7 @@
       <label for="login-pass">رمز ورود</label>
       <input type="password" id="login-pass" autocomplete="current-password" placeholder="رمز پنل را وارد کنید" />
       <button type="button" class="btn-login" id="login-btn">ورود</button>
-      <p class="hint" style="margin-top:14px;">رمز پیش‌فرض: <b>Ibnsina1401</b><br>بعد از ورود، از منوی «تنظیمات ذخیره» توکن گیت‌هاب را وارد کنید تا ذخیره کار کند.</p>
+      <p class="hint" style="margin-top:14px;">فقط مدیر کلینیک به این بخش دسترسی دارد.<br>بعد از ورود، برای ذخیره از منوی «تنظیمات ذخیره» توکن گیت‌هاب را وارد کنید.</p>
     </div>
   </div>
 
@@ -638,7 +638,7 @@
       showMsg('رمز پنل تغییر کرد.', 'ok');
     }
 
-    document.getElementById('login-btn').addEventListener('click', tryLogin););
+    document.getElementById('login-btn').addEventListener('click', tryLogin);
     }
 
     document.getElementById('login-pass').addEventListener('keydown', function(e) {
