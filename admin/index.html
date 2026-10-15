@@ -520,7 +520,10 @@
         </div>
         <ul id="reviews-pending-list" style="list-style:none;padding:0;margin:0 0 20px;"></ul>
         <h2>نظرات منتشرشده روی سایت</h2>
-        <ul id="reviews-published-list" style="list-style:none;padding:0;margin:0;"></ul>
+        <ul id="reviews-published-list" style="list-style:none;padding:0;margin:0 0 20px;"></ul>
+        <h2>آرشیو ردشده‌ها</h2>
+        <p class="hint" style="margin-bottom:10px;">این نظرات پاک نشده‌اند؛ فقط روی سایت نمایش داده نمی‌شوند.</p>
+        <ul id="reviews-archived-list" style="list-style:none;padding:0;margin:0;"></ul>
       </div>
 
       <div id="taxonomy" class="section">
@@ -1118,7 +1121,7 @@
           var no = document.createElement('button');
           no.type = 'button';
           no.className = 'btn btn-danger';
-          no.textContent = 'رد / حذف';
+          no.textContent = 'رد و آرشیو';
           no.onclick = function() { rejectReview(item.id); };
           actions.appendChild(ok);
           actions.appendChild(no);
@@ -1140,11 +1143,37 @@
           var del = document.createElement('button');
           del.type = 'button';
           del.className = 'btn btn-danger';
-          del.textContent = 'حذف از سایت';
+          del.textContent = 'برداشتن از سایت (آرشیو)';
           del.onclick = function() { unpublishReview(idx); };
           actions.appendChild(del);
           pub.appendChild(li);
         });
+      }
+      var arch = document.getElementById('reviews-archived-list');
+      if (arch) {
+        arch.innerHTML = '';
+        var archived = (reviewsPendingCache && reviewsPendingCache.archived) || [];
+        if (!archived.length) {
+          arch.innerHTML = '<li style="padding:10px;color:#666;">آرشیو خالی است.</li>';
+        } else {
+          archived.forEach(function(item) {
+            var li = document.createElement('li');
+            li.style.cssText = 'border:1px solid #dee2e6;border-radius:6px;padding:12px;margin-bottom:10px;background:#f1f3f5;';
+            li.innerHTML = '<div style="font-weight:bold;"></div><div style="color:#D9891F;"></div><div style="line-height:1.7;margin:6px 0;"></div><div style="font-size:12px;color:#666;margin-bottom:8px;"></div><div class="post-actions"></div>';
+            li.children[0].textContent = (item.name || 'بدون نام') + ' (رد شده)';
+            li.children[1].textContent = starsText(item.rating);
+            li.children[2].textContent = item.text || '';
+            li.children[3].textContent = (item.created || '') + (item.rejected_at ? (' · رد: ' + item.rejected_at) : '');
+            var actions = li.querySelector('.post-actions');
+            var rest = document.createElement('button');
+            rest.type = 'button';
+            rest.className = 'btn';
+            rest.textContent = 'بازگشت به صف انتظار';
+            rest.onclick = function() { restoreArchivedReview(item.id); };
+            actions.appendChild(rest);
+            arch.appendChild(li);
+          });
+        }
       }
     }
 
@@ -1186,13 +1215,51 @@
 
     async function rejectReview(id) {
       if (!getToken()) { showMsg('توکن گیت‌هاب را وارد کنید.', 'err'); return; }
-      if (!confirm('این نظر رد و از صف حذف شود؟')) return;
+      if (!confirm('این نظر رد و آرشیو شود؟ (پاک نمی‌شود؛ فقط روی سایت نشان داده نمی‌شود)')) return;
       try {
-        showMsg('در حال حذف...', 'info');
+        showMsg('در حال آرشیو...', 'info');
         if (!reviewsPendingCache) await loadReviewsAdmin(false);
-        reviewsPendingCache.pending = (reviewsPendingCache.pending || []).filter(function(p) { return p.id !== id; });
-        await putGithubFile('content/reviews-pending.json', reviewsPendingCache, 'admin: reject review ' + id);
-        showMsg('نظر رد شد.', 'ok');
+        var pending = reviewsPendingCache.pending || [];
+        var item = null;
+        var next = [];
+        pending.forEach(function(p) {
+          if (p.id === id) item = p;
+          else next.push(p);
+        });
+        if (!item) throw new Error('نظر پیدا نشد');
+        item.status = 'rejected';
+        item.rejected_at = new Date().toISOString().slice(0, 10);
+        if (!Array.isArray(reviewsPendingCache.archived)) reviewsPendingCache.archived = [];
+        reviewsPendingCache.archived.unshift(item);
+        reviewsPendingCache.pending = next;
+        await putGithubFile('content/reviews-pending.json', reviewsPendingCache, 'admin: archive rejected review ' + id);
+        showMsg('نظر رد و آرشیو شد ✓', 'ok');
+        renderReviewsAdmin();
+      } catch (e) {
+        showMsg('خطا: ' + e.message, 'err');
+      }
+    }
+
+    async function restoreArchivedReview(id) {
+      if (!getToken()) { showMsg('توکن گیت‌هاب را وارد کنید.', 'err'); return; }
+      try {
+        showMsg('در حال بازگردانی به صف انتظار...', 'info');
+        if (!reviewsPendingCache) await loadReviewsAdmin(false);
+        var archived = reviewsPendingCache.archived || [];
+        var item = null;
+        var nextArch = [];
+        archived.forEach(function(p) {
+          if (p.id === id) item = p;
+          else nextArch.push(p);
+        });
+        if (!item) throw new Error('در آرشیو پیدا نشد');
+        item.status = 'pending';
+        delete item.rejected_at;
+        if (!Array.isArray(reviewsPendingCache.pending)) reviewsPendingCache.pending = [];
+        reviewsPendingCache.pending.unshift(item);
+        reviewsPendingCache.archived = nextArch;
+        await putGithubFile('content/reviews-pending.json', reviewsPendingCache, 'admin: restore review to pending ' + id);
+        showMsg('به صف انتظار برگشت ✓', 'ok');
         renderReviewsAdmin();
       } catch (e) {
         showMsg('خطا: ' + e.message, 'err');
@@ -1201,16 +1268,28 @@
 
     async function unpublishReview(idx) {
       if (!getToken()) { showMsg('توکن گیت‌هاب را وارد کنید.', 'err'); return; }
-      if (!confirm('این نظر از صفحه عمومی حذف شود؟')) return;
+      if (!confirm('این نظر از سایت برداشته و آرشیو شود؟')) return;
       try {
-        showMsg('در حال حذف از سایت...', 'info');
+        showMsg('در حال آرشیو...', 'info');
         if (!testimonialsCache) {
           var rt = await fetch('/content/testimonials.json?' + Date.now());
           testimonialsCache = await rt.json();
         }
-        testimonialsCache.items = (testimonialsCache.items || []).filter(function(_, i) { return i !== idx; });
-        await putGithubFile('content/testimonials.json', testimonialsCache, 'admin: unpublish review');
-        showMsg('از سایت حذف شد ✓', 'ok');
+        if (!reviewsPendingCache) {
+          var rp = await fetch('/content/reviews-pending.json?' + Date.now());
+          reviewsPendingCache = await rp.json();
+        }
+        var items = testimonialsCache.items || [];
+        if (idx < 0 || idx >= items.length) throw new Error('نظر پیدا نشد');
+        var item = items[idx];
+        item.status = 'unpublished';
+        item.rejected_at = new Date().toISOString().slice(0, 10);
+        if (!Array.isArray(reviewsPendingCache.archived)) reviewsPendingCache.archived = [];
+        reviewsPendingCache.archived.unshift(item);
+        testimonialsCache.items = items.filter(function(_, i) { return i !== idx; });
+        await putGithubFile('content/testimonials.json', testimonialsCache, 'admin: unpublish review to archive');
+        await putGithubFile('content/reviews-pending.json', reviewsPendingCache, 'admin: archive unpublished review');
+        showMsg('از سایت برداشته و آرشیو شد ✓', 'ok');
         renderReviewsAdmin();
       } catch (e) {
         showMsg('خطا: ' + e.message, 'err');
