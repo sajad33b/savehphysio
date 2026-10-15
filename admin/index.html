@@ -292,6 +292,10 @@
     }
     .overlay.show { display: block; }
 
+    .post-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .post-actions .btn { padding: 5px 10px; font-size: 12px; }
+    .post-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; background: #fff3bf; color: #e67700; margin-right: 6px; }
+    .post-badge.arch { background: #e9ecef; color: #495057; }
     #posts-list li { border: 1px solid #dee2e6; border-radius: 3px; padding: 10px 12px; margin-bottom: 8px; background: #f8f9fa; display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
     #posts-list .t { font-weight: bold; color: #1a365d; }
     #posts-list .e { font-size: 12px; color: #666; margin-top: 4px; }
@@ -475,6 +479,9 @@
           <div class="form-group"><label>توضیح سئو</label><textarea id="post-seo-desc"></textarea></div>
           <div class="buttons">
             <button class="btn btn-primary" onclick="savePost()">ذخیره مطلب</button>
+            <button class="btn" onclick="previewCurrentPost()">پیش‌نمایش</button>
+            <button class="btn" onclick="archiveCurrentPost()">آرشیو / از آرشیو درآوردن</button>
+            <button class="btn btn-danger" onclick="deleteCurrentPost()">حذف مطلب</button>
             <button class="btn" onclick="closePostEditor()">بستن</button>
           </div>
           <div class="hint">بعد از ذخیره، تا چند دقیقه بعد در /blog/ دیده می‌شود.</div>
@@ -908,18 +915,32 @@
           posts.forEach(function(p) {
             var li = document.createElement('li');
             var meta = document.createElement('div');
-            meta.innerHTML = '<div class="t"></div><div class="e"></div><div class="d"></div>';
-            meta.querySelector('.t').textContent = p.title || p.slug;
+            meta.style.flex = '1';
+            meta.innerHTML = '<div class="t"></div><div class="e"></div><div class="d"></div><div class="post-actions"></div>';
+            var titleEl = meta.querySelector('.t');
+            if (p.archived) {
+              var badge = document.createElement('span');
+              badge.className = 'post-badge arch';
+              badge.textContent = 'آرشیو';
+              titleEl.appendChild(badge);
+            }
+            titleEl.appendChild(document.createTextNode(p.title || p.slug));
             meta.querySelector('.e').textContent = p.excerpt || '';
             meta.querySelector('.d').textContent = (p.published || '') + ' — ' + (p.slug || '');
-            var btn = document.createElement('button');
-            btn.className = 'btn btn-primary';
-            btn.style.padding = '5px 10px';
-            btn.style.fontSize = '12px';
-            btn.textContent = 'ویرایش';
-            btn.onclick = function() { openPost(p.slug); };
+            var actions = meta.querySelector('.post-actions');
+            function addBtn(label, cls, fn) {
+              var b = document.createElement('button');
+              b.type = 'button';
+              b.className = 'btn ' + (cls || '');
+              b.textContent = label;
+              b.onclick = fn;
+              actions.appendChild(b);
+            }
+            addBtn('ویرایش', 'btn-primary', function() { openPost(p.slug); });
+            addBtn('پیش‌نمایش', '', function() { previewPost(p.slug); });
+            addBtn(p.archived ? 'انتشار مجدد' : 'آرشیو', '', function() { toggleArchivePost(p.slug); });
+            addBtn('حذف', 'btn-danger', function() { deletePostBySlug(p.slug); });
             li.appendChild(meta);
-            li.appendChild(btn);
             list.appendChild(li);
           });
         }
@@ -971,6 +992,116 @@
       document.getElementById('post-editor').style.display = 'none';
       currentPostData = null;
     }
+
+    async function deleteGithubFile(path, message) {
+      var token = getToken();
+      if (!token) throw new Error('توکن گیت‌هاب تنظیم نشده');
+      var metaRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH, {
+        headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28' }
+      });
+      if (metaRes.status === 404) return;
+      if (!metaRes.ok) {
+        var err = await metaRes.json().catch(function(){return {};});
+        throw new Error(err.message || ('خواندن برای حذف: ' + metaRes.status));
+      }
+      var meta = await metaRes.json();
+      var delRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, {
+        method: 'DELETE',
+        headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: message || ('admin: delete ' + path), sha: meta.sha, branch: BRANCH })
+      });
+      if (!delRes.ok) {
+        var err2 = await delRes.json().catch(function(){return {};});
+        throw new Error(err2.message || ('حذف: ' + delRes.status));
+      }
+    }
+
+    function previewPost(slug) {
+      if (!slug) { showMsg('شناسه مطلب مشخص نیست.', 'err'); return; }
+      var url = 'https://savehphysio.ir/blog/' + slug + '.html';
+      window.open(url, '_blank');
+    }
+
+    function previewCurrentPost() {
+      var slug = document.getElementById('post-slug-original').value || document.getElementById('post-slug').value;
+      if (!slug) {
+        showMsg('اول مطلب را ذخیره کنید تا پیش‌نمایش سایت در دسترس باشد.', 'info');
+        return;
+      }
+      previewPost(slug);
+    }
+
+    async function ensurePostsIndex() {
+      if (postsIndexCache) return postsIndexCache;
+      var r = await fetch('/content/posts/index.json?' + Date.now());
+      postsIndexCache = await r.json();
+      return postsIndexCache;
+    }
+
+    async function toggleArchivePost(slug) {
+      if (!isLoggedIn()) { showMsg('نشست منقضی شده.', 'err'); logout(); return; }
+      if (!getToken()) { showMsg('اول توکن گیت‌هاب را در تنظیمات ذخیره وارد کن.', 'err'); return; }
+      try {
+        showMsg('در حال تغییر وضعیت آرشیو...', 'info');
+        await ensurePostsIndex();
+        var posts = postsIndexCache.posts || [];
+        var entry = null;
+        for (var i = 0; i < posts.length; i++) {
+          if (posts[i].slug === slug) { entry = posts[i]; break; }
+        }
+        if (!entry) throw new Error('مطلب در فهرست پیدا نشد');
+        var nowArchived = !entry.archived;
+        entry.archived = nowArchived;
+        // update post json too
+        var pr = await fetch('/content/posts/' + slug + '.json?' + Date.now());
+        if (!pr.ok) throw new Error('فایل مطلب پیدا نشد');
+        var pdata = await pr.json();
+        pdata.meta = pdata.meta || {};
+        pdata.meta.archived = nowArchived;
+        if (pdata.post) pdata.post.archived = nowArchived;
+        await putGithubFile('content/posts/' + slug + '.json', pdata, 'admin: ' + (nowArchived ? 'archive' : 'unarchive') + ' post ' + slug);
+        await putGithubFile('content/posts/index.json', postsIndexCache, 'admin: update posts index archive flag');
+        showMsg(nowArchived ? 'مطلب آرشیو شد ✓ (از فهرست عمومی حذف می‌شود)' : 'مطلب از آرشیو خارج و منتشر شد ✓', 'ok');
+        loadPostsList(false);
+        if (document.getElementById('post-slug-original').value === slug) {
+          currentPostData = pdata;
+        }
+      } catch (e) {
+        showMsg('خطا در آرشیو: ' + e.message, 'err');
+      }
+    }
+
+    function archiveCurrentPost() {
+      var slug = document.getElementById('post-slug-original').value || document.getElementById('post-slug').value;
+      if (!slug) { showMsg('اول مطلب را ذخیره کنید.', 'err'); return; }
+      toggleArchivePost(slug);
+    }
+
+    async function deletePostBySlug(slug) {
+      if (!isLoggedIn()) { showMsg('نشست منقضی شده.', 'err'); logout(); return; }
+      if (!getToken()) { showMsg('اول توکن گیت‌هاب را در تنظیمات ذخیره وارد کن.', 'err'); return; }
+      if (!slug) return;
+      if (!confirm('مطلب «' + slug + '» برای همیشه حذف شود؟ این کار قابل برگشت از پنل نیست.')) return;
+      try {
+        showMsg('در حال حذف مطلب...', 'info');
+        await ensurePostsIndex();
+        await deleteGithubFile('content/posts/' + slug + '.json', 'admin: delete post ' + slug);
+        postsIndexCache.posts = (postsIndexCache.posts || []).filter(function(p) { return p.slug !== slug; });
+        await putGithubFile('content/posts/index.json', postsIndexCache, 'admin: remove post from index ' + slug);
+        showMsg('مطلب حذف شد ✓', 'ok');
+        if (document.getElementById('post-slug-original').value === slug) closePostEditor();
+        loadPostsList(false);
+      } catch (e) {
+        showMsg('خطا در حذف: ' + e.message, 'err');
+      }
+    }
+
+    function deleteCurrentPost() {
+      var slug = document.getElementById('post-slug-original').value || document.getElementById('post-slug').value;
+      if (!slug) { showMsg('مطلبی برای حذف انتخاب نشده.', 'err'); return; }
+      deletePostBySlug(slug);
+    }
+
     async function putGithubFile(path, obj, message) {
       var token = getToken();
       var content = JSON.stringify(obj, null, 2) + '\n';
