@@ -243,15 +243,24 @@
       color: #fff;
     }
     .msg {
-      padding: 10px 12px;
-      margin-bottom: 12px;
-      border-radius: 2px;
-      font-size: 13px;
       display: none;
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 16px;
+      z-index: 9999;
+      padding: 14px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 6px 24px rgba(0,0,0,.18);
+      max-width: 520px;
+      margin: 0 auto;
     }
-    .msg.ok { background: #d3f9d8; border: 1px solid #8ce99a; color: #2b8a3e; display: block; }
-    .msg.err { background: #ffe3e3; border: 1px solid #ffa8a8; color: #c92a2a; display: block; }
-    .msg.info { background: #d0ebff; border: 1px solid #74c0fc; color: #1864ab; display: block; }
+    .msg.ok { background: #2b8a3e; border: 1px solid #2b8a3e; color: #fff; display: block; }
+    .msg.err { background: #c92a2a; border: 1px solid #c92a2a; color: #fff; display: block; }
+    .msg.info { background: #1864ab; border: 1px solid #1864ab; color: #fff; display: block; }
     .section { display: none; }
     .section.active { display: block; }
     .hint {
@@ -745,12 +754,16 @@
       });
     });
 
+    var msgTimer = null;
     function showMsg(text, type) {
       var el = document.getElementById('msg');
-      el.className = 'msg ' + type;
+      if (!el) return;
+      el.className = 'msg ' + (type || 'info');
       el.textContent = text;
       el.style.display = 'block';
-      setTimeout(function() { el.style.display = 'none'; }, 6000);
+      if (msgTimer) clearTimeout(msgTimer);
+      var ms = (type === 'err') ? 8000 : 4500;
+      msgTimer = setTimeout(function() { el.style.display = 'none'; }, ms);
     }
 
     async function loadHome(showMessage) {
