@@ -305,9 +305,8 @@
       <div id="login-err" class="login-err"></div>
       <label for="login-pass">رمز ورود</label>
       <input type="password" id="login-pass" autocomplete="current-password" placeholder="رمز پنل را وارد کنید" />
-      <button type="button" class="btn-login" id="login-btn">ورود با رمز پنل</button>
-      <button type="button" class="btn-login" id="gh-login-btn" style="margin-top:10px;background:#24292f;border-color:#24292f;">ورود با GitHub</button>
-      <p class="hint" style="margin-top:14px;">رمز پنل را وارد کنید. برای ذخیره تغییرات، بعد از ورود از «تنظیمات ذخیره» توکن گیت‌هاب را بگذارید.</p>
+      <button type="button" class="btn-login" id="login-btn">ورود</button>
+      <p class="hint" style="margin-top:14px;">رمز پیش‌فرض: <b>Ibnsina1401</b><br>بعد از ورود، از منوی «تنظیمات ذخیره» توکن گیت‌هاب را وارد کنید تا ذخیره کار کند.</p>
     </div>
   </div>
 
@@ -553,7 +552,8 @@
     }
 
     function getPassHash() {
-      return localStorage.getItem('admin_pass_hash') || DEFAULT_HASH;
+      // فعلاً فقط رمز پیش‌فرض — تا ورود پایدار بماند
+      return DEFAULT_HASH;
     }
 
     function isLoggedIn() {
@@ -638,13 +638,7 @@
       showMsg('رمز پنل تغییر کرد.', 'ok');
     }
 
-    document.getElementById('login-btn').addEventListener('click', tryLogin);
-
-    var ghBtn = document.getElementById('gh-login-btn');
-    if (ghBtn) {
-      ghBtn.addEventListener('click', function() {
-        window.location.href = OAUTH_START;
-      });
+    document.getElementById('login-btn').addEventListener('click', tryLogin););
     }
 
     document.getElementById('login-pass').addEventListener('keydown', function(e) {
