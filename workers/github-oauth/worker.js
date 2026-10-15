@@ -138,6 +138,31 @@ function cleanText(s, max) {
     .slice(0, max);
 }
 
+
+async function notifyBale(env, item) {
+  const token = env.BALE_BOT_TOKEN;
+  const chatId = env.BALE_CHAT_ID;
+  if (!token || !chatId) return;
+  const stars = "★".repeat(item.rating || 0) + "☆".repeat(5 - (item.rating || 0));
+  const text =
+    "📝 نظر جدید در سایت\n\n" +
+    "نام: " + (item.name || "-") + "\n" +
+    "امتیاز: " + stars + "\n" +
+    "متن: " + (item.text || "") + "\n" +
+    (item.phone ? ("تلفن: " + item.phone + "\n") : "") +
+    "شناسه: " + (item.id || "") + "\n\n" +
+    "برای تأیید: https://savehphysio.ir/admin/";
+  try {
+    await fetch("https://tapi.bale.ai/bot" + token + "/sendMessage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text }),
+    });
+  } catch (e) {
+    // non-fatal
+  }
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -207,6 +232,7 @@ export default {
           "review: new pending " + id,
           file.sha
         );
+        await notifyBale(env, item);
         return jsonResp({ ok: true, id }, 200, origin);
       } catch (e) {
         return jsonResp({ error: String(e.message || e) }, 500, origin);
