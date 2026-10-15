@@ -308,6 +308,220 @@
       .main { margin-right: 10px; }
       .main.full { margin-right: 10px; }
     }
+  
+    /* —— UI order & cleanup —— */
+    .main {
+      padding: 16px 16px 40px;
+      max-width: 820px;
+    }
+    .section h2 {
+      font-size: 16px;
+      color: #1a365d;
+      margin: 0 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #dee2e6;
+    }
+    .section h2 + .hint,
+    .section .hint {
+      margin: 0 0 14px;
+      line-height: 1.7;
+      color: #5c6b7a;
+      font-size: 12px;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+    }
+    .toolbar label {
+      font-size: 12px;
+      color: #495057;
+      margin: 0;
+      font-weight: normal;
+    }
+    .toolbar select {
+      padding: 6px 10px;
+      border: 1px solid #adb5bd;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 12px;
+      background: #fff;
+      min-width: 110px;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 14px;
+      margin-bottom: 4px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px 14px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #ced4da;
+      background: #fff;
+      color: #343a40;
+      line-height: 1.3;
+      white-space: nowrap;
+      transition: background .15s, border-color .15s;
+    }
+    .btn:hover { background: #f1f3f5; }
+    .btn-primary {
+      background: #3a6ea5;
+      border-color: #2c5282;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #2c5282; }
+    .btn-danger {
+      background: #fff;
+      border-color: #e03131;
+      color: #c92a2a;
+    }
+    .btn-danger:hover { background: #fff5f5; }
+    .btn-sm, .post-actions .btn {
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #343a40;
+      font-size: 12px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="password"],
+    .form-group input[type="tel"],
+    .form-group input[type="date"],
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: 13px;
+      background: #fff;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #3a6ea5;
+      box-shadow: 0 0 0 3px rgba(58,110,165,.12);
+    }
+    .card-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card-item {
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    .card-item.pending { background: #fffef5; border-color: #ffe8a1; }
+    .card-item.archived { background: #f8f9fa; }
+    .card-item .card-title {
+      font-weight: bold;
+      color: #1a365d;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+    .card-item .card-meta {
+      font-size: 11px;
+      color: #868e96;
+      margin-bottom: 6px;
+    }
+    .card-item .card-body {
+      line-height: 1.7;
+      color: #343a40;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .card-item .card-stars { color: #D9891F; margin-bottom: 6px; letter-spacing: 1px; }
+    .post-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+      padding-top: 8px;
+      border-top: 1px solid #f1f3f5;
+    }
+    #posts-list li {
+      display: block;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #fff;
+      list-style: none;
+    }
+    #posts-list li .t { font-weight: bold; color: #1a365d; margin-bottom: 4px; }
+    #posts-list li .e { color: #495057; font-size: 12px; margin-bottom: 4px; line-height: 1.6; }
+    #posts-list li .d { color: #868e96; font-size: 11px; margin-bottom: 6px; }
+    .sidebar button {
+      display: block;
+      width: 100%;
+      text-align: right;
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 13px;
+      color: #343a40;
+      cursor: pointer;
+      border-right: 3px solid transparent;
+    }
+    .sidebar button:hover { background: #e9ecef; }
+    .sidebar button.active {
+      background: #e7f1ff;
+      color: #1a365d;
+      font-weight: bold;
+      border-right-color: #3a6ea5;
+    }
+    .sidebar .nav-group {
+      margin: 10px 0 4px;
+      padding: 4px 16px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #868e96;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    #post-editor {
+      margin-top: 8px;
+      padding-top: 16px;
+      border-top: 1px solid #dee2e6;
+    }
+    .section-block {
+      margin-bottom: 22px;
+    }
+
   </style>
 </head>
 <body>
@@ -339,17 +553,19 @@
 
   <div class="layout">
     <div class="sidebar" id="sidebar">
+      <div class="nav-group">محتوای سایت</div>
       <button data-section="home" class="active">صفحه اصلی</button>
-      <button data-section="contact">تماس و نوبت</button>
       <button data-section="about">درباره ما</button>
       <button data-section="services">خدمات</button>
+      <button data-section="contact">تماس و نوبت</button>
+      <div class="nav-group">وبلاگ و نظرات</div>
       <button data-section="posts">مطالب</button>
       <button data-section="reviews">نظرات</button>
       <button data-section="taxonomy">دسته و برچسب</button>
+      <div class="nav-group">سیستم</div>
       <button data-section="settings">تنظیمات ذخیره</button>
       <button data-section="security">امنیت و رمز</button>
     </div>
-
     <div class="main" id="main">
       <div id="msg" class="msg"></div>
 
@@ -460,15 +676,15 @@
 
       <div id="posts" class="section">
         <h2>مطالب وبلاگ</h2>
-        <div style="margin-bottom:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+        <div class="toolbar">
           <button type="button" class="btn btn-primary" onclick="startNewPost()">+ مطلب جدید</button>
           <button type="button" class="btn" onclick="loadPostsList(true)">بازخوانی لیست</button>
-          <label style="font-size:12px;margin:0;">فیلتر دسته:</label>
-          <select id="post-filter-category" style="padding:6px 8px;border:1px solid #adb5bd;border-radius:2px;font-family:inherit;font-size:12px;" onchange="loadPostsList(false)">
+          <label>فیلتر دسته</label>
+          <select id="post-filter-category" onchange="loadPostsList(false)">
             <option value="">همه</option>
           </select>
-          <label style="font-size:12px;margin:0;">وضعیت:</label>
-          <select id="post-filter-status" style="padding:6px 8px;border:1px solid #adb5bd;border-radius:2px;font-family:inherit;font-size:12px;" onchange="loadPostsList(false)">
+          <label>وضعیت</label>
+          <select id="post-filter-status" onchange="loadPostsList(false)">
             <option value="">همه</option>
             <option value="published">منتشر شده</option>
             <option value="archived">آرشیو</option>
@@ -514,16 +730,22 @@
       
       
       <div id="reviews" class="section">
-        <h2>نظرات در انتظار تأیید</h2>
-        <div class="buttons" style="margin-bottom:12px;">
-          <button type="button" class="btn" onclick="loadReviewsAdmin(true)">بازخوانی</button>
+        <div class="toolbar">
+          <button type="button" class="btn" onclick="loadReviewsAdmin(true)">بازخوانی نظرات</button>
         </div>
-        <ul id="reviews-pending-list" style="list-style:none;padding:0;margin:0 0 20px;"></ul>
-        <h2>نظرات منتشرشده روی سایت</h2>
-        <ul id="reviews-published-list" style="list-style:none;padding:0;margin:0 0 20px;"></ul>
-        <h2>آرشیو ردشده‌ها</h2>
-        <p class="hint" style="margin-bottom:10px;">این نظرات پاک نشده‌اند؛ فقط روی سایت نمایش داده نمی‌شوند.</p>
-        <ul id="reviews-archived-list" style="list-style:none;padding:0;margin:0;"></ul>
+        <div class="section-block">
+          <h2>در انتظار تأیید</h2>
+          <ul id="reviews-pending-list" class="card-list"></ul>
+        </div>
+        <div class="section-block">
+          <h2>منتشرشده روی سایت</h2>
+          <ul id="reviews-published-list" class="card-list"></ul>
+        </div>
+        <div class="section-block">
+          <h2>آرشیو ردشده‌ها</h2>
+          <p class="hint">پاک نشده‌اند؛ فقط روی سایت نمایش داده نمی‌شوند.</p>
+          <ul id="reviews-archived-list" class="card-list"></ul>
+        </div>
       </div>
 
       <div id="taxonomy" class="section">
@@ -1102,7 +1324,7 @@
       } else {
         pending.forEach(function(item) {
           var li = document.createElement('li');
-          li.style.cssText = 'border:1px solid #dee2e6;border-radius:6px;padding:12px;margin-bottom:10px;background:#fffef5;';
+          li.className = 'card-item pending';
           li.innerHTML = '<div style="font-weight:bold;margin-bottom:4px;"></div>' +
             '<div style="color:#D9891F;margin-bottom:6px;"></div>' +
             '<div style="line-height:1.7;margin-bottom:8px;"></div>' +
@@ -1134,7 +1356,7 @@
       } else {
         items.forEach(function(item, idx) {
           var li = document.createElement('li');
-          li.style.cssText = 'border:1px solid #dee2e6;border-radius:6px;padding:12px;margin-bottom:10px;background:#f8f9fa;';
+          li.className = 'card-item';
           li.innerHTML = '<div style="font-weight:bold;"></div><div style="color:#D9891F;"></div><div style="line-height:1.7;margin:6px 0;"></div><div class="post-actions"></div>';
           li.children[0].textContent = item.name || '';
           li.children[1].textContent = starsText(item.rating);
@@ -1158,7 +1380,7 @@
         } else {
           archived.forEach(function(item) {
             var li = document.createElement('li');
-            li.style.cssText = 'border:1px solid #dee2e6;border-radius:6px;padding:12px;margin-bottom:10px;background:#f1f3f5;';
+            li.className = 'card-item archived';
             li.innerHTML = '<div style="font-weight:bold;"></div><div style="color:#D9891F;"></div><div style="line-height:1.7;margin:6px 0;"></div><div style="font-size:12px;color:#666;margin-bottom:8px;"></div><div class="post-actions"></div>';
             li.children[0].textContent = (item.name || 'بدون نام') + ' (رد شده)';
             li.children[1].textContent = starsText(item.rating);
