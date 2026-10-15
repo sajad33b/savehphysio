@@ -344,6 +344,7 @@
       <button data-section="about">درباره ما</button>
       <button data-section="services">خدمات</button>
       <button data-section="posts">مطالب</button>
+      <button data-section="reviews">نظرات</button>
       <button data-section="taxonomy">دسته و برچسب</button>
       <button data-section="settings">تنظیمات ذخیره</button>
       <button data-section="security">امنیت و رمز</button>
@@ -511,6 +512,17 @@
       </div>
 
       
+      
+      <div id="reviews" class="section">
+        <h2>نظرات در انتظار تأیید</h2>
+        <div class="buttons" style="margin-bottom:12px;">
+          <button type="button" class="btn" onclick="loadReviewsAdmin(true)">بازخوانی</button>
+        </div>
+        <ul id="reviews-pending-list" style="list-style:none;padding:0;margin:0 0 20px;"></ul>
+        <h2>نظرات منتشرشده روی سایت</h2>
+        <ul id="reviews-published-list" style="list-style:none;padding:0;margin:0;"></ul>
+      </div>
+
       <div id="taxonomy" class="section">
         <h2>دسته‌بندی و برچسب‌گذاری</h2>
         <p class="hint" style="margin-bottom:14px;">این فهرست‌ها در فرم مطالب و فیلتر لیست استفاده می‌شوند. هر خط یک مورد.</p>
@@ -793,6 +805,7 @@
         else if (section === 'about') loadAbout(false);
         else if (section === 'services') loadServices(false);
         else if (section === 'posts') loadPostsList(false);
+        else if (section === 'reviews') loadReviewsAdmin(false);
         else if (section === 'taxonomy') loadTaxonomy(false);
         else if (section === 'settings') updateTokenStatus();
         if (window.innerWidth <= 700 && menuOpen) {
@@ -1050,6 +1063,158 @@
     function closePostEditor() {
       document.getElementById('post-editor').style.display = 'none';
       currentPostData = null;
+    }
+
+
+    var reviewsPendingCache = null;
+    var testimonialsCache = null;
+
+    function starsText(n) {
+      n = Math.max(0, Math.min(5, parseInt(n, 10) || 0));
+      return '★'.repeat(n) + '☆'.repeat(5 - n);
+    }
+
+    async function loadReviewsAdmin(showMessage) {
+      try {
+        var rp = await fetch('/content/reviews-pending.json?' + Date.now());
+        reviewsPendingCache = await rp.json();
+        var rt = await fetch('/content/testimonials.json?' + Date.now());
+        testimonialsCache = await rt.json();
+        renderReviewsAdmin();
+        if (showMessage) showMsg('نظرات خوانده شد.', 'ok');
+      } catch (e) {
+        showMsg('خطا در خواندن نظرات: ' + e.message, 'err');
+      }
+    }
+
+    function renderReviewsAdmin() {
+      var pend = document.getElementById('reviews-pending-list');
+      var pub = document.getElementById('reviews-published-list');
+      if (!pend || !pub) return;
+      pend.innerHTML = '';
+      pub.innerHTML = '';
+      var pending = (reviewsPendingCache && reviewsPendingCache.pending) || [];
+      if (!pending.length) {
+        pend.innerHTML = '<li style="padding:10px;color:#666;">نظر در انتظاری نیست.</li>';
+      } else {
+        pending.forEach(function(item) {
+          var li = document.createElement('li');
+          li.style.cssText = 'border:1px solid #dee2e6;border-radius:6px;padding:12px;margin-bottom:10px;background:#fffef5;';
+          li.innerHTML = '<div style="font-weight:bold;margin-bottom:4px;"></div>' +
+            '<div style="color:#D9891F;margin-bottom:6px;"></div>' +
+            '<div style="line-height:1.7;margin-bottom:8px;"></div>' +
+            '<div style="font-size:12px;color:#666;margin-bottom:8px;"></div>' +
+            '<div class="post-actions"></div>';
+          li.children[0].textContent = item.name || 'بدون نام';
+          li.children[1].textContent = starsText(item.rating);
+          li.children[2].textContent = item.text || '';
+          li.children[3].textContent = (item.created || '') + (item.phone ? (' · تلفن: ' + item.phone) : '') + (item.id ? (' · ' + item.id) : '');
+          var actions = li.querySelector('.post-actions');
+          var ok = document.createElement('button');
+          ok.type = 'button';
+          ok.className = 'btn btn-primary';
+          ok.textContent = 'تأیید و انتشار';
+          ok.onclick = function() { approveReview(item.id); };
+          var no = document.createElement('button');
+          no.type = 'button';
+          no.className = 'btn btn-danger';
+          no.textContent = 'رد / حذف';
+          no.onclick = function() { rejectReview(item.id); };
+          actions.appendChild(ok);
+          actions.appendChild(no);
+          pend.appendChild(li);
+        });
+      }
+      var items = (testimonialsCache && testimonialsCache.items) || [];
+      if (!items.length) {
+        pub.innerHTML = '<li style="padding:10px;color:#666;">هنوز نظری منتشر نشده.</li>';
+      } else {
+        items.forEach(function(item, idx) {
+          var li = document.createElement('li');
+          li.style.cssText = 'border:1px solid #dee2e6;border-radius:6px;padding:12px;margin-bottom:10px;background:#f8f9fa;';
+          li.innerHTML = '<div style="font-weight:bold;"></div><div style="color:#D9891F;"></div><div style="line-height:1.7;margin:6px 0;"></div><div class="post-actions"></div>';
+          li.children[0].textContent = item.name || '';
+          li.children[1].textContent = starsText(item.rating);
+          li.children[2].textContent = item.text || '';
+          var actions = li.querySelector('.post-actions');
+          var del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn btn-danger';
+          del.textContent = 'حذف از سایت';
+          del.onclick = function() { unpublishReview(idx); };
+          actions.appendChild(del);
+          pub.appendChild(li);
+        });
+      }
+    }
+
+    async function approveReview(id) {
+      if (!getToken()) { showMsg('توکن گیت‌هاب را در تنظیمات وارد کنید.', 'err'); return; }
+      try {
+        showMsg('در حال انتشار نظر...', 'info');
+        if (!reviewsPendingCache) await loadReviewsAdmin(false);
+        if (!testimonialsCache) {
+          var rt = await fetch('/content/testimonials.json?' + Date.now());
+          testimonialsCache = await rt.json();
+        }
+        var pending = reviewsPendingCache.pending || [];
+        var item = null;
+        var nextPending = [];
+        pending.forEach(function(p) {
+          if (p.id === id) item = p;
+          else nextPending.push(p);
+        });
+        if (!item) throw new Error('نظر پیدا نشد');
+        var pubItem = {
+          id: item.id,
+          name: item.name,
+          text: item.text,
+          rating: item.rating || 5,
+          date: item.created || new Date().toISOString().slice(0, 10)
+        };
+        if (!testimonialsCache.items) testimonialsCache.items = [];
+        testimonialsCache.items.unshift(pubItem);
+        reviewsPendingCache.pending = nextPending;
+        await putGithubFile('content/testimonials.json', testimonialsCache, 'admin: publish review ' + id);
+        await putGithubFile('content/reviews-pending.json', reviewsPendingCache, 'admin: remove pending review ' + id);
+        showMsg('نظر منتشر شد ✓ — تا چند دقیقه روی سایت می‌آید.', 'ok');
+        renderReviewsAdmin();
+      } catch (e) {
+        showMsg('خطا در تأیید: ' + e.message, 'err');
+      }
+    }
+
+    async function rejectReview(id) {
+      if (!getToken()) { showMsg('توکن گیت‌هاب را وارد کنید.', 'err'); return; }
+      if (!confirm('این نظر رد و از صف حذف شود؟')) return;
+      try {
+        showMsg('در حال حذف...', 'info');
+        if (!reviewsPendingCache) await loadReviewsAdmin(false);
+        reviewsPendingCache.pending = (reviewsPendingCache.pending || []).filter(function(p) { return p.id !== id; });
+        await putGithubFile('content/reviews-pending.json', reviewsPendingCache, 'admin: reject review ' + id);
+        showMsg('نظر رد شد.', 'ok');
+        renderReviewsAdmin();
+      } catch (e) {
+        showMsg('خطا: ' + e.message, 'err');
+      }
+    }
+
+    async function unpublishReview(idx) {
+      if (!getToken()) { showMsg('توکن گیت‌هاب را وارد کنید.', 'err'); return; }
+      if (!confirm('این نظر از صفحه عمومی حذف شود؟')) return;
+      try {
+        showMsg('در حال حذف از سایت...', 'info');
+        if (!testimonialsCache) {
+          var rt = await fetch('/content/testimonials.json?' + Date.now());
+          testimonialsCache = await rt.json();
+        }
+        testimonialsCache.items = (testimonialsCache.items || []).filter(function(_, i) { return i !== idx; });
+        await putGithubFile('content/testimonials.json', testimonialsCache, 'admin: unpublish review');
+        showMsg('از سایت حذف شد ✓', 'ok');
+        renderReviewsAdmin();
+      } catch (e) {
+        showMsg('خطا: ' + e.message, 'err');
+      }
     }
 
     async function deleteGithubFile(path, message) {
