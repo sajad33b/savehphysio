@@ -584,24 +584,31 @@
     }
 
     async function tryLogin() {
-      const pass = document.getElementById('login-pass').value;
-      const err = document.getElementById('login-err');
-      err.classList.remove('show');
-      if (!pass) {
-        err.textContent = 'رمز را وارد کنید.';
-        err.classList.add('show');
-        return;
-      }
-      const h = await sha256Hex(pass);
-      if (h !== getPassHash()) {
-        err.textContent = 'رمز اشتباه است.';
-        err.classList.add('show');
+      var err = document.getElementById('login-err');
+      try {
+        var pass = (document.getElementById('login-pass').value || '').trim();
+        if (err) { err.classList.remove('show'); err.textContent = ''; }
+        if (!pass) {
+          if (err) { err.textContent = 'رمز را وارد کنید.'; err.classList.add('show'); }
+          else alert('رمز را وارد کنید.');
+          return;
+        }
+        var h = await sha256Hex(pass);
+        var expected = getPassHash();
+        if (h !== expected) {
+          if (err) { err.textContent = 'رمز اشتباه است.'; err.classList.add('show'); }
+          else alert('رمز اشتباه است.');
+          document.getElementById('login-pass').value = '';
+          return;
+        }
+        setLoggedIn(true);
         document.getElementById('login-pass').value = '';
-        return;
+        showApp();
+      } catch (e) {
+        var msg = 'خطا در ورود: ' + (e && e.message ? e.message : e);
+        if (err) { err.textContent = msg; err.classList.add('show'); }
+        else alert(msg);
       }
-      setLoggedIn(true);
-      document.getElementById('login-pass').value = '';
-      showApp();
     }
 
     function logout() {
@@ -639,7 +646,6 @@
     }
 
     document.getElementById('login-btn').addEventListener('click', tryLogin);
-    }
 
     document.getElementById('login-pass').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') tryLogin();
