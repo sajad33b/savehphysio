@@ -28,25 +28,46 @@ def stars(n: int) -> str:
 
 
 def render_list(items: list) -> str:
-    if not items:
-        return '<p class="review-empty">هنوز نظر منتشرشده‌ای ثبت نشده است. اولین نفری باشید که نظر می‌دهد.</p>'
-    parts = ['<div class="reviews-grid">']
-    for it in items:
-        if it.get("hidden"):
-            continue
+    visible = [it for it in items if not it.get("hidden")]
+    if not visible:
+        return '<p class="review-empty">هنوز نظر منتشرشده‌ای ثبت نشده است.</p>'
+
+    def stars(n: int) -> str:
+        n = max(0, min(5, int(n or 0)))
+        return "★" * n + "☆" * (5 - n)
+
+    n = len(visible)
+    avg = sum(int(it.get("rating") or 5) for it in visible) / n if n else 0
+    avg_s = ("{:.1f}".format(avg)).rstrip("0").rstrip(".")
+
+    parts = []
+    parts.append(
+        '<div class="reviews-summary" aria-label="خلاصه نظرات">'
+        f'<span class="rs-count">{n} نظر</span>'
+        '<span class="rs-sep">·</span>'
+        f'<span class="rs-avg">میانگین {avg_s} از ۵</span>'
+        f'<span class="rs-stars" aria-hidden="true">{stars(int(round(avg)))}</span>'
+        "</div>"
+    )
+    parts.append('<div class="reviews-grid" id="reviews-grid">')
+    for idx, it in enumerate(visible):
         name = esc(it.get("name") or "مراجع")
         text = esc(it.get("text") or "")
-        rating = it.get("rating") or 5
+        rating = int(it.get("rating") or 5)
         date = esc(it.get("date") or "")
         parts.append(
-            f'<article class="review-card">'
-            f'<div class="stars" aria-label="امتیاز {rating} از ۵">{stars(rating)}</div>'
+            f'<article class="review-card" data-page-index="{idx}">'
+            f'<div class="stars" aria-label="امتیاز {rating} از ۵">{stars(rating)}'
+            f'<span class="rating-num"> {rating} از ۵</span></div>'
             f'<p class="text">{text}</p>'
             f'<div class="who">{name}' + (f" · {date}" if date else "") + "</div>"
             f"</article>"
         )
     parts.append("</div>")
-    return "\n".join(parts)
+    parts.append(
+        '<nav class="reviews-pager" id="reviews-pager" aria-label="صفحه‌بندی نظرات"></nav>'
+    )
+    return chr(10).join(parts)
 
 
 def main() -> None:
