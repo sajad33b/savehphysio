@@ -105,21 +105,15 @@ REVIEWS_SCHEMA_JSON
   </nav>
   <h1>REVIEWS_H1</h1>
   <p class="page-intro">REVIEWS_INTRO</p>
-
-  <section aria-labelledby="published-reviews">
-    <h2 id="published-reviews" style="font-size:1.15rem;color:var(--blue-deep,#0C243D);margin:0 0 1rem">نظرات منتشرشده</h2>
-    REVIEWS_LIST
-  </section>
-
-  <section aria-labelledby="review-form-title" style="margin-top:2rem">
+  <section aria-labelledby="review-form-title" style="margin-top:0.5rem">
     <div class="review-form-wrap">
       <h2 id="review-form-title">ثبت نظر شما</h2>
       <form id="review-form" action="#" method="post">
         <input type="text" name="website" class="rf-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div class="rf-group">
-          <label for="rev-name">نام شما</label>
-          <input type="text" id="rev-name" name="name" required maxlength="80" placeholder="مثلاً مریم ر.">
+          <label for="rev-name">نام و نام خانوادگی</label>
+          <input type="text" id="rev-name" name="name" required maxlength="80" placeholder="مثال: مریم رضایی">
         </div>
         <div class="rf-group">
           <label>امتیاز شما</label>
@@ -146,6 +140,17 @@ REVIEWS_SCHEMA_JSON
         </div>
         <button type="submit" class="rf-submit" id="rf-submit-btn">REVIEWS_SUBMIT_LABEL</button>
         <p class="rf-note">پس از ارسال، نظر شما در پنل بررسی می‌شود و در صورت تأیید روی سایت نمایش داده می‌شود.</p>
+        <div id="rf-status" class="rf-status" role="status"></div>
+      </form>
+    </div>
+  </section>
+
+  <section aria-labelledby="published-reviews" style="margin-top:2.5rem">
+    <h2 id="published-reviews" style="font-size:1.15rem;color:var(--blue-deep,#0C243D);margin:0 0 1rem">نظرات منتشرشده</h2>
+    REVIEWS_LIST
+  </section>
+
+</main>       <p class="rf-note">پس از ارسال، نظر شما در پنل بررسی می‌شود و در صورت تأیید روی سایت نمایش داده می‌شود.</p>
         <div id="rf-status" class="rf-status" role="status"></div>
       </form>
     </div>
