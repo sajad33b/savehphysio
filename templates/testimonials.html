@@ -63,7 +63,7 @@
 .rf-status.ok{display:block;background:#d3f9d8;border:1px solid #8ce99a;color:#2b8a3e}
 .rf-status.err{display:block;background:#ffe3e3;border:1px solid #ffa8a8;color:#c92a2a}
 
-.star-rating{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:4px;font-size:1.85rem;line-height:1}
+.star-rating{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:6px;font-size:1.45rem;line-height:1;user-select:none}
 .star-rating input{position:absolute;opacity:0;pointer-events:none}
 .star-rating label{cursor:pointer;color:#cbd5e1;transition:color .15s}
 .star-rating label:hover,
@@ -135,22 +135,23 @@ REVIEWS_SCHEMA_JSON
           <textarea id="rev-text" name="message" required maxlength="1200" placeholder="تجربه خود از درمان در کلینیک را بنویسید..."></textarea>
         </div>
         <div class="rf-group">
-          <label for="rev-phone">تلفن (اختیاری — منتشر نمی‌شود)</label>
-          <input type="tel" id="rev-phone" name="phone" maxlength="20" placeholder="برای پیگیری در صورت نیاز">
+          <label for="rev-phone">تلفن همراه (اختیاری)</label>
+          <input type="tel" id="rev-phone" name="phone" maxlength="20" placeholder="09xxxxxxxxx — اختیاری">
         </div>
         <button type="submit" class="rf-submit" id="rf-submit-btn">REVIEWS_SUBMIT_LABEL</button>
-        <p class="rf-note">پس از ارسال، نظر شما در پنل بررسی می‌شود و در صورت تأیید روی سایت نمایش داده می‌شود.</p>
+        <p class="rf-note">نظر پس از بررسی منتشر می‌شود.</p>
         <div id="rf-status" class="rf-status" role="status"></div>
       </form>
     </div>
   </section>
 
   <section aria-labelledby="published-reviews" style="margin-top:2.5rem">
-    <h2 id="published-reviews" style="font-size:1.15rem;color:var(--blue-deep,#0C243D);margin:0 0 1rem">نظرات منتشرشده</h2>
+    <h2 id="published-reviews" style="font-size:1.15rem;color:var(--blue-deep,#0C243D);margin:0 0 0.35rem">نظرات بیماران</h2>
+    <p style="color:var(--muted,#4A5A6C);margin:0 0 1rem;font-size:.95rem;line-height:1.7">در ادامه بخشی از نظرات تأییدشده مراجعان کلینیک آمده است.</p>
     REVIEWS_LIST
   </section>
 
-       <p class="rf-note">پس از ارسال، نظر شما در پنل بررسی می‌شود و در صورت تأیید روی سایت نمایش داده می‌شود.</p>
+       <p class="rf-note">نظر پس از بررسی منتشر می‌شود.</p>
         <div id="rf-status" class="rf-status" role="status"></div>
       </form>
     </div>
@@ -196,6 +197,12 @@ REVIEWS_SCHEMA_JSON
     if(!name || !message){
       if(st){ st.className = 'rf-status err'; st.textContent = 'نام و متن نظر الزامی است.'; }
       return;
+    }
+    if(phone){
+      if(!/^09\d{9}$/.test(phone)){
+        if(st){ st.className = 'rf-status err'; st.textContent = 'اشتباه در تلفن'; }
+        return;
+      }
     }
     if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'در حال ارسال...'; }
     fetch('/api/review', {
