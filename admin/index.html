@@ -1800,30 +1800,42 @@
       return groups;
     }
 
-    async function putGithubFile(path, obj, message) {
+        async function putGithubFile(path, obj, message) {
       var token = getToken();
-      var content = JSON.stringify(obj, null, 2) + '\n';
-      var metaRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH, {
-        headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28' }
-      });
-      var sha = null;
-      if (metaRes.ok) { var meta = await metaRes.json(); sha = meta.sha; }
-      else if (metaRes.status !== 404) {
-        var err = await metaRes.json().catch(function(){return {};});
-        throw new Error(err.message || ('خواندن: ' + metaRes.status));
+      if (!token) throw new Error('توکن گیت‌هاب تنظیم نشده');
+      var content = JSON.stringify(obj, null, 2) + String.fromCharCode(10);
+      var encoded = toBase64(content);
+      var lastErr = null;
+      for (var attempt = 0; attempt < 3; attempt++) {
+        var metaRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&_=' + Date.now(), {
+          headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28' }
+        });
+        var sha = null;
+        if (metaRes.ok) {
+          var meta = await metaRes.json();
+          sha = meta.sha;
+        } else if (metaRes.status !== 404) {
+          var err = await metaRes.json().catch(function(){ return {}; });
+          throw new Error(err.message || ('خواندن: ' + metaRes.status));
+        }
+        var body = { message: message, content: encoded, branch: BRANCH };
+        if (sha) body.sha = sha;
+        var putRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, {
+          method: 'PUT',
+          headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        if (putRes.ok) return await putRes.json();
+        var err2 = await putRes.json().catch(function(){ return {}; });
+        lastErr = err2.message || ('ذخیره: ' + putRes.status);
+        if (putRes.status === 409 || /does not match/i.test(String(lastErr))) {
+          continue;
+        }
+        throw new Error(lastErr);
       }
-      var body = { message: message, content: toBase64(content), branch: BRANCH };
-      if (sha) body.sha = sha;
-      var putRes = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, {
-        method: 'PUT',
-        headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
-      if (!putRes.ok) {
-        var err2 = await putRes.json().catch(function(){return {};});
-        throw new Error(err2.message || ('ذخیره: ' + putRes.status));
-      }
+      throw new Error(lastErr || 'ذخیره ناموفق');
     }
+
     async function savePost() {
       if (!isLoggedIn()) { showMsg('نشست منقضی شده.', 'err'); logout(); return; }
       var token = getToken();
