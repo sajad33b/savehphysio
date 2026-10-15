@@ -552,8 +552,11 @@
     }
 
     function getPassHash() {
-      // فعلاً فقط رمز پیش‌فرض — تا ورود پایدار بماند
-      return DEFAULT_HASH;
+      try {
+        return localStorage.getItem('admin_pass_hash') || DEFAULT_HASH;
+      } catch (e) {
+        return DEFAULT_HASH;
+      }
     }
 
     function isLoggedIn() {
