@@ -447,8 +447,12 @@
           <label>متن معرفی</label>
           <textarea id="services-intro"></textarea>
         </div>
-        <div class="buttons">
-          <button class="btn btn-primary" onclick="realSave('services')">ذخیره</button>
+        <h2 style="margin-top:18px;">گروه‌ها و خدمات</h2>
+        <p class="hint">هر گروه یک دسته‌بندی خدمات است. هر خط آیتم: عنوان | توضیح</p>
+        <div id="services-groups-editor"></div>
+        <div class="buttons" style="margin-top:12px;">
+          <button type="button" class="btn" onclick="addServiceGroup()">+ گروه جدید</button>
+          <button class="btn btn-primary" onclick="realSave('services')">ذخیره خدمات</button>
           <button class="btn" onclick="loadServices(true)">بازخوانی</button>
         </div>
       </div>
