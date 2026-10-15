@@ -18,14 +18,13 @@
     }
     #login-screen {
       min-height: 100vh;
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
       background: #e9ecef;
       padding: 16px;
     }
-    #login-screen.hidden { display: none !important; }
-    #login-screen.force-show { display: flex !important; }
+    #login-screen.hidden { display: none; }
     .login-box {
       width: 100%;
       max-width: 360px;
@@ -92,7 +91,7 @@
       font-size: 12px;
     }
     .login-err.show { display: block; }
-    #app { display: block; }
+    #app { display: none; }
     #app.show { display: block; }
     .topbar {
       background: #3a6ea5;
@@ -308,7 +307,7 @@
       <input type="password" id="login-pass" autocomplete="current-password" placeholder="رمز پنل را وارد کنید" />
       <button type="button" class="btn-login" id="login-btn">ورود با رمز پنل</button>
       <button type="button" class="btn-login" id="gh-login-btn" style="margin-top:10px;background:#24292f;border-color:#24292f;">ورود با GitHub</button>
-      <p class="hint" style="margin-top:14px;">با ایمیل Cloudflare وارد شده‌اید؛ مستقیم پنل باز می‌شود.<br>برای ذخیره روی گیت‌هاب یک‌بار «ورود با GitHub» را بزنید.</p>
+      <p class="hint" style="margin-top:14px;">رمز پنل را وارد کنید. برای ذخیره تغییرات، بعد از ورود از «تنظیمات ذخیره» توکن گیت‌هاب را بگذارید.</p>
     </div>
   </div>
 
@@ -579,9 +578,7 @@
     }
 
     function showLogin() {
-      document.getElementById('login-screen').classList.add('force-show');
       document.getElementById('login-screen').classList.remove('hidden');
-      document.getElementById('app').style.display = 'none';
       document.getElementById('app').classList.remove('show');
       document.title = 'ورود | مدیریت وبلاگ ابن‌سینا ساوه';
     }
@@ -656,8 +653,11 @@
     document.getElementById('logout-btn').addEventListener('click', logout);
 
     // مسیر /admin با Cloudflare Access محافظت می‌شود؛ رمز جدا لازم نیست
-    setLoggedIn(true);
-    showApp();
+    if (isLoggedIn()) {
+      showApp();
+    } else {
+      showLogin();
+    }
 
     const sidebar = document.getElementById('sidebar');
     const main = document.getElementById('main');
