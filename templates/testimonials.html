@@ -62,6 +62,16 @@
 .rf-status{display:none;margin-top:1rem;padding:.85rem 1rem;border-radius:8px;font-size:.95rem}
 .rf-status.ok{display:block;background:#d3f9d8;border:1px solid #8ce99a;color:#2b8a3e}
 .rf-status.err{display:block;background:#ffe3e3;border:1px solid #ffa8a8;color:#c92a2a}
+
+.star-rating{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:4px;font-size:1.85rem;line-height:1}
+.star-rating input{position:absolute;opacity:0;pointer-events:none}
+.star-rating label{cursor:pointer;color:#cbd5e1;transition:color .15s}
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label{color:#D9891F}
+.star-rating label:hover,
+.star-rating input:checked + label{transform:scale(1.08)}
+
 </style>
 <script type="application/ld+json">
 REVIEWS_SCHEMA_JSON
@@ -104,26 +114,27 @@ REVIEWS_SCHEMA_JSON
   <section aria-labelledby="review-form-title" style="margin-top:2rem">
     <div class="review-form-wrap">
       <h2 id="review-form-title">ثبت نظر شما</h2>
-      <form id="review-form" action="https://formsubmit.co/REVIEWS_FORM_EMAIL" method="POST">
-        <input type="hidden" name="_subject" value="نظر جدید از سایت savehphysio.ir">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://savehphysio.ir/reviews.html?sent=1">
-        <input type="text" name="_gotcha" class="rf-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <form id="review-form" action="#" method="post">
+        <input type="text" name="website" class="rf-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div class="rf-group">
           <label for="rev-name">نام شما</label>
           <input type="text" id="rev-name" name="name" required maxlength="80" placeholder="مثلاً مریم ر.">
         </div>
         <div class="rf-group">
-          <label for="rev-rating">امتیاز</label>
-          <select id="rev-rating" name="rating" required>
-            <option value="5">۵ از ۵ — عالی</option>
-            <option value="4">۴ از ۵ — خوب</option>
-            <option value="3">۳ از ۵ — متوسط</option>
-            <option value="2">۲ از ۵</option>
-            <option value="1">۱ از ۵</option>
-          </select>
+          <label>امتیاز شما</label>
+          <div class="star-rating" role="radiogroup" aria-label="امتیاز از ۱ تا ۵">
+            <input type="radio" id="star5" name="rating" value="5" checked>
+            <label for="star5" title="۵">★</label>
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4" title="۴">★</label>
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3" title="۳">★</label>
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2" title="۲">★</label>
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1" title="۱">★</label>
+          </div>
         </div>
         <div class="rf-group">
           <label for="rev-text">متن نظر</label>
@@ -133,8 +144,8 @@ REVIEWS_SCHEMA_JSON
           <label for="rev-phone">تلفن (اختیاری — منتشر نمی‌شود)</label>
           <input type="tel" id="rev-phone" name="phone" maxlength="20" placeholder="برای پیگیری در صورت نیاز">
         </div>
-        <button type="submit" class="rf-submit">REVIEWS_SUBMIT_LABEL</button>
-        <p class="rf-note">نظر شما به ایمیل کلینیک ارسال می‌شود و پس از بررسی روی سایت قرار می‌گیرد.</p>
+        <button type="submit" class="rf-submit" id="rf-submit-btn">REVIEWS_SUBMIT_LABEL</button>
+        <p class="rf-note">پس از ارسال، نظر شما در پنل بررسی می‌شود و در صورت تأیید روی سایت نمایش داده می‌شود.</p>
         <div id="rf-status" class="rf-status" role="status"></div>
       </form>
     </div>
@@ -162,12 +173,47 @@ REVIEWS_SCHEMA_JSON
       });
     });
   }
-  var params = new URLSearchParams(window.location.search);
+
+  var form = document.getElementById('review-form');
   var st = document.getElementById('rf-status');
-  if(params.get('sent') === '1' && st){
-    st.className = 'rf-status ok';
-    st.textContent = 'REVIEWS_SUCCESS_MESSAGE';
-  }
+  var submitBtn = document.getElementById('rf-submit-btn');
+  if(!form) return;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(st){ st.className = 'rf-status'; st.textContent = ''; }
+    var name = (document.getElementById('rev-name').value || '').trim();
+    var message = (document.getElementById('rev-text').value || '').trim();
+    var phone = (document.getElementById('rev-phone').value || '').trim();
+    var ratingEl = form.querySelector('input[name="rating"]:checked');
+    var rating = ratingEl ? parseInt(ratingEl.value, 10) : 5;
+    var honeypot = (form.querySelector('input[name="website"]') || {}).value || '';
+    if(!name || !message){
+      if(st){ st.className = 'rf-status err'; st.textContent = 'نام و متن نظر الزامی است.'; }
+      return;
+    }
+    if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'در حال ارسال...'; }
+    fetch('/api/review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, message: message, phone: phone, rating: rating, website: honeypot })
+    }).then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
+    .then(function(res){
+      if(res.ok && res.j && res.j.ok){
+        if(st){ st.className = 'rf-status ok'; st.textContent = 'REVIEWS_SUCCESS_MESSAGE'; }
+        form.reset();
+        var s5 = document.getElementById('star5');
+        if(s5) s5.checked = true;
+      } else {
+        var msg = (res.j && res.j.error) ? res.j.error : 'ارسال ناموفق بود. دوباره تلاش کنید.';
+        if(st){ st.className = 'rf-status err'; st.textContent = msg; }
+      }
+    }).catch(function(){
+      if(st){ st.className = 'rf-status err'; st.textContent = 'خطا در ارتباط با سرور.'; }
+    }).finally(function(){
+      if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = 'REVIEWS_SUBMIT_LABEL'; }
+    });
+  });
 })();
 </script>
 </body>
