@@ -72,6 +72,25 @@
 .star-rating label:hover,
 .star-rating input:checked + label{transform:scale(1.08)}
 
+
+.reviews-summary{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;margin:0 0 1rem;padding:.65rem .9rem;background:#f8fafc;border:1px solid var(--line,#D5DEE8);border-radius:8px;font-size:.85rem;color:var(--muted,#4A5A6C)}
+.reviews-summary .rs-count{font-weight:700;color:var(--blue-deep,#0C243D)}
+.reviews-summary .rs-avg{font-weight:600;color:var(--blue-deep,#0C243D)}
+.reviews-summary .rs-stars{color:#D9891F;letter-spacing:1px}
+.reviews-summary .rs-sep{opacity:.5}
+.review-card .text{font-size:.92rem;line-height:1.49;/* ~1/φ relative feel */}
+.review-card .who{font-size:.78rem;line-height:1.4;color:var(--muted,#4A5A6C)}
+.review-card .stars{font-size:.95rem}
+.review-card .rating-num{font-size:.78rem;color:var(--muted,#4A5A6C);letter-spacing:0;font-weight:600;margin-right:.35rem}
+.reviews-pager{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:1.25rem 0 0}
+.reviews-pager button{
+  min-width:2.4rem;min-height:2.4rem;padding:.4rem .7rem;border:1px solid #cbd5e1;border-radius:8px;
+  background:#fff;font-family:inherit;font-size:.85rem;cursor:pointer;color:#0C243D
+}
+.reviews-pager button.is-active{background:#1A5688;border-color:#1A5688;color:#fff;font-weight:700}
+.reviews-pager button:disabled{opacity:.4;cursor:default}
+.reviews-pager .pager-info{font-size:.85rem;color:var(--muted,#4A5A6C);margin:0 .35rem}
+
 </style>
 <script type="application/ld+json">
 REVIEWS_SCHEMA_JSON
@@ -139,7 +158,7 @@ REVIEWS_SCHEMA_JSON
           <input type="tel" id="rev-phone" name="phone" maxlength="20" placeholder="09xxxxxxxxx — اختیاری">
         </div>
         <button type="submit" class="rf-submit" id="rf-submit-btn">REVIEWS_SUBMIT_LABEL</button>
-        <p class="rf-note">نظر پس از بررسی منتشر می‌شود.</p>
+        
         <div id="rf-status" class="rf-status" role="status"></div>
       </form>
     </div>
@@ -147,11 +166,11 @@ REVIEWS_SCHEMA_JSON
 
   <section aria-labelledby="published-reviews" style="margin-top:2.5rem">
     <h2 id="published-reviews" style="font-size:1.15rem;color:var(--blue-deep,#0C243D);margin:0 0 0.35rem">نظرات بیماران</h2>
-    <p style="color:var(--muted,#4A5A6C);margin:0 0 1rem;font-size:.95rem;line-height:1.7">در ادامه بخشی از نظرات تأییدشده مراجعان کلینیک آمده است.</p>
+    
     REVIEWS_LIST
   </section>
 
-       <p class="rf-note">نظر پس از بررسی منتشر می‌شود.</p>
+       
         <div id="rf-status" class="rf-status" role="status"></div>
       </form>
     </div>
@@ -226,6 +245,55 @@ REVIEWS_SCHEMA_JSON
       if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = 'REVIEWS_SUBMIT_LABEL'; }
     });
   });
+
+  // pagination: 5 per page
+  (function(){
+    var grid = document.getElementById('reviews-grid');
+    var pager = document.getElementById('reviews-pager');
+    if(!grid || !pager) return;
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.review-card'));
+    var per = 5;
+    var total = cards.length;
+    var pages = Math.max(1, Math.ceil(total / per));
+    var cur = 0;
+    function show(p){
+      cur = Math.max(0, Math.min(pages - 1, p));
+      cards.forEach(function(c, i){
+        c.style.display = (i >= cur * per && i < (cur + 1) * per) ? '' : 'none';
+      });
+      pager.innerHTML = '';
+      if(pages <= 1) return;
+      var prev = document.createElement('button');
+      prev.type = 'button';
+      prev.textContent = 'قبلی';
+      prev.disabled = cur === 0;
+      prev.onclick = function(){ show(cur - 1); };
+      pager.appendChild(prev);
+      for(var i = 0; i < pages; i++){
+        (function(i){
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = String(i + 1);
+          if(i === cur) b.className = 'is-active';
+          b.setAttribute('aria-label', 'صفحه ' + (i + 1));
+          b.onclick = function(){ show(i); };
+          pager.appendChild(b);
+        })(i);
+      }
+      var info = document.createElement('span');
+      info.className = 'pager-info';
+      info.textContent = 'صفحه ' + (cur + 1) + ' از ' + pages;
+      pager.appendChild(info);
+      var next = document.createElement('button');
+      next.type = 'button';
+      next.textContent = 'بعدی';
+      next.disabled = cur >= pages - 1;
+      next.onclick = function(){ show(cur + 1); };
+      pager.appendChild(next);
+    }
+    show(0);
+  })();
+
 })();
 </script>
 </body>
