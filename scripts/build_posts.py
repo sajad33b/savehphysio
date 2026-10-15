@@ -181,7 +181,7 @@ def build_blog_index() -> Path:
     data = json.loads(INDEX_JSON_PATH.read_text(encoding="utf-8"))
     seo = data.get("seo", {})
     page = data.get("page", {})
-    posts = data.get("posts", [])
+    posts = [p for p in data.get("posts", []) if not p.get("archived")]
 
     schema = {
         "@context": "https://schema.org",
