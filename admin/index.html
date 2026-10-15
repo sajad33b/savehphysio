@@ -1403,11 +1403,7 @@
       if (!getToken()) { showMsg('توکن گیت‌هاب را در تنظیمات وارد کنید.', 'err'); return; }
       try {
         showMsg('در حال انتشار نظر...', 'info');
-        if (!reviewsPendingCache) await loadReviewsAdmin(false);
-        if (!testimonialsCache) {
-          var rt = await fetch('/content/testimonials.json?' + Date.now());
-          testimonialsCache = await rt.json();
-        }
+        await loadReviewsAdmin(false);
         var pending = reviewsPendingCache.pending || [];
         var item = null;
         var nextPending = [];
@@ -1440,7 +1436,7 @@
       if (!confirm('این نظر رد و آرشیو شود؟ (پاک نمی‌شود؛ فقط روی سایت نشان داده نمی‌شود)')) return;
       try {
         showMsg('در حال آرشیو...', 'info');
-        if (!reviewsPendingCache) await loadReviewsAdmin(false);
+        await loadReviewsAdmin(false);
         var pending = reviewsPendingCache.pending || [];
         var item = null;
         var next = [];
