@@ -344,6 +344,7 @@
       <button data-section="about">درباره ما</button>
       <button data-section="services">خدمات</button>
       <button data-section="posts">مطالب</button>
+      <button data-section="taxonomy">دسته و برچسب</button>
       <button data-section="settings">تنظیمات ذخیره</button>
       <button data-section="security">امنیت و رمز</button>
     </div>
@@ -454,9 +455,19 @@
 
       <div id="posts" class="section">
         <h2>مطالب وبلاگ</h2>
-        <div style="margin-bottom:12px;">
+        <div style="margin-bottom:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
           <button type="button" class="btn btn-primary" onclick="startNewPost()">+ مطلب جدید</button>
           <button type="button" class="btn" onclick="loadPostsList(true)">بازخوانی لیست</button>
+          <label style="font-size:12px;margin:0;">فیلتر دسته:</label>
+          <select id="post-filter-category" style="padding:6px 8px;border:1px solid #adb5bd;border-radius:2px;font-family:inherit;font-size:12px;" onchange="loadPostsList(false)">
+            <option value="">همه</option>
+          </select>
+          <label style="font-size:12px;margin:0;">وضعیت:</label>
+          <select id="post-filter-status" style="padding:6px 8px;border:1px solid #adb5bd;border-radius:2px;font-family:inherit;font-size:12px;" onchange="loadPostsList(false)">
+            <option value="">همه</option>
+            <option value="published">منتشر شده</option>
+            <option value="archived">آرشیو</option>
+          </select>
         </div>
         <ul id="posts-list" style="list-style:none;padding:0;margin:0 0 14px;"></ul>
         <div id="post-editor" style="display:none;border-top:1px solid #dee2e6;padding-top:14px;">
@@ -470,8 +481,15 @@
           <div class="form-group"><label>عنوان داخل صفحه (H1)</label><input type="text" id="post-h1" /></div>
           <div class="form-group"><label>خلاصه کوتاه</label><textarea id="post-excerpt"></textarea></div>
           <div class="form-group"><label>تاریخ انتشار</label><input type="text" id="post-published" placeholder="2026-10-14" dir="ltr" style="text-align:left" /></div>
-          <div class="form-group"><label>دسته‌بندی</label><input type="text" id="post-category" placeholder="آموزشی" /></div>
-          <div class="form-group"><label>برچسب‌ها (با کاما)</label><input type="text" id="post-tags" /></div>
+          <div class="form-group"><label>دسته‌بندی</label>
+            <select id="post-category" style="width:100%;padding:8px 10px;border:1px solid #adb5bd;border-radius:2px;font-family:inherit;font-size:13px;"></select>
+            <input type="text" id="post-category-custom" placeholder="یا دسته جدید بنویسید" style="margin-top:6px;" />
+          </div>
+          <div class="form-group"><label>برچسب‌ها (با کاما جدا کنید)</label>
+            <input type="text" id="post-tags" list="post-tags-list" placeholder="سیاتیک، کمردرد" />
+            <datalist id="post-tags-list"></datalist>
+            <div id="post-tags-suggest" style="margin-top:6px;font-size:12px;color:#666;"></div>
+          </div>
           <div class="form-group">
             <label>متن مطلب (پاراگراف‌ها با خط خالی؛ زیرعنوان با ## )</label>
             <textarea id="post-body" style="min-height:220px;line-height:1.7;"></textarea>
@@ -485,6 +503,24 @@
             <button class="btn" onclick="closePostEditor()">بستن</button>
           </div>
           <div class="hint">بعد از ذخیره، تا چند دقیقه بعد در /blog/ دیده می‌شود.</div>
+        </div>
+      </div>
+
+      
+      <div id="taxonomy" class="section">
+        <h2>دسته‌بندی و برچسب‌گذاری</h2>
+        <p class="hint" style="margin-bottom:14px;">این فهرست‌ها در فرم مطالب و فیلتر لیست استفاده می‌شوند. هر خط یک مورد.</p>
+        <div class="form-group">
+          <label>دسته‌های مقالات (هر خط یک دسته)</label>
+          <textarea id="tax-categories" style="min-height:140px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label>برچسب‌های پیشنهادی مقالات (هر خط یک برچسب)</label>
+          <textarea id="tax-tags" style="min-height:160px;"></textarea>
+        </div>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="saveTaxonomy()">ذخیره دسته و برچسب</button>
+          <button class="btn" onclick="loadTaxonomy(true)">بازخوانی</button>
         </div>
       </div>
 
@@ -753,6 +789,7 @@
         else if (section === 'about') loadAbout(false);
         else if (section === 'services') loadServices(false);
         else if (section === 'posts') loadPostsList(false);
+        else if (section === 'taxonomy') loadTaxonomy(false);
         else if (section === 'settings') updateTokenStatus();
         if (window.innerWidth <= 700 && menuOpen) {
           menuOpen = false;
@@ -816,8 +853,10 @@
       try {
         var r = await fetch('/content/services.json?' + Date.now());
         var d = await r.json();
+        servicesDataCache = d;
         document.getElementById('services-h1').value = (d.page && d.page.h1) || '';
         document.getElementById('services-intro').value = (d.page && d.page.intro) || '';
+        renderServicesGroupsEditor(d.groups || []);
         if (showMessage) showMsg('صفحه خدمات خوانده شد.', 'ok');
       } catch (e) { showMsg('خطا: ' + e.message, 'err'); }
     }
@@ -865,6 +904,7 @@
         if (!data4.page) data4.page = {};
         data4.page.h1 = document.getElementById('services-h1').value;
         data4.page.intro = document.getElementById('services-intro').value;
+        data4.groups = collectServicesGroups();
         return data4;
       }
       throw new Error('بخش نامعتبر');
@@ -909,6 +949,14 @@
         var list = document.getElementById('posts-list');
         list.innerHTML = '';
         var posts = postsIndexCache.posts || [];
+        var filterCat = (document.getElementById('post-filter-category') && document.getElementById('post-filter-category').value) || '';
+        var filterStatus = (document.getElementById('post-filter-status') && document.getElementById('post-filter-status').value) || '';
+        posts = posts.filter(function(p) {
+          if (filterCat && (p.category || '') !== filterCat) return false;
+          if (filterStatus === 'archived' && !p.archived) return false;
+          if (filterStatus === 'published' && p.archived) return false;
+          return true;
+        });
         if (!posts.length) {
           list.innerHTML = '<li><div><div class="e">هنوز مطلبی ثبت نشده.</div></div></li>';
         } else {
@@ -926,7 +974,7 @@
             }
             titleEl.appendChild(document.createTextNode(p.title || p.slug));
             meta.querySelector('.e').textContent = p.excerpt || '';
-            meta.querySelector('.d').textContent = (p.published || '') + ' — ' + (p.slug || '');
+            meta.querySelector('.d').textContent = (p.category ? (p.category + ' · ') : '') + (p.published || '') + ' — ' + (p.slug || '') + (p.tags && p.tags.length ? (' · ' + p.tags.join('، ')) : '');
             var actions = meta.querySelector('.post-actions');
             function addBtn(label, cls, fn) {
               var b = document.createElement('button');
@@ -962,6 +1010,10 @@
         document.getElementById('post-h1').value = post.h1 || '';
         document.getElementById('post-excerpt').value = post.excerpt || '';
         document.getElementById('post-published').value = post.published || '';
+        if (!taxonomyCache) { try { await loadTaxonomy(false); } catch(e) {} }
+        fillPostCategorySelect(post.category || 'آموزشی');
+        var pc = document.getElementById('post-category-custom');
+        if (pc) pc.value = '';
         document.getElementById('post-category').value = post.category || 'آموزشی';
         document.getElementById('post-tags').value = (post.tags || []).join('، ');
         document.getElementById('post-body').value = bodyToText(post.body || []);
@@ -981,6 +1033,9 @@
       document.getElementById('post-h1').value = '';
       document.getElementById('post-excerpt').value = '';
       document.getElementById('post-published').value = today;
+      fillPostCategorySelect('آموزشی');
+      var pc2 = document.getElementById('post-category-custom');
+      if (pc2) pc2.value = '';
       document.getElementById('post-category').value = 'آموزشی';
       document.getElementById('post-tags').value = '';
       document.getElementById('post-body').value = '';
@@ -1102,6 +1157,179 @@
       deletePostBySlug(slug);
     }
 
+
+    var taxonomyCache = null;
+    var servicesDataCache = null;
+
+    async function loadTaxonomy(showMessage) {
+      try {
+        var r = await fetch('/content/taxonomy.json?' + Date.now());
+        if (!r.ok) throw new Error('فایل taxonomy یافت نشد');
+        taxonomyCache = await r.json();
+        var cats = taxonomyCache.post_categories || [];
+        var tags = taxonomyCache.post_tags || [];
+        var catEl = document.getElementById('tax-categories');
+        var tagEl = document.getElementById('tax-tags');
+        if (catEl) catEl.value = cats.join('\n');
+        if (tagEl) tagEl.value = tags.join('\n');
+        fillPostCategorySelect();
+        fillPostTagsDatalist();
+        fillPostFilterCategories();
+        if (showMessage) showMsg('دسته و برچسب‌ها خوانده شد.', 'ok');
+      } catch (e) {
+        showMsg('خطا در خواندن دسته‌ها: ' + e.message, 'err');
+      }
+    }
+
+    async function saveTaxonomy() {
+      if (!isLoggedIn()) { showMsg('نشست منقضی شده.', 'err'); logout(); return; }
+      if (!getToken()) { showMsg('توکن گیت‌هاب را وارد کنید.', 'err'); return; }
+      try {
+        var cats = (document.getElementById('tax-categories').value || '').split('\n').map(function(s){return s.trim();}).filter(Boolean);
+        var tags = (document.getElementById('tax-tags').value || '').split('\n').map(function(s){return s.trim();}).filter(Boolean);
+        var data = taxonomyCache || {};
+        data.post_categories = cats;
+        data.post_tags = tags;
+        data.meta = data.meta || {};
+        data.meta.notes = 'ویرایش از پنل ادمین';
+        showMsg('در حال ذخیره دسته و برچسب...', 'info');
+        await putGithubFile('content/taxonomy.json', data, 'admin: update taxonomy');
+        taxonomyCache = data;
+        fillPostCategorySelect();
+        fillPostTagsDatalist();
+        fillPostFilterCategories();
+        showMsg('دسته و برچسب ذخیره شد ✓', 'ok');
+      } catch (e) {
+        showMsg('خطا: ' + e.message, 'err');
+      }
+    }
+
+    function fillPostCategorySelect(selected) {
+      var sel = document.getElementById('post-category');
+      if (!sel) return;
+      var cats = (taxonomyCache && taxonomyCache.post_categories) || ['آموزشی'];
+      var cur = selected || sel.value || '';
+      sel.innerHTML = '';
+      var opt0 = document.createElement('option');
+      opt0.value = '';
+      opt0.textContent = '— انتخاب دسته —';
+      sel.appendChild(opt0);
+      cats.forEach(function(c) {
+        var o = document.createElement('option');
+        o.value = c;
+        o.textContent = c;
+        if (c === cur) o.selected = true;
+        sel.appendChild(o);
+      });
+      if (cur && cats.indexOf(cur) === -1) {
+        var o2 = document.createElement('option');
+        o2.value = cur;
+        o2.textContent = cur;
+        o2.selected = true;
+        sel.appendChild(o2);
+      }
+    }
+
+    function fillPostTagsDatalist() {
+      var dl = document.getElementById('post-tags-list');
+      var sug = document.getElementById('post-tags-suggest');
+      var tags = (taxonomyCache && taxonomyCache.post_tags) || [];
+      if (dl) {
+        dl.innerHTML = '';
+        tags.forEach(function(t) {
+          var o = document.createElement('option');
+          o.value = t;
+          dl.appendChild(o);
+        });
+      }
+      if (sug) {
+        sug.textContent = tags.length ? ('پیشنهادها: ' + tags.slice(0, 12).join('، ')) : '';
+      }
+    }
+
+    function fillPostFilterCategories() {
+      var sel = document.getElementById('post-filter-category');
+      if (!sel) return;
+      var cur = sel.value;
+      var cats = (taxonomyCache && taxonomyCache.post_categories) || [];
+      sel.innerHTML = '<option value="">همه</option>';
+      cats.forEach(function(c) {
+        var o = document.createElement('option');
+        o.value = c;
+        o.textContent = c;
+        if (c === cur) o.selected = true;
+        sel.appendChild(o);
+      });
+    }
+
+    function getSelectedPostCategory() {
+      var custom = (document.getElementById('post-category-custom') && document.getElementById('post-category-custom').value || '').trim();
+      if (custom) return custom;
+      return (document.getElementById('post-category') && document.getElementById('post-category').value || '').trim() || 'آموزشی';
+    }
+
+    function renderServicesGroupsEditor(groups) {
+      var box = document.getElementById('services-groups-editor');
+      if (!box) return;
+      box.innerHTML = '';
+      (groups || []).forEach(function(g, gi) {
+        var wrap = document.createElement('div');
+        wrap.style.cssText = 'border:1px solid #dee2e6;border-radius:4px;padding:12px;margin-bottom:12px;background:#f8f9fa;';
+        wrap.innerHTML =
+          '<div class="form-group"><label>عنوان گروه</label><input type="text" class="svc-g-title" /></div>' +
+          '<div class="form-group"><label>شناسه انگلیسی گروه</label><input type="text" class="svc-g-id" dir="ltr" style="text-align:left" /></div>' +
+          '<div class="form-group"><label>خدمات (هر خط: عنوان | توضیح)</label><textarea class="svc-g-items" style="min-height:120px;"></textarea></div>' +
+          '<button type="button" class="btn btn-danger btn-sm svc-g-del">حذف گروه</button>';
+        wrap.querySelector('.svc-g-title').value = g.title || '';
+        wrap.querySelector('.svc-g-id').value = g.id || '';
+        var lines = (g.items || []).map(function(it) {
+          return (it.title || '') + ' | ' + (it.description || '');
+        });
+        wrap.querySelector('.svc-g-items').value = lines.join('\n');
+        wrap.querySelector('.svc-g-del').onclick = function() { wrap.remove(); };
+        box.appendChild(wrap);
+      });
+    }
+
+    function addServiceGroup() {
+      var box = document.getElementById('services-groups-editor');
+      if (!box) return;
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'border:1px solid #dee2e6;border-radius:4px;padding:12px;margin-bottom:12px;background:#f8f9fa;';
+      wrap.innerHTML =
+        '<div class="form-group"><label>عنوان گروه</label><input type="text" class="svc-g-title" placeholder="مثلاً ستون فقرات" /></div>' +
+        '<div class="form-group"><label>شناسه انگلیسی گروه</label><input type="text" class="svc-g-id" dir="ltr" style="text-align:left" placeholder="spine" /></div>' +
+        '<div class="form-group"><label>خدمات (هر خط: عنوان | توضیح)</label><textarea class="svc-g-items" style="min-height:120px;" placeholder="فیزیوتراپی کمر | توضیح کوتاه"></textarea></div>' +
+        '<button type="button" class="btn btn-danger btn-sm svc-g-del">حذف گروه</button>';
+      wrap.querySelector('.svc-g-del').onclick = function() { wrap.remove(); };
+      box.appendChild(wrap);
+    }
+
+    function collectServicesGroups() {
+      var box = document.getElementById('services-groups-editor');
+      if (!box) return [];
+      var groups = [];
+      box.querySelectorAll(':scope > div').forEach(function(wrap) {
+        var title = (wrap.querySelector('.svc-g-title').value || '').trim();
+        var id = (wrap.querySelector('.svc-g-id').value || '').trim() || ('g' + Date.now());
+        var raw = wrap.querySelector('.svc-g-items').value || '';
+        var items = [];
+        raw.split('\n').forEach(function(line) {
+          line = line.trim();
+          if (!line) return;
+          var parts = line.split('|');
+          items.push({
+            title: (parts[0] || '').trim(),
+            description: (parts.slice(1).join('|') || '').trim()
+          });
+        });
+        if (title || items.length) {
+          groups.push({ id: id, title: title, items: items });
+        }
+      });
+      return groups;
+    }
+
     async function putGithubFile(path, obj, message) {
       var token = getToken();
       var content = JSON.stringify(obj, null, 2) + '\n';
@@ -1140,7 +1368,7 @@
       var h1 = document.getElementById('post-h1').value.trim() || title;
       var excerpt = document.getElementById('post-excerpt').value.trim();
       var published = document.getElementById('post-published').value || new Date().toISOString().slice(0, 10);
-      var category = document.getElementById('post-category').value.trim() || 'آموزشی';
+      var category = getSelectedPostCategory();
       var tags = document.getElementById('post-tags').value.split(/[,،]/).map(function(t){return t.trim();}).filter(Boolean);
       var body = textToBody(document.getElementById('post-body').value);
       var seoDesc = document.getElementById('post-seo-desc').value.trim() || excerpt;
