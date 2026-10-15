@@ -134,6 +134,52 @@ def render_testimonials(items: list) -> str:
 
 
 
+
+def render_home_reviews() -> str:
+    """آخرین ۱۰ نظر تأییدشده از content/testimonials.json"""
+    path = ROOT / "content" / "testimonials.json"
+    if not path.exists():
+        return '<p class="review-empty" style="text-align:center;color:var(--muted)">هنوز نظر تأییدشده‌ای ثبت نشده است. <a href="reviews.html">اولین نظر را بنویسید</a></p>'
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return '<p class="review-empty" style="text-align:center;color:var(--muted)">خطا در خواندن نظرات.</p>'
+    items = [x for x in (data.get("items") or []) if not x.get("hidden")]
+    items = items[:10]
+    if not items:
+        return '<p class="review-empty" style="text-align:center;color:var(--muted)">هنوز نظر تأییدشده‌ای ثبت نشده است. <a href="reviews.html">اولین نظر را بنویسید</a></p>'
+
+    def stars(n: int) -> str:
+        n = max(0, min(5, int(n or 0)))
+        return "★" * n + "☆" * (5 - n)
+
+    blocks = ['<div class="testimonial-slider" data-interval="5000">', '<div class="testimonial-track">']
+    dots = ['<div class="testimonial-dots" role="tablist" aria-label="انتخاب نظر">']
+    for i, it in enumerate(items):
+        active = " is-active" if i == 0 else ""
+        text = esc(it.get("text") or "")
+        name = esc(it.get("name") or "مراجع")
+        rating = it.get("rating") or 5
+        blocks.append(
+            f'<blockquote class="testimonial{active}" data-index="{i}">'
+            f'<span class="testimonial-quote" aria-hidden="true">“</span>'
+            f'<span class="testimonial-text">{text}</span>'
+            f'<cite>{name} · <span style="color:#D9891F;letter-spacing:1px">{stars(rating)}</span></cite>'
+            f'</blockquote>'
+        )
+        sel = "true" if i == 0 else "false"
+        dactive = " is-active" if i == 0 else ""
+        dots.append(
+            f'<button type="button" class="testimonial-dot{dactive}" role="tab" aria-selected="{sel}" '
+            f'aria-label="نظر {i+1}" data-index="{i}"></button>'
+        )
+    blocks.append("</div>")
+    dots.append("</div>")
+    blocks.extend(dots)
+    blocks.append("</div>")
+    return "\n".join(blocks)
+
+
 def build() -> None:
     if not JSON_PATH.exists():
         sys.exit(f"missing {JSON_PATH}")
@@ -484,6 +530,8 @@ def build() -> None:
             f'href="{esc(contact["mobile_href"])}"',
             html,
         )
+
+    html = html.replace("HOME_REVIEWS_BLOCK", render_home_reviews())
 
     OUTPUT_PATH.write_text(html, encoding="utf-8")
     print(f"OK → {OUTPUT_PATH.relative_to(ROOT)} from {JSON_PATH.relative_to(ROOT)}")
