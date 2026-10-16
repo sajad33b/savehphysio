@@ -91,12 +91,24 @@
 .reviews-pager button:disabled{opacity:.4;cursor:default}
 .reviews-pager .pager-info{font-size:.85rem;color:var(--muted,#4A5A6C);margin:0 .35rem}
 
+
+/* same chrome as other inner pages */
+.page-footer{
+  margin-top:2rem;padding:1.5rem 1rem;text-align:center;font-size:.9rem;
+  background:var(--blue-deep,#0C243D);color:#E8EEF5;border-top:1px solid rgba(255,255,255,.08)
+}
+.page-footer a{color:#E8EEF5;text-decoration:none}
+.page-footer a:hover{color:var(--amber-soft,#E8A43E)}
+.page-footer .footer-name{color:#fff}
+.footer-simple{max-width:var(--maxw,1080px);margin:0 auto}
+.footer-links-line{margin:.5rem 0 0;opacity:.9;font-size:.85rem;text-align:center}
+
 </style>
 <script type="application/ld+json">
 REVIEWS_SCHEMA_JSON
 </script>
 </head>
-<body>
+<body data-page="reviews" id="top">
 <a class="skip-link" href="#main">پرش به محتوای اصلی</a>
 <header>
  <div class="nav">
@@ -176,8 +188,8 @@ REVIEWS_SCHEMA_JSON
     </div>
   </section>
 </main>
-<footer class="site-footer page-footer" style="text-align:center">
- <div class="wrap footer-simple" style="text-align:center">
+<footer class="site-footer page-footer">
+ <div class="wrap footer-simple">
  <p><strong class="footer-name">سجاد علی‌کرمی</strong> — کلینیک فیزیوتراپی ابن‌سینا ساوه</p>
  <p class="footer-links-line"><a href="./services.html">خدمات</a> · <a href="./blog/">مقالات</a> · <a href="./reviews.html">نظرات</a> · <a href="./contact.html">تماس</a></p>
  </div>
