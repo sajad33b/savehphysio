@@ -16,6 +16,49 @@ const REPO = "sajad33b/savehphysio";
 const BRANCH = "main";
 const PENDING_PATH = "content/reviews-pending.json";
 
+function toJalaliParts(gy, gm, gd) {
+  var g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+  var gy2 = (gm > 2) ? (gy + 1) : gy;
+  var days = 355666 + (365 * gy) + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100) + Math.floor((gy2 + 399) / 400) + gd + g_d_m[gm - 1];
+  var jy = -1595 + (33 * Math.floor(days / 12053));
+  days %= 12053;
+  jy += 4 * Math.floor(days / 1461);
+  days %= 1461;
+  if (days > 365) {
+    jy += Math.floor((days - 1) / 365);
+    days = (days - 1) % 365;
+  }
+  var jm, jd;
+  if (days < 186) {
+    jm = 1 + Math.floor(days / 31);
+    jd = 1 + (days % 31);
+  } else {
+    jm = 7 + Math.floor((days - 186) / 30);
+    jd = 1 + ((days - 186) % 30);
+  }
+  return { jy: jy, jm: jm, jd: jd };
+}
+var JALALI_MONTHS = ['', 'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+function toPersianDigits(str) {
+  return String(str).replace(/[0-9]/g, function(d) {
+    return '۰۱۲۳۴۵۶۷۸۹'[parseInt(d, 10)];
+  });
+}
+function formatJalaliDate(dateObj) {
+  var d = dateObj || new Date();
+  var p = toJalaliParts(d.getFullYear(), d.getMonth() + 1, d.getDate());
+  return toPersianDigits(p.jd) + ' ' + JALALI_MONTHS[p.jm] + ' ' + toPersianDigits(p.jy);
+}
+function formatJalaliFromIso(iso) {
+  if (!iso) return '';
+  if (/[\u0600-\u06FF]/.test(String(iso))) return String(iso);
+  var m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return String(iso);
+  var p = toJalaliParts(parseInt(m[1], 10), parseInt(m[2], 10), parseInt(m[3], 10));
+  return toPersianDigits(p.jd) + ' ' + JALALI_MONTHS[p.jm] + ' ' + toPersianDigits(p.jy);
+}
+
+
 function b64url(buf) {
   const bytes = buf instanceof ArrayBuffer ? new Uint8Array(buf) : buf;
   let s = "";
@@ -219,7 +262,7 @@ export default {
         text: message,
         rating,
         phone: phone || "",
-        created: new Date().toISOString().slice(0, 10),
+        created: formatJalaliDate(new Date()),
         status: "pending",
       };
 
