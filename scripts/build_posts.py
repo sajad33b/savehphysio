@@ -39,9 +39,13 @@ def esc(s: str) -> str:
 
 
 def to_jalali(date_str: str) -> str:
-    """YYYY-MM-DD → تاریخ شمسی فارسی"""
-    if not date_str or len(date_str) < 8:
-        return date_str or ""
+    """YYYY-MM-DD → تاریخ شمسی فارسی؛ اگر از قبل شمسی باشد همان را برمی‌گرداند"""
+    if not date_str:
+        return ""
+    if any("؀" <= ch <= "ۿ" for ch in date_str):
+        return date_str
+    if len(date_str) < 8:
+        return date_str
     try:
         parts = date_str[:10].split("-")
         gy, gm, gd = int(parts[0]), int(parts[1]), int(parts[2])
