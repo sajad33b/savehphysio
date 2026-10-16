@@ -4,7 +4,7 @@
 
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>REVIEWS_TITLE</title>
 <meta name="generator" content="savehphysio-reviews">
 <meta name="description" content="REVIEWS_DESCRIPTION">
@@ -231,7 +231,7 @@ main p,.page-intro,.page-lead{text-align:justify;text-align-last:right;text-just
 
 /* reviews */
 .reviews-grid{display:grid;gap:1rem;margin:1.5rem 0 2rem}
-.reviews-grid{grid-template-columns:1fr 1fr}
+.reviews-grid{grid-template-columns:1fr}
 .review-card{padding:1.15rem 1.25rem;border-radius:10px;background:#fff;border:1px solid var(--line,#D5DEE8);box-shadow:0 4px 16px -8px rgba(12,36,61,.08)}
 .review-card .stars{color:#D9891F;letter-spacing:2px;margin-bottom:.4rem;font-size:1.05rem}
 .review-card .text{line-height:1.8;color:var(--blue-deep,#0C243D);margin:0 0 .75rem}
@@ -363,12 +363,6 @@ REVIEWS_SCHEMA_JSON
     REVIEWS_LIST
   </section>
 
-       
-        <div id="rf-status" class="rf-status" role="status"></div>
-      </form>
-    </div>
-  </section>
-
 </main>
 <footer class="site-footer page-footer">
  <div class="wrap footer-simple">
@@ -447,64 +441,57 @@ REVIEWS_SCHEMA_JSON
         var s5 = document.getElementById('star5');
         if(s5) s5.checked = true;
       } else {
-        var msg = (res.j && res.j.error) ? res.j.error : 'ارسال ناموفق بود. دوباره تلاش کنید.';
-        if(st){ st.className = 'rf-status err'; st.textContent = msg; }
+        if(st){ st.className = 'rf-status err'; st.textContent = (res.j && res.j.error) || 'ارسال نشد. دوباره تلاش کنید.'; }
       }
     }).catch(function(){
-      if(st){ st.className = 'rf-status err'; st.textContent = 'خطا در ارتباط با سرور.'; }
+      if(st){ st.className = 'rf-status err'; st.textContent = 'خطا در ارتباط. دوباره تلاش کنید.'; }
     }).finally(function(){
       if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = 'REVIEWS_SUBMIT_LABEL'; }
     });
   });
 
-  // pagination: 5 per page
-  (function(){
-    var grid = document.getElementById('reviews-grid');
-    var pager = document.getElementById('reviews-pager');
-    if(!grid || !pager) return;
+  // pager
+  var grid = document.getElementById('reviews-grid');
+  var pager = document.getElementById('reviews-pager');
+  if(grid && pager){
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.review-card'));
-    var per = 5;
+    var perPage = 6;
     var total = cards.length;
-    var pages = Math.max(1, Math.ceil(total / per));
-    var cur = 0;
-    function show(p){
-      cur = Math.max(0, Math.min(pages - 1, p));
+    var pages = Math.max(1, Math.ceil(total / perPage));
+    var current = 0;
+    function show(page){
+      current = page;
+      var start = page * perPage;
+      var end = start + perPage;
       cards.forEach(function(c, i){
-        c.style.display = (i >= cur * per && i < (cur + 1) * per) ? '' : 'none';
+        c.style.display = (i >= start && i < end) ? '' : 'none';
       });
       pager.innerHTML = '';
       if(pages <= 1) return;
       var prev = document.createElement('button');
-      prev.type = 'button';
-      prev.textContent = 'قبلی';
-      prev.disabled = cur === 0;
-      prev.onclick = function(){ show(cur - 1); };
+      prev.textContent = '‹';
+      prev.disabled = page === 0;
+      prev.addEventListener('click', function(){ show(page-1); });
       pager.appendChild(prev);
-      for(var i = 0; i < pages; i++){
-        (function(i){
-          var b = document.createElement('button');
-          b.type = 'button';
-          b.textContent = String(i + 1);
-          if(i === cur) b.className = 'is-active';
-          b.setAttribute('aria-label', 'صفحه ' + (i + 1));
-          b.onclick = function(){ show(i); };
-          pager.appendChild(b);
-        })(i);
+      for(var p=0; p<pages; p++){
+        var b = document.createElement('button');
+        b.textContent = String(p+1);
+        if(p === page) b.className = 'is-active';
+        (function(pp){ b.addEventListener('click', function(){ show(pp); }); })(p);
+        pager.appendChild(b);
       }
+      var next = document.createElement('button');
+      next.textContent = '›';
+      next.disabled = page >= pages-1;
+      next.addEventListener('click', function(){ show(page+1); });
+      pager.appendChild(next);
       var info = document.createElement('span');
       info.className = 'pager-info';
-      info.textContent = 'صفحه ' + (cur + 1) + ' از ' + pages;
+      info.textContent = (page+1) + ' / ' + pages;
       pager.appendChild(info);
-      var next = document.createElement('button');
-      next.type = 'button';
-      next.textContent = 'بعدی';
-      next.disabled = cur >= pages - 1;
-      next.onclick = function(){ show(cur + 1); };
-      pager.appendChild(next);
     }
     show(0);
-  })();
-
+  }
 })();
 </script>
 </body>
