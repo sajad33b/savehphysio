@@ -564,18 +564,3 @@ div.hero-actions > a {
   background-clip:content-box;
   transform:scale(1.15);
 }
-
-
-
-/* unified footer links */
-.footer-links-line,
-.page-footer .footer-links-line {
-  text-align: center;
-  margin: 0.35rem 0 0;
-}
-.page-footer .wrap.footer-simple {
-  text-align: center;
-}
-.page-footer .footer-name {
-  display: inline;
-}
