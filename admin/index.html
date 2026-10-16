@@ -701,7 +701,7 @@
           <div class="form-group"><label>عنوان مطلب</label><input type="text" id="post-title" /></div>
           <div class="form-group"><label>عنوان داخل صفحه (H1)</label><input type="text" id="post-h1" /></div>
           <div class="form-group"><label>خلاصه کوتاه</label><textarea id="post-excerpt"></textarea></div>
-          <div class="form-group"><label>تاریخ انتشار</label><input type="text" id="post-published" placeholder="2026-10-14" dir="ltr" style="text-align:left" /></div>
+          <div class="form-group"><label>تاریخ انتشار</label><input type="text" id="post-published" placeholder="مثال: ۱۸ مهر ۱۴۰۵" dir="ltr" style="text-align:left" /></div>
           <div class="form-group"><label>دسته‌بندی</label>
             <select id="post-category" style="width:100%;padding:8px 10px;border:1px solid #adb5bd;border-radius:2px;font-family:inherit;font-size:13px;"></select>
             <input type="text" id="post-category-custom" placeholder="یا دسته جدید بنویسید" style="margin-top:6px;" />
@@ -1216,7 +1216,7 @@
             }
             titleEl.appendChild(document.createTextNode(p.title || p.slug));
             meta.querySelector('.e').textContent = p.excerpt || '';
-            meta.querySelector('.d').textContent = (p.category ? (p.category + ' · ') : '') + (p.published || '') + ' — ' + (p.slug || '') + (p.tags && p.tags.length ? (' · ' + p.tags.join('، ')) : '');
+            meta.querySelector('.d').textContent = (p.category ? (p.category + ' · ') : '') + formatJalaliFromIso(p.published || '') + ' — ' + (p.slug || '') + (p.tags && p.tags.length ? (' · ' + p.tags.join('، ')) : '');
             var actions = meta.querySelector('.post-actions');
             function addBtn(label, cls, fn) {
               var b = document.createElement('button');
@@ -1274,7 +1274,7 @@
       document.getElementById('post-title').value = '';
       document.getElementById('post-h1').value = '';
       document.getElementById('post-excerpt').value = '';
-      document.getElementById('post-published').value = today;
+      document.getElementById('post-published').value = formatJalaliDate(new Date());
       fillPostCategorySelect('آموزشی');
       var pc2 = document.getElementById('post-category-custom');
       if (pc2) pc2.value = '';
@@ -1888,7 +1888,7 @@ function formatJalaliFromIso(iso) {
       var title = document.getElementById('post-title').value.trim();
       var h1 = document.getElementById('post-h1').value.trim() || title;
       var excerpt = document.getElementById('post-excerpt').value.trim();
-      var published = document.getElementById('post-published').value || new Date().toISOString().slice(0, 10);
+      var published = document.getElementById('post-published').value || formatJalaliDate(new Date());
       var category = getSelectedPostCategory();
       var tags = document.getElementById('post-tags').value.split(/[,،]/).map(function(t){return t.trim();}).filter(Boolean);
       var body = textToBody(document.getElementById('post-body').value);
@@ -1906,7 +1906,7 @@ function formatJalaliFromIso(iso) {
       data.seo.twitter_image = data.seo.twitter_image || data.seo.og_image;
       data.seo.robots = data.seo.robots || 'index,follow';
       data.post.slug = slug; data.post.h1 = h1; data.post.excerpt = excerpt;
-      data.post.published = published; data.post.updated = new Date().toISOString().slice(0, 10);
+      data.post.published = published; data.post.updated = formatJalaliDate(new Date());
       data.post.author = data.post.author || 'سجاد علی‌کرمی';
       data.post.author_role = data.post.author_role || 'فیزیوتراپیست — کلینیک ابن‌سینا ساوه';
       data.post.category = category; data.post.tags = tags; data.post.body = body;
