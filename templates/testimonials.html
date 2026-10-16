@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,14 +29,209 @@
 <link rel="preload" href="fonts/Vazirmatn-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css?v=20261011logo">
 <style>
+
+
 .page-main{max-width:var(--maxw,1080px);margin:0 auto;padding:var(--space-lg,2rem) var(--space-md,1rem) var(--space-xl,3rem)}
 .page-main h1{color:var(--blue-deep,#0C243D);margin:0 0 1rem;font-size:clamp(1.35rem,3vw,1.75rem);line-height:1.45}
 .breadcrumb{font-size:.85rem;margin:0 0 1rem;color:var(--muted,#4A5A6C)}
 .breadcrumb a{color:var(--blue-mid,#1A5688);text-decoration:none}
 .breadcrumb a:hover{color:var(--amber,#D9891F)}
-.page-intro{color:var(--muted,#4A5A6C);line-height:1.85;margin:0 0 1.5rem;max-width:40rem}
+.page-lead,.page-intro{color:var(--muted,#4A5A6C);line-height:1.85;margin:0 0 1.5rem;max-width:40rem}
+.page-section{margin:1.75rem 0}
+.page-section h2{margin:0 0 .75rem;font-size:1.15rem;color:var(--blue-deep,#0C243D)}
+.page-section p{margin:0 0 1rem;line-height:1.85}
+.page-card{
+  padding:1.15rem 1.25rem;border-radius:var(--radius,10px);background:var(--panel,#fff);
+  border:1px solid var(--line,#D5DEE8);box-shadow:0 4px 16px -8px rgba(12,36,61,.08)
+}
+.page-cta{
+  margin-top:2rem;padding:1.25rem 1.35rem;border-radius:var(--radius,10px);
+  background:var(--blue-deep,#0C243D);color:#E8EEF5
+}
+.page-cta p a:not([class*="btn"]){color:#E8EEF5;font-weight:600}
+.page-cta p a:not([class*="btn"]):hover{color:var(--amber-soft,#E8A43E)}
+.page-footer{margin-top:2rem;padding:1.5rem 1rem;text-align:center;font-size:.9rem;
+  background:var(--blue-deep,#0C243D);color:#DCE6F0;border-top:none}
+.page-footer a{color:#E8EEF5;text-decoration:none}
+.page-footer a:hover{color:var(--amber-soft,#E8A43E)}
+.page-footer .footer-name{color:#fff}
+.footer-simple{max-width:var(--maxw);margin:0 auto}
+.footer-links-line{margin:.5rem 0 0;opacity:.9;font-size:.85rem}
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin:1.25rem 0}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.svc-card,.contact-card{
+  padding:1rem 1.1rem;border-radius:var(--radius,10px);background:var(--panel,#fff);
+  border:1px solid var(--line,#D5DEE8);display:flex;flex-direction:column;gap:.4rem;
+  transition:border-color .15s,box-shadow .15s
+}
+.svc-card:hover,.contact-card:hover{border-color:#cbd5e1;box-shadow:0 4px 14px rgba(12,36,61,.08)}
+.svc-card .title,.contact-card .value{font-weight:600;color:var(--blue-deep);line-height:1.45}
+.svc-card .desc,.contact-card .label{font-size:.9rem;color:var(--muted);line-height:1.65}
+.contact-card .label{font-size:.8rem;margin-bottom:.2rem}
+
+
+
+
+.btn-tel,.contact-actions .btn-primary{background:var(--blue-deep,#0C243D)}
+.btn-tel:hover{background:var(--blue)}
+
+
+
+
+.blog-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1rem}
+.blog-card{
+  display:block;padding:1.15rem 1.25rem;border-radius:var(--radius);background:var(--panel,#fff);
+  border:1px solid var(--line);text-decoration:none;color:inherit;
+  transition:box-shadow .15s,border-color .15s
+}
+.blog-card:hover{border-color:#cbd5e1;box-shadow:0 4px 14px rgba(12,36,61,.08)}
+.blog-card h2{margin:0 0 .4rem;font-size:1.1rem;color:var(--blue-deep);line-height:1.5}
+.blog-card .excerpt{margin:0 0 .5rem;color:var(--muted);font-size:.95rem;line-height:1.7}
+.blog-card .meta{font-size:.8rem;color:#94a3b8}
+.article-body h2{margin-top:1.75rem;margin-bottom:.75rem;font-size:1.2rem;color:var(--blue-deep)}
+.article-body p{margin:0 0 1rem;line-height:1.85}
+.article-meta{color:var(--muted);font-size:.9rem;margin:.75rem 0 1.25rem;display:flex;flex-wrap:wrap;gap:.5rem 1rem}
+.article-tags{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.article-tags span{background:var(--service-bg,#E4EDF6);padding:.25rem .6rem;border-radius:999px;font-size:.8rem;color:var(--blue-deep)}
+.about-card{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin:1.25rem 0}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.contact-socials-wrap{margin-top:1.75rem}
+.contact-info-note{font-size:.9rem;color:var(--muted,#4A5A6C);margin:0 0 .75rem;text-align:center}
+.contact-socials{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:0.618rem !important;
+  max-width:22rem;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  width:100%;
+}
+.contact-socials a{
+  width:100% !important;
+  max-width:none !important;
+  min-width:0 !important;
+  flex:none !important;
+  aspect-ratio:1.618 / 1;
+  max-height:3.5rem;
+}
+.contact-card a{color:var(--blue-mid,#1A5688);text-decoration:none;font-weight:600}
+.contact-card a:hover{color:var(--amber,#D9891F)}
+@media (max-width:360px){
+  .contact-socials{max-width:100%}
+}
+
+
+.contact-meta{display:grid;gap:0.75rem;margin-bottom:1.25rem}
+
+main p,.page-intro,.page-lead{text-align:justify;text-align-last:right;text-justify:inter-word}
+
+.contact-nav-wrap{margin-top:1.25rem}
+.contact-nav-note{font-size:.9rem;color:var(--muted,#4A5A6C);margin:0 0 .75rem;text-align:center}
+.contact-navs{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:0.618rem !important;
+  max-width:22rem;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  width:100%;
+}
+.contact-navs a{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:100% !important;
+  min-height:48px !important;
+  padding:0.7em 0.5em !important;
+  border-radius:0.618rem !important;
+  font-weight:700 !important;
+  font-size:0.9rem !important;
+  text-decoration:none !important;
+  box-sizing:border-box !important;
+  aspect-ratio:1.618 / 1;
+  max-height:3.5rem;
+}
+.btn-nav-google{background:#1A5688 !important;color:#F5F7FA !important}
+.btn-nav-neshan{background:#0F6B63 !important;color:#F5F7FA !important}
+.btn-nav-balad{background:#2F6F8F !important;color:#F5F7FA !important}
+.btn-nav-snapp{background:#6B5B8A !important;color:#F5F7FA !important}
+
+
+
+.contact-map{
+  margin-top:1.5rem;
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--line);
+  position:relative;
+  width:100%;
+  height:0;
+  padding-bottom:62.5%;
+  min-height:220px;
+  background:#e8eef4;
+}
+.contact-map iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+
+
+/* reviews */
 .reviews-grid{display:grid;gap:1rem;margin:1.5rem 0 2rem}
-@media(min-width:700px){.reviews-grid{grid-template-columns:1fr 1fr}}
+.reviews-grid{grid-template-columns:1fr 1fr}
 .review-card{padding:1.15rem 1.25rem;border-radius:10px;background:#fff;border:1px solid var(--line,#D5DEE8);box-shadow:0 4px 16px -8px rgba(12,36,61,.08)}
 .review-card .stars{color:#D9891F;letter-spacing:2px;margin-bottom:.4rem;font-size:1.05rem}
 .review-card .text{line-height:1.8;color:var(--blue-deep,#0C243D);margin:0 0 .75rem}
@@ -62,7 +258,6 @@
 .rf-status{display:none;margin-top:1rem;padding:.85rem 1rem;border-radius:8px;font-size:.95rem}
 .rf-status.ok{display:block;background:#d3f9d8;border:1px solid #8ce99a;color:#2b8a3e}
 .rf-status.err{display:block;background:#ffe3e3;border:1px solid #ffa8a8;color:#c92a2a}
-
 .star-rating{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:6px;font-size:1.45rem;line-height:1;user-select:none}
 .star-rating input{position:absolute;opacity:0;pointer-events:none}
 .star-rating label{cursor:pointer;color:#cbd5e1;transition:color .15s}
@@ -71,8 +266,6 @@
 .star-rating input:checked ~ label{color:#D9891F}
 .star-rating label:hover,
 .star-rating input:checked + label{transform:scale(1.08)}
-
-
 .reviews-summary{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;margin:0 0 1rem;padding:.65rem .9rem;background:#f8fafc;border:1px solid var(--line,#D5DEE8);border-radius:8px;font-size:.85rem;color:var(--muted,#4A5A6C)}
 .reviews-summary .rs-count{font-weight:700;color:var(--blue-deep,#0C243D)}
 .reviews-summary .rs-avg{font-weight:600;color:var(--blue-deep,#0C243D)}
@@ -90,26 +283,13 @@
 .reviews-pager button.is-active{background:#1A5688;border-color:#1A5688;color:#fff;font-weight:700}
 .reviews-pager button:disabled{opacity:.4;cursor:default}
 .reviews-pager .pager-info{font-size:.85rem;color:var(--muted,#4A5A6C);margin:0 .35rem}
-
-
-/* same chrome as other inner pages */
-.page-footer{
-  margin-top:2rem;padding:1.5rem 1rem;text-align:center;font-size:.9rem;
-  background:var(--blue-deep,#0C243D);color:#E8EEF5;border-top:1px solid rgba(255,255,255,.08)
-}
-.page-footer a{color:#E8EEF5;text-decoration:none}
-.page-footer a:hover{color:var(--amber-soft,#E8A43E)}
-.page-footer .footer-name{color:#fff}
-.footer-simple{max-width:var(--maxw,1080px);margin:0 auto}
-.footer-links-line{margin:.5rem 0 0;opacity:.9;font-size:.85rem;text-align:center}
-
 </style>
 <script type="application/ld+json">
 REVIEWS_SCHEMA_JSON
 </script>
+
 </head>
 <body data-page="reviews" id="top">
-<a class="skip-link" href="#main">پرش به محتوای اصلی</a>
 <header>
  <div class="nav">
  <a href="./" class="logo" style="display:flex;align-items:center;gap:8px">
@@ -131,6 +311,7 @@ REVIEWS_SCHEMA_JSON
  </div>
 </header>
 <main id="main" class="page-main">
+
   <nav class="breadcrumb" aria-label="مسیر">
    <a href="./">صفحه اصلی</a> · <span>نظرات</span>
   </nav>
@@ -187,6 +368,7 @@ REVIEWS_SCHEMA_JSON
       </form>
     </div>
   </section>
+
 </main>
 <footer class="site-footer page-footer">
  <div class="wrap footer-simple">
@@ -194,6 +376,23 @@ REVIEWS_SCHEMA_JSON
  <p class="footer-links-line"><a href="./services.html">خدمات</a> · <a href="./blog/">مقالات</a> · <a href="./reviews.html">نظرات</a> · <a href="./contact.html">تماس</a></p>
  </div>
 </footer>
+<script>
+(function(){
+  var btn = document.querySelector('.nav-toggle');
+  var header = document.querySelector('header');
+  if(!btn || !header) return;
+  btn.addEventListener('click', function(){
+    var open = header.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  header.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click', function(){
+      header.classList.remove('nav-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
 <script>
 (function(){
   var btn = document.querySelector('.nav-toggle');
