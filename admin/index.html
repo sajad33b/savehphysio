@@ -1329,25 +1329,54 @@ function formatJalaliDate(dateObj) {
   return toPersianDigits(p.jd) + ' ' + JALALI_MONTHS[p.jm] + ' ' + toPersianDigits(p.jy);
 }
 function formatJalaliFromIso(iso) {
-  if (!iso) return '';
-  if (/[\u0600-\u06FF]/.test(String(iso))) return String(iso);
-  var m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (!m) return String(iso);
-  var p = toJalaliParts(parseInt(m[1], 10), parseInt(m[2], 10), parseInt(m[3], 10));
-  return toPersianDigits(p.jd) + ' ' + JALALI_MONTHS[p.jm] + ' ' + toPersianDigits(p.jy);
-}
+      if (!iso) return '';
+      if (/[؀-ۿ]/.test(String(iso))) return String(iso);
+      var s = String(iso).trim();
+      var gy, gm, gd;
+      var m1 = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (m1) { gy = parseInt(m1[1],10); gm = parseInt(m1[2],10); gd = parseInt(m1[3],10); }
+      else {
+        var m2 = s.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+        if (m2) { gd = parseInt(m2[1],10); gm = parseInt(m2[2],10); gy = parseInt(m2[3],10); }
+        else return s;
+      }
+      var p = toJalaliParts(gy, gm, gd);
+      return toPersianDigits(p.jd) + ' ' + JALALI_MONTHS[p.jm] + ' ' + toPersianDigits(p.jy);
+    }
 
     function starsText(n) {
       n = Math.max(0, Math.min(5, parseInt(n, 10) || 0));
       return '★'.repeat(n) + '☆'.repeat(5 - n);
     }
 
+    async function fetchJsonFromGithubOrSite(path) {
+      var token = getToken();
+      if (token) {
+        var res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&_=' + Date.now(), {
+          headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + token, 'X-GitHub-Api-Version': '2022-11-28' }
+        });
+        if (res.ok) {
+          var meta = await res.json();
+          var text = decodeURIComponent(escape(atob(meta.content.replace(/\n/g, ''))));
+          return JSON.parse(text);
+        }
+        if (res.status !== 404) {
+          var err = await res.json().catch(function(){ return {}; });
+          throw new Error(err.message || ('خواندن ' + path + ': ' + res.status));
+        }
+      }
+      var rp = await fetch('/' + path + '?' + Date.now());
+      if (!rp.ok) throw new Error('خواندن ' + path + ' ناموفق');
+      return rp.json();
+    }
+
     async function loadReviewsAdmin(showMessage) {
       try {
-        var rp = await fetch('/content/reviews-pending.json?' + Date.now());
-        reviewsPendingCache = await rp.json();
-        var rt = await fetch('/content/testimonials.json?' + Date.now());
-        testimonialsCache = await rt.json();
+        reviewsPendingCache = await fetchJsonFromGithubOrSite('content/reviews-pending.json');
+        if (!reviewsPendingCache.pending) reviewsPendingCache.pending = [];
+        if (!reviewsPendingCache.archived) reviewsPendingCache.archived = [];
+        testimonialsCache = await fetchJsonFromGithubOrSite('content/testimonials.json');
+        if (!testimonialsCache.items) testimonialsCache.items = [];
         renderReviewsAdmin();
         if (showMessage) showMsg('نظرات خوانده شد.', 'ok');
       } catch (e) {
