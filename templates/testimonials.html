@@ -4,7 +4,7 @@
 
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>REVIEWS_TITLE</title>
 <meta name="generator" content="savehphysio-reviews">
 <meta name="description" content="REVIEWS_DESCRIPTION">
@@ -271,7 +271,7 @@ main p,.page-intro,.page-lead{text-align:justify;text-align-last:right;text-just
 .reviews-summary .rs-avg{font-weight:600;color:var(--blue-deep,#0C243D)}
 .reviews-summary .rs-stars{color:#D9891F;letter-spacing:1px}
 .reviews-summary .rs-sep{opacity:.5}
-.review-card .text{font-size:.92rem;line-height:1.49;/* ~1/φ relative feel */}
+.review-card .text{font-size:.92rem;line-height:1.49}
 .review-card .who{font-size:.78rem;line-height:1.4;color:var(--muted,#4A5A6C)}
 .review-card .stars{font-size:.95rem}
 .review-card .rating-num{font-size:.78rem;color:var(--muted,#4A5A6C);letter-spacing:0;font-weight:600;margin-right:.35rem}
@@ -351,7 +351,6 @@ REVIEWS_SCHEMA_JSON
           <input type="tel" id="rev-phone" name="phone" maxlength="20" placeholder="09xxxxxxxxx — اختیاری">
         </div>
         <button type="submit" class="rf-submit" id="rf-submit-btn">REVIEWS_SUBMIT_LABEL</button>
-        
         <div id="rf-status" class="rf-status" role="status"></div>
       </form>
     </div>
@@ -359,7 +358,6 @@ REVIEWS_SCHEMA_JSON
 
   <section aria-labelledby="published-reviews" style="margin-top:2.5rem">
     <h2 id="published-reviews" style="font-size:1.15rem;color:var(--blue-deep,#0C243D);margin:0 0 0.35rem">نظرات بیماران</h2>
-    
     REVIEWS_LIST
   </section>
 
@@ -389,21 +387,6 @@ REVIEWS_SCHEMA_JSON
 </script>
 <script>
 (function(){
-  var btn = document.querySelector('.nav-toggle');
-  var header = document.querySelector('header');
-  if(btn && header){
-    btn.addEventListener('click', function(){
-      var open = header.classList.toggle('nav-open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    header.querySelectorAll('.nav-links a').forEach(function(a){
-      a.addEventListener('click', function(){
-        header.classList.remove('nav-open');
-        btn.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
-
   var form = document.getElementById('review-form');
   var st = document.getElementById('rf-status');
   var submitBtn = document.getElementById('rf-submit-btn');
@@ -450,7 +433,6 @@ REVIEWS_SCHEMA_JSON
     });
   });
 
-  // pager
   var grid = document.getElementById('reviews-grid');
   var pager = document.getElementById('reviews-pager');
   if(grid && pager){
@@ -458,9 +440,7 @@ REVIEWS_SCHEMA_JSON
     var perPage = 6;
     var total = cards.length;
     var pages = Math.max(1, Math.ceil(total / perPage));
-    var current = 0;
     function show(page){
-      current = page;
       var start = page * perPage;
       var end = start + perPage;
       cards.forEach(function(c, i){
